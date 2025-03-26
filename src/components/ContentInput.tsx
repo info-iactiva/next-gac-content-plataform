@@ -3,9 +3,8 @@
 import { useState } from "react";
 import { Button } from "@heroui/button";
 import { Card, CardHeader, CardBody } from "@heroui/card";
-import { ContentInputValues, GenerateResponse } from "@/types/content";
+import { ContentInputValues } from "@/types/content";
 import { FormFields } from "./FormFields";
-import { GeneratedContentCard } from "./GeneratedContentCard";
 import { PostCard } from "./PostCard";
 
 export default function ContentInput() {
