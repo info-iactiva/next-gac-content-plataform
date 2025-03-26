@@ -54,10 +54,6 @@ export default function ContentInput() {
     }
   };
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(generatedPosts.map(post => post.content).join("\n\n"));
-  };
-
   return (
     <main className="min-h-screen flex flex-col items-center justify-center bg-muted p-6 space-y-8">
       <Card className="w-full max-w-4xl p-6 shadow-lg">
