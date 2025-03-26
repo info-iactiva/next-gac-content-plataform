@@ -1,0 +1,28 @@
+Crea un post para Facebook con base en el siguiente contenido:
+  
+  Contenido base:
+  Morris Chang no es infalible. Nadie lo es. Este veterano ingeniero taiwanés formado en EEUU es uno de los expertos más respetados en la industria global de los semiconductores. Al fin y al cabo fundó TSMC en un momento histórico, 1987, en el que Taiwán ocupaba una posición muy discreta en el mercado de la producción de circuitos integrados. Su astucia es innegable. Al fin y al cabo objetivamente ha tomado decisiones muy acertadas al frente de TSMC.
+
+Sin embargo, sus pronósticos no siempre son certeros. Y es que en varias ocasiones ha apuntado públicamente que los costes de producción de sus plantas ubicadas fuera de Taiwán se duplicarán en el futuro, lo que tendrá un impacto directo en el precio de los chips. Este incremento es una consecuencia de la subida del precio de la energía, del coste derivado de los salarios de los trabajadores y del impacto que la inflación está teniendo en el precio de las materias primas esenciales.
+
+A mediados de abril de 2024 C. C. Wei, el ejecutivo que en aquel momento sostenía las riendas de TSMC, matizó las declaraciones de Morris Chang anticipando que el incremento de los costes derivado de la fabricación de circuitos integrados de vanguardia en las plantas que tiene la compañía fuera de Taiwán sería asumido tanto por TSMC como por sus clientes: "Si mi cliente quiere fabricar en una zona concreta [fuera de Taiwán] entonces definitivamente TSMC y el propio cliente tendrán que compartir el incremento de los costes [...] Ya lo estamos discutiendo con nuestros clientes".
+
+El rendimiento de un nodo litográfico es crucial porque refleja su capacidad de producción de chips válidos
+
+Las declaraciones de Chang y Wei han provocado que muchos analistas de la industria de los circuitos integrados sigan muy de cerca los pasos que está dando la nueva planta que esta compañía tiene en Phoenix (Arizona). Esta fábrica de chips de vanguardia nos sorprendió en octubre de 2024 cuando Rick Cassidy, el presidente de la división estadounidense de TSMC, confirmó que su rendimiento de producción inicial había superado al de las fábricas equiparables que tiene TSMC en Taiwán.
+
+El rendimiento de un nodo litográfico es crucial porque refleja su capacidad de producción de chips válidos, de modo que un rendimiento alto tiene un impacto muy beneficioso en la competitividad de los fabricantes de semiconductores. Lo que aún no estaba claro era si el coste derivado de la producción de estos semiconductores era perceptiblemente más alto que el de los chips equiparables fabricados en Taiwán. Ahora un informe interesantísimo de TechInsights, la respetada empresa de análisis canadiense que desveló que Huawei y SMIC habían logrado producir circuitos integrados de 7 nm, arroja luz sobre este asunto.
+
+Según G. Dan Hutcheson, el analista de TechInsights que firma el artículo, producir una oblea de 300 mm en su nueva planta de Arizona cuesta a TSMC menos de un 10% más que fabricar esa misma oblea en alguna de sus instalaciones de Taiwán. Lo explica algo que no debemos pasar por alto: el coste derivado de la mano de obra representa menos del 2% del coste total.
+
+Los salarios son mucho más altos en EEUU que en Taiwán, sí, pero las fábricas de chips están altamente automatizadas. Y equiparlas con las máquinas de litografía que requieren cuesta esencialmente lo mismo en EEUU y Taiwán. De una cosa no cabe duda: son buenas noticias para los clientes estadounidenses de TSMC, entre los que se encuentran Apple, NVIDIA, AMD o Broadcom.
+
+En Xataka | TSMC está dispuesta a tomar el control de las fábricas de chips de Intel. Lo que no quiere es hacerlo sola
+  
+  Enfoque (voz de autoridad): Experto en finanzas y pedagogia
+  Buyer Persona: Niños
+  
+  Instrucciones específicas:
+  hasta 300 palabras, tono profesional y claro.
+  
+  Solo regresa el texto del post, sin etiquetas ni formato JSON.
