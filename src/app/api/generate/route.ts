@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
 import { extractTextFromURL } from "@/lib/extract";
-import { writeFile } from "fs/promises";
-import path from "path";
 import { buildPrompt } from "@/lib/prompts";
 
 const openai = new OpenAI({
