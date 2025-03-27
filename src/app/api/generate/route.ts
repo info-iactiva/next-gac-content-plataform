@@ -44,11 +44,6 @@ export async function POST(req: Request) {
       network,
     });
 
-    // Guarda el prompt en archivo
-    const filename = `${title}-${network.toLowerCase()}.txt`;
-    const filePath = path.resolve("generated-prompts", filename);
-    await writeFile(filePath, prompt, "utf-8");
-
     const completion = await openai.chat.completions.create({
       model: "gpt-4",
       messages: [{ role: "user", content: prompt }],
