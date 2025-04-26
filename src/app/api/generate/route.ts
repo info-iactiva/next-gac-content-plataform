@@ -9,10 +9,22 @@ const openai = new OpenAI({
 
 const socialTargets = ["Facebook", "Instagram", "X"] as const;
 const maxTokensByNetwork: Record<string, number> = {
-  Facebook: 700, // 2800 caracteres aprox
-  Instagram: 900, // 3600 caracteres aprox
-  X: 200, // 800 caracteres (bastante seguro)
+  Facebook: 700,
+  Instagram: 900,
+  X: 200,
 };
+
+// Función con timeout manual
+async function withTimeout<T>(promise: Promise<T>, ms = 9000): Promise<T> {
+  let timeoutId: NodeJS.Timeout;
+  const timeoutPromise = new Promise<never>((_, reject) => {
+    timeoutId = setTimeout(() => {
+      reject(new Error("Timeout exceeded"));
+    }, ms);
+  });
+
+  return Promise.race([promise, timeoutPromise]).finally(() => clearTimeout(timeoutId));
+}
 
 export async function POST(req: Request) {
   const { url, topic, focus, buyerPersona } = await req.json();
@@ -32,30 +44,42 @@ export async function POST(req: Request) {
     title = topic.slice(0, 40).replace(/[^a-zA-Z0-9 ]/g, "") || "post";
   }
 
-  const results = [];
+  const posts = await Promise.all(
+    socialTargets.map(async (network) => {
+      try {
+        const prompt = buildPrompt({
+          content: articleContent,
+          focus,
+          buyerPersona,
+          network,
+        });
 
-  for (const network of socialTargets) {
-    const prompt = buildPrompt({
-      content: articleContent,
-      focus,
-      buyerPersona,
-      network,
-    });
+        const completion = await withTimeout(
+          openai.chat.completions.create({
+            model: "gpt-3.5-turbo",
+            messages: [{ role: "user", content: prompt }],
+            temperature: 0.7,
+            max_tokens: maxTokensByNetwork[network],
+          }),
+          9000 // 9 segundos de timeout individual
+        );
 
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4",
-      messages: [{ role: "user", content: prompt }],
-      temperature: 0.7,
-      max_tokens: maxTokensByNetwork[network],
-    
-    });
+        return {
+          title,
+          network,
+          content: completion.choices[0]?.message?.content || "No content generated.",
+        };
+      } catch (error) {
+        console.error(`Error generando para ${network}:`, error);
+        return {
+          title,
+          network,
+          content: `❌ Error generando contenido para ${network}.`,
+          error: true,
+        };
+      }
+    })
+  );
 
-    results.push({
-      title,
-      network,
-      content: completion.choices[0].message.content,
-    });
-  }
-
-  return NextResponse.json({ posts: results });
+  return NextResponse.json({ posts });
 }
