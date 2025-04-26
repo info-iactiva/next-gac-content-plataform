@@ -1,5 +1,6 @@
 import { Input, Textarea } from "@heroui/input";
 import { ContentInputValues } from "@/types/content";
+import classNames from "classnames";
 
 interface FormFieldsProps {
   values: ContentInputValues;
@@ -21,6 +22,7 @@ export function FormFields({ values, isLoading, onChange }: FormFieldsProps) {
           value={values.url}
           onChange={(e) => onChange("url", e.target.value)}
           disabled={isLoading}
+          className={classNames({ "opacity-50 cursor-not-allowed": isLoading })}
         />
       </div>
 
@@ -34,7 +36,10 @@ export function FormFields({ values, isLoading, onChange }: FormFieldsProps) {
           value={values.topic}
           onChange={(e) => onChange("topic", e.target.value)}
           disabled={isLoading}
-          className="min-h-[100px]"
+          className={classNames(
+            "min-h-[100px]",
+            { "opacity-50 cursor-not-allowed": isLoading }
+          )}
         />
       </div>
 
@@ -48,6 +53,7 @@ export function FormFields({ values, isLoading, onChange }: FormFieldsProps) {
           value={values.focus}
           onChange={(e) => onChange("focus", e.target.value)}
           disabled={isLoading}
+          className={classNames({ "opacity-50 cursor-not-allowed": isLoading })}
         />
       </div>
 
@@ -61,7 +67,10 @@ export function FormFields({ values, isLoading, onChange }: FormFieldsProps) {
           value={values.buyerPersona}
           onChange={(e) => onChange("buyerPersona", e.target.value)}
           disabled={isLoading}
-          className="min-h-[100px]"
+          className={classNames(
+            "min-h-[100px]",
+            { "opacity-50 cursor-not-allowed": isLoading }
+          )}
         />
       </div>
     </>

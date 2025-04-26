@@ -53,7 +53,7 @@ export default function ContentInput() {
   };
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center bg-muted p-6 space-y-8">
+    <main className="min-h-screen w-full h-full flex flex-col items-center justify-center bg-muted p-6 space-y-8">
       <Card className="w-full max-w-4xl p-6 shadow-lg">
         <CardHeader className="flex flex-col items-center space-y-2">
           <h1 className="text-3xl font-semibold">Generador de Contenido</h1>
@@ -77,9 +77,8 @@ export default function ContentInput() {
           </Button>
         </CardBody>
       </Card>
-
       {generatedPosts.length > 0 && (
-        <section className="w-full max-w-6xl mt-10">
+        <section className="w-full max-w-6xl mt-10 bg-red-400 p-5">
           <h2 className="text-xl font-semibold mb-4">Resultados Generados</h2>
           <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
             {generatedPosts.map((post, i) => (

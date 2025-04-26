@@ -19,6 +19,7 @@
     "@radix-ui/react-slot": "^1.1.2",
     "cheerio": "^1.0.0",
     "class-variance-authority": "^0.7.1",
+    "classnames": "^2.5.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.6.2",
     "heroui-cli": "^1.2.2",
