@@ -189,7 +189,6 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
             )}
           />
 
-
           <Button type="submit">Generar contenido</Button>
         </form>
       </Form>
@@ -197,44 +196,3 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
     </main>
   );
 }
-
-
-//  <Card className="w-full max-w-4xl p-6 shadow-lg">
-//         <CardHeader className="flex flex-col items-center space-y-2">
-//           <h1 className="text-3xl font-semibold">Generador de Contenido</h1>
-//           <h4 className="text-sm text-muted-foreground text-center max-w-lg">
-//             Proporciona una liga de noticia o un tema para generar contenido
-//           </h4>
-//         </CardHeader>
-//         <CardBody className="space-y-6">
-//           <FormFields
-//             values={values}
-//             isLoading={isLoading}
-//             onChange={handleChange}
-//           />
-
-//           <Button
-//             onPress={handleGenerate}
-//             disabled={isLoading || (!values.url && !values.topic)}
-//             className="w-full text-base py-3"
-//           >
-//             {isLoading ? "Generando..." : "Generar Contenido"}
-//           </Button>
-//         </CardBody>
-//       </Card>
-//       {generatedPosts.length > 0 && (
-//         <section className="w-full max-w-6xl mt-10 bg-red-400 p-5">
-//           <h2 className="text-xl font-semibold mb-4">Resultados Generados</h2>
-//           <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-//             {generatedPosts.map((post, i) => (
-//               <PostCard
-//                 key={`${post.network}-${i}`}
-//                 title={post.title}
-//                 network={post.network}
-//                 content={post.content}
-//                 onCopy={() => navigator.clipboard.writeText(post.content)}
-//               />
-//             ))}
-//           </div>
-//         </section>
-//       )}

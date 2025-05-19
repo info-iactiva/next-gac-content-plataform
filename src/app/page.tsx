@@ -41,8 +41,8 @@ export default function Home() {
 
       <Card className="min-w-[400px] max-w-4xl relative ">
         <CardHeader className="relative flex flex-col items-center  p-0">
-          <Image className="w-[30%]" src="/logos/gacLogo.jpg" alt="" />
-          <Image className="absolute top-2 left-5 w-[15%]" src="/logos/logo.webp" alt="" />
+          <Image className="w-[30%]" src="/logos/gacLogo.jpg" alt=""   width={200} height={200}/>
+          <Image className="absolute top-2 left-5 w-[15%]" src="/logos/logo.webp" alt="" width={200} height={200}/>
         </CardHeader>
         <CardContent>
           {isLoading && (<SpinnerOverlay />)}
