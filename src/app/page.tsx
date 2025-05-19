@@ -6,7 +6,7 @@ import { IPost } from "@/types/Post";
 import { IContentInputValues } from "@/types/content";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { SpinnerOverlay } from "@/components/Spinner";
-import { motion } from 'framer-motion';
+import Image from "next/image";
 
 export default function Home() {
   const [posts, setPosts] = useState<IPost[]>([]);
@@ -41,13 +41,13 @@ export default function Home() {
 
       <Card className="min-w-[400px] max-w-4xl relative ">
         <CardHeader className="relative flex flex-col items-center  p-0">
-          <img className="w-[30%]" src="/logos/gacLogo.jpg" alt="" />
-          <img className="absolute top-2 left-5 w-[15%]" src="/logos/logo.webp" alt="" />
+          <Image className="w-[30%]" src="/logos/gacLogo.jpg" alt="" />
+          <Image className="absolute top-2 left-5 w-[15%]" src="/logos/logo.webp" alt="" />
         </CardHeader>
         <CardContent>
           {isLoading && (<SpinnerOverlay />)}
           {posts.length === 0 ? (
-            <ContentInput onGenerate={handleGenerate} isLoading={isLoading} />
+            <ContentInput onGenerate={handleGenerate} />
           ) : (
             <ContentResult posts={posts} onBack={handleReset} />
           )}

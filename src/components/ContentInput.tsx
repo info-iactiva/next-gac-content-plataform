@@ -1,11 +1,8 @@
 "use client";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { IContentInputValues } from "@/types/content";
-import { FormFields } from "./FormFields";
 import { zodResolver } from "@hookform/resolvers/zod"
 
-import { PostCard } from "./PostCard";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectValue, SelectTrigger } from "./ui/select";
@@ -29,21 +26,20 @@ const formSchema = z.object({
 
 type TPropsContentInputProps = {
   onGenerate: (values: IContentInputValues) => void;
-  isLoading: boolean;
 };
 
-export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate, isLoading }) => {
+export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      businessName: "Bloomi Coffee",
-      buyerPersona: "Jovenes de 18 a 25 años",
-      characterName: "Bloomito",
-      characterDescription: "Un experto en café que comparte su pasión por el café",
-      authorityVoice: "Compañero",
+      businessName: "",
+      buyerPersona: "",
+      characterName: "",
+      characterDescription: "",
+      authorityVoice: "Experto",
       topic: "",
-      url: "https://www.nescafe.com/cam/cultura-cafe/cafe-estilo-de-vida/como-preparar-mejor-mi-cafe",
+      url: "",
 
     },
   });

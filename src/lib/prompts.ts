@@ -4,7 +4,6 @@ export function buildPrompt({
   buyerPersona,
   businessName,
   website,
-  shortName,
   network,
   characterName,
   characterDescription,
@@ -14,7 +13,6 @@ export function buildPrompt({
   buyerPersona: string;
   businessName: string;
   website: string;
-  shortName?: string;
   network: "Facebook" | "Instagram" | "X";
   characterName?: string;
   characterDescription?: string;
