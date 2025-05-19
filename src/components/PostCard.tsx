@@ -11,7 +11,7 @@ interface PostCardProps {
 
 export function PostCard({ title, network, content, onCopy }: PostCardProps) {
   return (
-    <Card className="w-full max-w-sm shadow-md">
+    <Card className="w-full max-w-sm shadow-md bg-black p-5">
       <CardHeader className="space-y-1">
         <h3 className="text-lg font-semibold">{title}</h3>
         <p className="text-sm text-muted-foreground">{network}</p>

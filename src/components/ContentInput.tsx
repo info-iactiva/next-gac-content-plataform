@@ -1,99 +1,244 @@
 "use client";
-import { useState } from "react";
-import { Button } from "@heroui/button";
-import { Card, CardHeader, CardBody } from "@heroui/card";
-import { ContentInputValues } from "@/types/content";
+import { FC, useState } from "react";
+import { IContentInputValues } from "@/types/content";
 import { FormFields } from "./FormFields";
-import { PostCard } from "./PostCard";
+import { zodResolver } from "@hookform/resolvers/zod"
 
-export default function ContentInput() {
-  const [values, setValues] = useState<ContentInputValues>({
-    url: "",
-    topic: "",
-    focus: "",
-    buyerPersona: "",
+import { PostCard } from "./PostCard";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectValue, SelectTrigger } from "./ui/select";
+import { Form, FormControl, FormField, FormItem } from "./ui/form";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { Button } from "./ui/button";
+
+
+const formSchema = z.object({
+  businessName: z.string().min(1, "Campo requerido"),
+  buyerPersona: z.string().min(1, "Campo requerido"),
+  characterName: z.string().optional(),
+  characterDescription: z.string().optional(),
+  authorityVoice: z.enum(["Experto", "Amigo", "Mentor", "Compañero"]),
+  url: z.string().optional(),
+  topic: z.string().optional(),
+}).refine((data) => data.url || data.topic, {
+  message: "Debes proporcionar una URL o un tema base.",
+});
+
+type TPropsContentInputProps = {
+  onGenerate: (values: IContentInputValues) => void;
+  isLoading: boolean;
+};
+
+export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate, isLoading }) => {
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      businessName: "Bloomi Coffee",
+      buyerPersona: "Jovenes de 18 a 25 años",
+      characterName: "Bloomito",
+      characterDescription: "Un experto en café que comparte su pasión por el café",
+      authorityVoice: "Compañero",
+      topic: "",
+      url: "https://www.nescafe.com/cam/cultura-cafe/cafe-estilo-de-vida/como-preparar-mejor-mi-cafe",
+
+    },
   });
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [generatedPosts, setGeneratedPosts] = useState<Post[]>([]);
+  const onSubmit = (data: z.infer<typeof formSchema>) => {
+    console.log("Form submitted:", data);
 
-  type Post = {
-    title: string;
-    network: string;
-    content: string;
-  };
-
-  type TResponse = {
-    posts: Post[];
+    onGenerate(data as IContentInputValues);
   }
 
-  const handleChange = (key: keyof ContentInputValues, value: string) => {
-    setValues((prev) => ({ ...prev, [key]: value }));
-  };
-
-  const handleGenerate = async () => {
-    setIsLoading(true);
-    // setGeneratedContent("");
-    try {
-      const res = await fetch("/api/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-
-      const data: TResponse = await res.json();
-      console.log(data)
-      setGeneratedPosts(data.posts);
-
-    } catch (error) {
-      console.error("Error generando contenido:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   return (
-    <main className="min-h-screen w-full h-full flex flex-col items-center justify-center bg-muted p-6 space-y-8">
-      <Card className="w-full max-w-4xl p-6 shadow-lg">
-        <CardHeader className="flex flex-col items-center space-y-2">
-          <h1 className="text-3xl font-semibold">Generador de Contenido</h1>
-          <h4 className="text-sm text-muted-foreground text-center max-w-lg">
-            Proporciona una liga de noticia o un tema para generar contenido
-          </h4>
-        </CardHeader>
-        <CardBody className="space-y-6">
-          <FormFields
-            values={values}
-            isLoading={isLoading}
-            onChange={handleChange}
+    <main className="w-full h-full">
+
+
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+
+          <FormField
+            control={form.control}
+            name="businessName"
+            render={({ field }) => (
+              <FormItem >
+                <Label htmlFor="businessName">Empresa o Producto</Label>
+
+                <FormControl>
+                  <Input
+                    id="businessName"
+                    type="text"
+                    placeholder="Nombre de la empresa o producto"
+                    value={field.value}
+                    onChange={(e) => field.onChange(e.target.value)}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
           />
 
-          <Button
-            onPress={handleGenerate}
-            disabled={isLoading || (!values.url && !values.topic)}
-            className="w-full text-base py-3"
-          >
-            {isLoading ? "Generando..." : "Generar Contenido"}
-          </Button>
-        </CardBody>
-      </Card>
-      {generatedPosts.length > 0 && (
-        <section className="w-full max-w-6xl mt-10 bg-red-400 p-5">
-          <h2 className="text-xl font-semibold mb-4">Resultados Generados</h2>
-          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-            {generatedPosts.map((post, i) => (
-              <PostCard
-                key={`${post.network}-${i}`}
-                title={post.title}
-                network={post.network}
-                content={post.content}
-                onCopy={() => navigator.clipboard.writeText(post.content)}
-              />
-            ))}
-          </div>
-        </section>
-      )}
+          <FormField
+            control={form.control}
+            name="buyerPersona"
+            render={({ field }) => (
+              <FormItem >
+                <Label htmlFor="buyerPersona">Buyer Persona</Label>
+                <FormControl>
+                  <Input
+                    id="buyerPersona"
+                    type="text"
+                    placeholder="Descripción del buyer persona"
+                    value={field.value}
+                    onChange={(e) => field.onChange(e.target.value)}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="characterName"
+            render={({ field }) => (
+              <FormItem >
+                <Label htmlFor="characterName">Nombre del Personaje</Label>
+                <FormControl>
+                  <Input
+                    id="characterName"
+                    type="text"
+                    placeholder="Nombre del personaje (opcional)"
+                    value={field.value}
+                    onChange={(e) => field.onChange(e.target.value)}
+
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="characterDescription"
+            render={({ field }) => (
+              <FormItem >
+                <Label htmlFor="characterDescription">Descripción del Personaje</Label>
+                <FormControl>
+                  <Input
+                    id="characterDescription"
+                    type="text"
+                    placeholder="Descripción del personaje (opcional)"
+                    value={field.value}
+                    onChange={(e) => field.onChange(e.target.value)}
+                  />
+                </FormControl>
+              </FormItem>
+            )} 
+          />
+
+          <FormField
+            control={form.control}
+            name="authorityVoice"
+            render={({ field }) => (
+              <FormItem >
+                <Label htmlFor="authorityVoice">Voz de Autoridad</Label>
+                <FormControl>
+                  <Select
+                    value={field.value}
+                    onValueChange={(value) => field.onChange(value)}
+                  >
+                    <SelectTrigger className="">
+                      <SelectValue placeholder="Selecciona una voz de autoridad" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectItem value="Experto">Experto</SelectItem>
+                        <SelectItem value="Amigo">Amigo</SelectItem>
+                        <SelectItem value="Mentor">Mentor</SelectItem>
+                        <SelectItem value="Compañero">Compañero</SelectItem>
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="topic"
+            render={() => (
+              <FormItem>
+                <Label htmlFor="topicOrUrl">Idea clave o Noticia</Label>
+                <FormControl>
+                  <Input
+                    id="topicOrUrl"
+                    type="text"
+                    placeholder="URL de la noticia o tema"
+                    value={
+                      form.getValues("url") || form.getValues("topic") || ""
+                    }
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      const isUrl = /^https?:\/\/.+/i.test(value);
+                      form.setValue("url", isUrl ? value : "");
+                      form.setValue("topic", !isUrl ? value : "");
+                    }}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+
+
+          <Button type="submit">Generar contenido</Button>
+        </form>
+      </Form>
 
     </main>
   );
 }
+
+
+//  <Card className="w-full max-w-4xl p-6 shadow-lg">
+//         <CardHeader className="flex flex-col items-center space-y-2">
+//           <h1 className="text-3xl font-semibold">Generador de Contenido</h1>
+//           <h4 className="text-sm text-muted-foreground text-center max-w-lg">
+//             Proporciona una liga de noticia o un tema para generar contenido
+//           </h4>
+//         </CardHeader>
+//         <CardBody className="space-y-6">
+//           <FormFields
+//             values={values}
+//             isLoading={isLoading}
+//             onChange={handleChange}
+//           />
+
+//           <Button
+//             onPress={handleGenerate}
+//             disabled={isLoading || (!values.url && !values.topic)}
+//             className="w-full text-base py-3"
+//           >
+//             {isLoading ? "Generando..." : "Generar Contenido"}
+//           </Button>
+//         </CardBody>
+//       </Card>
+//       {generatedPosts.length > 0 && (
+//         <section className="w-full max-w-6xl mt-10 bg-red-400 p-5">
+//           <h2 className="text-xl font-semibold mb-4">Resultados Generados</h2>
+//           <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+//             {generatedPosts.map((post, i) => (
+//               <PostCard
+//                 key={`${post.network}-${i}`}
+//                 title={post.title}
+//                 network={post.network}
+//                 content={post.content}
+//                 onCopy={() => navigator.clipboard.writeText(post.content)}
+//               />
+//             ))}
+//           </div>
+//         </section>
+//       )}
