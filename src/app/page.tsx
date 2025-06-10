@@ -8,13 +8,16 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { SpinnerOverlay } from "@/components/Spinner";
 import Image from "next/image";
 
+import { FormProvider } from "react-hook-form";
+
+
 export default function Home() {
   const [posts, setPosts] = useState<IPost[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleGenerate = async (values: IContentInputValues) => {
     setIsLoading(true);
-
+    console.log("here")
     try {
       const res = await fetch("/api/generate", {
         method: "POST",
@@ -47,7 +50,7 @@ export default function Home() {
         <CardContent>
           {isLoading && (<SpinnerOverlay />)}
           {posts.length === 0 ? (
-            <ContentInput onGenerate={handleGenerate} />
+            <ContentInput onGenerate={(handleGenerate)} />
           ) : (
             <ContentResult posts={posts} onBack={handleReset} />
           )}
