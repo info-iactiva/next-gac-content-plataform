@@ -1,19 +1,26 @@
 export interface IContentInputValues {
-  businessName: string;
-  buyerPersona: string;
-  characterName: string;
-  characterDescription?: string;
-  authorityVoice: string;
-  topic?: string;
-  url?: string;
-  nombre_empresa?: string;
-  nombre_corto_empresa?: string;    
-  objetivo_publicacion?: string;
-  web_site?: string;
-  url_linkedIn?: string;
-  desc_empresa?: string;
-  texto_insp_ref?: string;
-  idioma?: string;
+      nombre_empresa:  string;
+      nombre_corto_empresa?:  string;
+      web_site?:  string;
+      desc_empresa?:  string;
+      nombre_personaje?:  string;
+      descripcion_personaje?:  string;
+      ultra_personalizado?:  string;
+      segmento_audiencia?:  string;
+      descripcion_audiencia? :  string;
+      nombre_empresa_target? :  string;
+      web_site_empresa_target? :  string;
+      descripcion_empresa_target? :  string;
+      nombre_buyer_persona? :  string;
+      descripcion_buyer_persona? :  string;
+      url_linkedIn_buyer_persona? :  string;
+      objetivo_publicacion? :  string;
+      tono_publicacion? :  string;
+      texto_insp_ref? :  string;
+      ia_estilo_autor? :  string;
+      extension? :  string;
+      idioma? :  string;
+  
 }
 
 export interface GenerateResponse {

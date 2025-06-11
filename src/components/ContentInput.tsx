@@ -13,25 +13,41 @@ import { Button } from "./ui/button";
 import { Info } from "lucide-react";
 import { Tooltip, TooltipTrigger, TooltipContent } from "./ui/tooltip";
 import { FormProvider } from "react-hook-form";
-
+import { IDIOMAS, IdiomaType } from "@/const/lenguajes";
 
 
 const formSchema = z.object({
-  businessName: z.string().min(1, "Campo requerido"),
-  buyerPersona: z.string().min(1, "Campo requerido"),
-  characterName: z.string().optional(),
-  characterDescription: z.string().optional(),
-  web_site: z.string().optional(),
-  nombre_empresa: z.string().optional(),
+  // businessName: z.string().min(1, "Campo requerido"),
+  //datos empresa
+  nombre_empresa: z.string().min(1,"Campo requerido"),
   nombre_corto_empresa: z.string().optional(),
-  authorityVoice: z.enum(["Experto", "Amigo", "Mentor", "Compañero", "Amigable", "Profesional", "Inspiradora", "Técnica", "Informativa"]),
-  objetivo_publicacion: z.enum(["Promocionar", "Educar", "Inspirar", "Entretener","Compartir testimonio",""]).optional(),
-  url: z.string().optional(),
-  topic: z.string(),  
-  url_linkedIn :z.string(),  
+  web_site: z.string().optional(),
   desc_empresa: z.string().optional(),
+  nombre_personaje: z.string().optional(),
+  descripcion_personaje: z.string().optional(),  
+
+
+  // target
+  ultra_personalizado : z.enum(["Si", "No",""]).optional(),  
+  segmento_audiencia: z.string().optional(),  
+  descripcion_audiencia: z.string().optional(),  
+  nombre_empresa_target: z.string().optional(),  
+  web_site_empresa_target: z.string().optional(),  
+  descripcion_empresa_target: z.string().optional(),  
+  nombre_buyer_persona: z.string().optional(),
+  descripcion_buyer_persona: z.string().optional(),
+  url_linkedIn_buyer_persona: z.string().optional(),
+  
+  //mensaje
+  objetivo_publicacion: z.enum(["Promocionar", "Educar", "Inspirar", "Entretener","Compartir testimonio",""]).optional(),
+  tono_publicacion: z.enum(["Experto", "Amigo", "Mentor", "Compañero", "Amigable", "Profesional", "Inspiradora", "Técnica", "Informativa"]),
   texto_insp_ref : z.string().optional(),
-  idioma: z.enum(["Español (Latinoamérica)", "Español (España)", "Inglés", "Francés","Alemán","Japonés","","Mandarín","hindi"]).optional(),
+  ia_estilo_autor : z.string().optional(),
+  extension : z.enum(["Corta", "Media", "Inglés", "Larga"]).optional(),
+  // idioma: z.enum(["Español (Latinoamérica)", "Español (España)", "Inglés", "Francés","Alemán","Japonés","","Mandarín","hindi"]).optional(),      
+  idioma: z.custom<IdiomaType>((val) => IDIOMAS.includes(val as IdiomaType), {
+  message: "Idioma no válido",
+}),
 })
 // .refine((data) => data.url || data.topic || data.web_site, {
 //   message: "Debes proporcionar una URL o un tema base.",
@@ -46,24 +62,32 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      businessName: "",
-      buyerPersona: "",
-      characterName: "",
-      characterDescription: "",
-      authorityVoice: "Experto",
-      topic: "",
-      url: "",
-      web_site: "",
+    defaultValues: {      
       nombre_empresa: "",
       nombre_corto_empresa: "",
-      objetivo_publicacion: "",
-      url_linkedIn : "",
+      web_site: "",
       desc_empresa: "",
+      nombre_personaje: "",
+      descripcion_personaje: "",
+      ultra_personalizado: "No",
+      segmento_audiencia: "",
+      descripcion_audiencia: "",
+      nombre_empresa_target: "",
+      web_site_empresa_target: "",
+      descripcion_empresa_target: "",
+      nombre_buyer_persona: "",
+      descripcion_buyer_persona: "",
+      url_linkedIn_buyer_persona: "",
+      objetivo_publicacion: "",      
+      tono_publicacion: "Experto",
       texto_insp_ref: "",
+      ia_estilo_autor: "",
+      extension: "Corta",                             
       idioma: "Español (Latinoamérica)",
     },
   });
+  
+  const ultra = form.watch("ultra_personalizado");
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {  
     // alert("Formulario enviado correctamente");
@@ -74,205 +98,27 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
 
   return (
     // <main className="w-full h-full">
-    <main className="">
+    <main className="w-full h-full flex items-center justify-center p-6">
       {/* <FormProvider {...form}>               */}
 
       <FormProvider {...form}>
         {/* <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4"> */}
         <form  onSubmit={form.handleSubmit(onSubmit)} className="w-full max-w-7xl grid grid-cols-3 gap-10 bg-white p-12 rounded-2xl shadow-lg ">
         
-        
-          <FormField
-            control={form.control}
-            name="businessName"
-            render={({ field }) => (                
-              <FormItem >
-                <div className="flex items-center gap-2">
-                <Label htmlFor="businessName">Empresa o Producto</Label>
-                  <Tooltip>
-                  <TooltipTrigger asChild>
-                    <span tabIndex={0}>
-                      <Info className="w-4 h-4 text-muted-foreground cursor-pointer" />
-                    </span>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    Tipo de empresa.
-                  </TooltipContent>
-                </Tooltip>
-              </div>
-                <FormControl>
-                  <Input
-                    id="businessName"
-                    type="text"
-                    placeholder="Nombre de la empresa o producto"
-                    value={field.value}
-                    onChange={(e) => field.onChange(e.target.value)}
-                  />                  
-                </FormControl>
+        <div className="col-span-3 p-2 w-full h-full border-2 border-black rounded-lg relative">          
+          <span className="absolute -top-3 left-4 bg-white px-2 text-sm font-bold ">
+            DATOS DE TU EMPRESA
+          </span>
 
-                {form.formState.errors.businessName && (
-                  <span className="text-red-500 text-xs">
-                    {form.formState.errors.businessName.message as string}
-                  </span>
-                )}
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="buyerPersona"
-            render={({ field }) => (
-            <FormItem>
-              <div className="flex items-center gap-2">
-                <Label htmlFor="buyerPersona">Buyer Persona</Label>
-                {/* Icono con tooltip */}
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <span tabIndex={0}>
-                      <Info className="w-4 h-4 text-muted-foreground cursor-pointer" />
-                    </span>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    Ejemplo: “Directora de Comunicación en una empresa B2B tecnológica”. 
-                  </TooltipContent>
-                </Tooltip>
-              </div>
-              <FormControl>
-                <Input
-                  id="buyerPersona"
-                  type="text"
-                  placeholder="Descripción del buyer persona"
-                  value={field.value}
-                  onChange={(e) => field.onChange(e.target.value)}
-                />
-              </FormControl>
-              
-                {form.formState.errors.buyerPersona && (
-                  <span className="text-red-500 text-xs">
-                    {form.formState.errors.buyerPersona.message as string}
-                  </span>
-                )}
-            </FormItem>
-          )}
-        />
-
-          <FormField
-            control={form.control}
-            name="characterName"
-            render={({ field }) => (
-              <FormItem >
-
-                <div className="flex items-center gap-2">
-                  <Label htmlFor="characterName">Nombre del Personaje</Label>
-                  <Tooltip>
-                  <TooltipTrigger asChild>
-                    <span tabIndex={0}>
-                      <Info className="w-4 h-4 text-muted-foreground cursor-pointer" />
-                    </span>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    Ejemplo: mickey mouse
-                  </TooltipContent>
-                </Tooltip>
-              </div>
-                <FormControl>
-                  <Input
-                    id="characterName"
-                    type="text"
-                    placeholder="Nombre del personaje (opcional)"
-                    value={field.value}
-                    onChange={(e) => field.onChange(e.target.value)}
-                  />
-                </FormControl>
-                 {form.formState.errors.characterName && (
-                  <span className="text-red-500 text-xs">
-                    {form.formState.errors.characterName.message as string}
-                  </span>
-                )}
-              </FormItem>
-            )}
-          />
-  
-          <FormField
-            control={form.control}
-            name="characterDescription"
-            render={({ field }) => (
-              <FormItem >
-                <div className="flex items-center gap-2">
-                <Label htmlFor="characterDescription">Descripción del Personaje</Label>
-                  <Tooltip>
-                  <TooltipTrigger asChild>
-                    <span tabIndex={0}>
-                      <Info className="w-4 h-4 text-muted-foreground cursor-pointer" />
-                    </span>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    Ejemplo: “Mariana es una estratega digital experta en automatización de contenidos”. 
-                  </TooltipContent>
-                </Tooltip>
-              </div>
-                <FormControl>
-                  <Input
-                    id="characterDescription"
-                    type="text"
-                    placeholder="Descripción del personaje (opcional)"
-                    value={field.value}
-                    onChange={(e) => field.onChange(e.target.value)}
-                  />
-                </FormControl>
-                    {form.formState.errors.characterDescription && (
-                  <span className="text-red-500 text-xs">
-                    {form.formState.errors.characterDescription.message as string}
-                  </span>
-                )}
-              </FormItem>
-            )} 
-          />
-
-          <FormField
-            control={form.control}
-            name="web_site"
-            render={({ field }) => (
-              <FormItem >
-                <div className="flex items-center gap-2">
-                <Label htmlFor="web_site">Web site de la empresa</Label>
-                  <Tooltip>
-                  <TooltipTrigger asChild>
-                    <span tabIndex={0}>
-                      <Info className="w-4 h-4 text-muted-foreground cursor-pointer" />
-                    </span>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    Ejemplo: www.iactiva.ai 
-                  </TooltipContent>
-                </Tooltip>
-              </div>
-                <FormControl>
-                  <Input
-                    id="web_site"
-                    type="text"
-                    placeholder="URL de la empresa o producto"
-                    value={field.value}
-                    onChange={(e) => field.onChange(e.target.value)}
-                  />                  
-                </FormControl>
-                  {form.formState.errors.web_site && (
-                    <span className="text-red-500 text-xs">
-                      {form.formState.errors.web_site.message as string}
-                    </span>
-                  )}
-              </FormItem>
-            )} 
-          />
-
+          <div className="grid grid-cols-3 gap-6 p-3">
           <FormField
             control={form.control}
             name="nombre_empresa"
-            render={({ field }) => (
+            render={({ field }) => (                
               <FormItem >
                 <div className="flex items-center gap-2">
-                <Label htmlFor="nombre_empresa">Nombre de la empresa</Label>
+                {/* <Label htmlFor="nombre_empresa" className="text-xs font-bold">Tu Empresa o Producto</Label> */}
+                <Label htmlFor="nombre_empresa" >Tu Empresa o Producto</Label>
                   <Tooltip>
                   <TooltipTrigger asChild>
                     <span tabIndex={0}>
@@ -280,7 +126,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     </span>
                   </TooltipTrigger>
                   <TooltipContent>
-                    Nombre de la empresa o producto que se utilizará en el contenido.
+                    Nombre oficial o comercial de tu empresa o línea de productos.
                   </TooltipContent>
                 </Tooltip>
               </div>
@@ -288,28 +134,28 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                   <Input
                     id="nombre_empresa"
                     type="text"
-                    placeholder="Nombre de la empresa"
+                    placeholder="Nombre de la empresa o producto"
                     value={field.value}
                     onChange={(e) => field.onChange(e.target.value)}
-                  />
+                  />                  
                 </FormControl>
 
-                 {form.formState.errors.nombre_empresa && (
-                    <span className="text-red-500 text-xs">
-                      {form.formState.errors.nombre_empresa.message as string}
-                    </span>
-                  )}
+                {form.formState.errors.nombre_empresa && (
+                  <span className="text-red-500 text-xs">
+                    {form.formState.errors.nombre_empresa.message as string}
+                  </span>
+                )}
               </FormItem>
-            )} 
-          />
+            )}/>        
 
-          <FormField
+
+            <FormField
             control={form.control}
             name="nombre_corto_empresa"
             render={({ field }) => (
               <FormItem >
                 <div className="flex items-center gap-2">
-                <Label htmlFor="nombre_corto_empresa">Nombre corto de la empresa</Label>
+                <Label htmlFor="nombre_corto_empresa" >Nombre corto de la empresa</Label>
                   <Tooltip>
                   <TooltipTrigger asChild>
                     <span tabIndex={0}>
@@ -317,7 +163,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     </span>
                   </TooltipTrigger>
                   <TooltipContent>
-                    Ejemplo: iActiva 
+                    Nombre breve o apodo de la empresa usado en redes o marketing.
                   </TooltipContent>
                 </Tooltip>
               </div>
@@ -339,8 +185,46 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
             )} 
           />
 
+          <FormField
+            control={form.control}
+            name="web_site"
+            render={({ field }) => (
+              <FormItem >
+                <div className="flex items-center gap-2">
+                <Label htmlFor="web_site">Web site de la empresa</Label>
+                  <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span tabIndex={0}>
+                      <Info className="w-4 h-4 text-muted-foreground cursor-pointer" />
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    URL principal del sitio web o landing page.
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+                <FormControl>
+                  <Input
+                    id="web_site"
+                    type="text"
+                    placeholder="URL de la empresa o producto"
+                    value={field.value}
+                    onChange={(e) => field.onChange(e.target.value)}
+                  />                  
+                </FormControl>
+                  {form.formState.errors.web_site && (
+                    <span className="text-red-500 text-xs">
+                      {form.formState.errors.web_site.message as string}
+                    </span>
+                  )}
+              </FormItem>
+            )} 
+          /> 
 
-            
+        {/* </div> */}
+
+
+        {/* <div className="grid grid-cols-3 gap-6 mt-5"> */}
              <FormField
             control={form.control}
             name="desc_empresa"
@@ -355,7 +239,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     </span>
                   </TooltipTrigger>
                   <TooltipContent>
-                    Ejemplo: “iActiva GenAI Solutions S.A. de C.V. ofrece soluciones inteligentes de automatización de contenido.” 
+                    Resumen de lo que hace la empresa y su propuesta de valor.
                   </TooltipContent>
                 </Tooltip>
               </div>
@@ -375,91 +259,17 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                   )}
               </FormItem>
             )} 
-          />
+          /> 
 
-
-            
-            
-             <FormField
-            control={form.control}
-            name="url_linkedIn"
-            render={({ field }) => (
-              <FormItem >
-                <div className="flex items-center gap-2">
-                <Label htmlFor="url_linkedIn">URL de LinkedIn</Label>
-                  <Tooltip>
-                  <TooltipTrigger asChild>
-                    <span tabIndex={0}>
-                      <Info className="w-4 h-4 text-muted-foreground cursor-pointer" />
-                    </span>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    Ejemplo: https://www.linkedin.com/in/ana-directora-b2b 
-                  </TooltipContent>
-                </Tooltip>
-              </div>
-                <FormControl>
-                  <Input
-                    id="url_linkedIn"
-                    type="text"
-                    placeholder="URL de LinkedIn del Buyer Persona (opcional)"
-                    value={field.value}
-                    onChange={(e) => field.onChange(e.target.value)}
-                  />
-                </FormControl>
-                  {form.formState.errors.url_linkedIn && (
-                    <span className="text-red-500 text-xs">
-                      {form.formState.errors.url_linkedIn.message as string}
-                    </span>
-                  )}
-              </FormItem>
-            )} 
-          />
-            
-             
-             <FormField
-            control={form.control}
-            name="texto_insp_ref"
-            render={({ field }) => (
-              <FormItem >
-                <div className="flex items-center gap-2">
-                <Label htmlFor="texto_insp_ref"> Texto inspirador o de referencia</Label>
-                  <Tooltip>
-                  <TooltipTrigger asChild>
-                    <span tabIndex={0}>
-                      <Info className="w-4 h-4 text-muted-foreground cursor-pointer" />
-                    </span>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    Ejemplo: “Nos emociona compartir esta novedad con nuestra comunidad…” 
-                  </TooltipContent>
-                </Tooltip>
-              </div>
-                <FormControl>
-                  <Input
-                    id="texto_insp_ref"
-                    type="text"
-                    placeholder="Texto inspirador o de referencia"
-                    value={field.value}
-                    onChange={(e) => field.onChange(e.target.value)}
-                  />
-                </FormControl>
-                  {form.formState.errors.texto_insp_ref && (
-                    <span className="text-red-500 text-xs">
-                      {form.formState.errors.texto_insp_ref.message as string}
-                    </span>
-                  )}
-              </FormItem>
-            )} 
-          />
 
           <FormField
             control={form.control}
-            name="authorityVoice"
+            name="nombre_personaje"
             render={({ field }) => (
               <FormItem >
+
                 <div className="flex items-center gap-2">
-                <Label htmlFor="authorityVoice">Tono de la publicacion</Label>
+                  <Label htmlFor="nombre_personaje">Nombre del Personaje</Label>
                   <Tooltip>
                   <TooltipTrigger asChild>
                     <span tabIndex={0}>
@@ -467,43 +277,462 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     </span>
                   </TooltipTrigger>
                   <TooltipContent>
-                      Ejemplos: Amigable, Profesional, Inspiradora, Técnica, Informativa
+                    Nombre del vocero real o ficticio que representa la marca.
                   </TooltipContent>
                 </Tooltip>
               </div>
                 <FormControl>
+                  <Input
+                    id="nombre_personaje"
+                    type="text"
+                    placeholder="Nombre del personaje (opcional)"
+                    value={field.value}
+                    onChange={(e) => field.onChange(e.target.value)}
+                  />
+                </FormControl>
+                 {form.formState.errors.nombre_personaje && (
+                  <span className="text-red-500 text-xs">
+                    {form.formState.errors.nombre_personaje.message as string}
+                  </span>
+                )}
+              </FormItem>
+            )}
+          /> 
+
+          <FormField
+            control={form.control}
+            name="descripcion_personaje"
+            render={({ field }) => (
+              <FormItem >
+                <div className="flex items-center gap-2">
+                <Label htmlFor="descripcion_personaje">Descripción del Personaje</Label>
+                  <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span tabIndex={0}>
+                      <Info className="w-4 h-4 text-muted-foreground cursor-pointer" />
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    Breve descripción del personaje que comunica el mensaje.
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+                <FormControl>
+                  <Input
+                    id="descripcion_personaje"
+                    type="text"
+                    placeholder="Descripción del personaje (opcional)"
+                    value={field.value}
+                    onChange={(e) => field.onChange(e.target.value)}
+                  />
+                </FormControl>
+                    {form.formState.errors.descripcion_personaje && (
+                  <span className="text-red-500 text-xs">
+                    {form.formState.errors.descripcion_personaje.message as string}
+                  </span>
+                )}
+              </FormItem>
+            )} 
+          /> 
+
+        </div>
+
+        </div>
+        
+        <div className="col-span-3 p-2 w-full h-full border-2 border-black rounded-lg relative">          
+          <span className="absolute -top-3 left-4 bg-white px-2 text-sm font-bold">
+            TARGET
+          </span>
+                    
+
+          <div className="grid grid-cols-3 gap-6 p-3">    
+            {/* FALATA NOMBRES */}
+            <FormField
+              control={form.control}
+              name="ultra_personalizado"
+              render={({ field }) => (
+              <FormItem>
+                <div className="flex items-center gap-2">
+                  <Label htmlFor="ultra_personalizado">¿Ultra personalizado?</Label>
+                  {/* Icono con tooltip  */}
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <span tabIndex={0}>
+                        <Info className="w-4 h-4 text-muted-foreground cursor-pointer" />
+                      </span>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      ¿El contenido debe estar extremadamente dirigido a una persona específica? (Sí/No)
+                    </TooltipContent>
+                  </Tooltip>
+                </div>
+               <FormControl>
                   <Select
                     value={field.value}
                     onValueChange={(value) => field.onChange(value)}
                   >
                     <SelectTrigger className="">
-                      <SelectValue placeholder="Selecciona una tono de la publicacion" />
+                      <SelectValue placeholder="" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectGroup>
-                        <SelectItem value="Experto">Experto</SelectItem>
-                        <SelectItem value="Amigo">Amigo</SelectItem>
-                        <SelectItem value="Mentor">Mentor</SelectItem>
-                        <SelectItem value="Compañero">Compañero</SelectItem>
-                        <SelectItem value="Amigable">Amigable</SelectItem>
-                        <SelectItem value="Profesional">Profesional</SelectItem>
-                        <SelectItem value="TécnicaTécnica">TécnicaTécnica</SelectItem>
-                        <SelectItem value="Informativa">Informativa</SelectItem>                        
+                      <SelectGroup>                        
+                        <SelectItem value="Si">Si</SelectItem>
+                        <SelectItem value="No">No</SelectItem>                        
                       </SelectGroup>
                     </SelectContent>
                   </Select>
                 </FormControl>
-                  {form.formState.errors.authorityVoice && (
+                
+                  {form.formState.errors.ultra_personalizado && (
                     <span className="text-red-500 text-xs">
-                      {form.formState.errors.authorityVoice.message as string}
+                      {form.formState.errors.ultra_personalizado.message as string}
                     </span>
                   )}
               </FormItem>
             )}
           />
+          
+          {ultra == "No" && (
+
+            <>
+            
+            
+          <FormField
+            control={form.control}
+            name="segmento_audiencia"
+            render={({ field }) => (
+            <FormItem>
+              <div className="flex items-center gap-2">
+                <Label htmlFor="segmento_audiencia">Segmento de la audiencia</Label>
+                {/* Icono con tooltip */}
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span tabIndex={0}>
+                      <Info className="w-4 h-4 text-muted-foreground cursor-pointer" />
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    Grupo de clientes al que va dirigida la publicación.
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+              <FormControl>
+                <Input
+                  id="segmento_audiencia"
+                  type="text"
+                  placeholder="segmento de la audiencia"
+                  value={field.value}
+                  onChange={(e) => field.onChange(e.target.value)}
+                />
+              </FormControl>
+              
+                {form.formState.errors.segmento_audiencia && (
+                  <span className="text-red-500 text-xs">
+                    {form.formState.errors.segmento_audiencia.message as string}
+                  </span>
+                )}
+            </FormItem>
+          )}
+        /> 
+        
+
+         <FormField
+            control={form.control}
+            name="descripcion_audiencia"
+            render={({ field }) => (
+            <FormItem>
+              <div className="flex items-center gap-2">
+                <Label htmlFor="descripcion_audiencia">Descripcion de la audiencia</Label>
+                {/* Icono con tooltip     */}
+
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span tabIndex={0}>
+                      <Info className="w-4 h-4 text-muted-foreground cursor-pointer" />
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    Descripción general de los intereses, problemas o perfil del público objetivo.
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+              <FormControl>
+                <Input
+                  id="descripcion_audiencia"
+                  type="text"
+                  placeholder="Descripción de la audiencia"
+                  value={field.value}
+                  onChange={(e) => field.onChange(e.target.value)}
+                />
+              </FormControl>
+              
+                {form.formState.errors.descripcion_audiencia && (
+                  <span className="text-red-500 text-xs">
+                    {form.formState.errors.descripcion_audiencia.message as string}
+                  </span>
+                )}
+            </FormItem>
+          )}
+        />
+
+        </>
+        
+        )}
+
+        
+        {ultra == "Si" && (
+        <>
+                <FormField
+            control={form.control}
+            name="nombre_empresa_target"
+            render={({ field }) => (
+            <FormItem>
+              <div className="flex items-center gap-2">
+                <Label htmlFor="nombre_empresa_target">Empresa o Producto</Label>
+                {/* Icono con tooltip     */}
+
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span tabIndex={0}>
+                      <Info className="w-4 h-4 text-muted-foreground cursor-pointer" />
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    Empresa o marca que consume o representa el buyer persona (si aplica).
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+              <FormControl>
+                <Input
+                  id="nombre_empresa_target"
+                  type="text"
+                  placeholder="Nombre de la empresa o producto"
+                  value={field.value}
+                  onChange={(e) => field.onChange(e.target.value)}
+                />
+              </FormControl>
+              
+                {form.formState.errors.nombre_empresa_target && (
+                  <span className="text-red-500 text-xs">
+                    {form.formState.errors.nombre_empresa_target.message as string}
+                  </span>
+                )}
+            </FormItem>
+          )}
+        />
 
 
-                   <FormField
+                  <FormField
+            control={form.control}
+            name="web_site_empresa_target"
+            render={({ field }) => (
+            <FormItem>
+              <div className="flex items-center gap-2">
+                <Label htmlFor="web_site_empresa_target">Web site de la empresa</Label>
+                {/* Icono con tooltip     */}
+
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span tabIndex={0}>
+                      <Info className="w-4 h-4 text-muted-foreground cursor-pointer" />
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    URL del sitio web del buyer persona si está disponible.
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+              <FormControl>
+                <Input
+                  id="web_site_empresa_target"
+                  type="text"
+                  placeholder="URL de la empresa o producto"
+                  value={field.value}
+                  onChange={(e) => field.onChange(e.target.value)}
+                />
+              </FormControl>
+              
+                {form.formState.errors.web_site_empresa_target && (
+                  <span className="text-red-500 text-xs">
+                    {form.formState.errors.web_site_empresa_target.message as string}
+                  </span>
+                )}
+            </FormItem>
+          )}
+        />
+
+
+
+            
+                  <FormField
+            control={form.control}
+            name="descripcion_empresa_target"
+            render={({ field }) => (
+            <FormItem>
+              <div className="flex items-center gap-2">
+                <Label htmlFor="descripcion_empresa_target">Descripción de la empresa</Label>
+                {/* Icono con tooltip     */}
+
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span tabIndex={0}>
+                      <Info className="w-4 h-4 text-muted-foreground cursor-pointer" />
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    Descripción general de la empresa del buyer persona.
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+              <FormControl>
+                <Input
+                  id="descripcion_empresa_target"
+                  type="text"
+                  placeholder="Descripción de la empresa"
+                  value={field.value}
+                  onChange={(e) => field.onChange(e.target.value)}
+                />
+              </FormControl>
+              
+                {form.formState.errors.descripcion_empresa_target && (
+                  <span className="text-red-500 text-xs">
+                    {form.formState.errors.descripcion_empresa_target.message as string}
+                  </span>
+                )}
+            </FormItem>
+          )}
+        />
+
+
+
+          <FormField
+            control={form.control}
+            name="nombre_buyer_persona"
+            render={({ field }) => (
+            <FormItem>
+              <div className="flex items-center gap-2">
+                <Label htmlFor="nombre_buyer_persona">Nombre del Buyer Persona</Label>
+                {/* Icono c on tooltip   */}
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span tabIndex={0}>
+                      <Info className="w-4 h-4 text-muted-foreground cursor-pointer" />
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    Nombre del contacto al que se dirige la publicación.
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+              <FormControl>
+                <Input
+                  id="nombre_buyer_persona"
+                  type="text"
+                  placeholder="Nombre del Buyer Persona"
+                  value={field.value}
+                  onChange={(e) => field.onChange(e.target.value)}
+                />
+              </FormControl>
+              
+                {form.formState.errors.nombre_buyer_persona && (
+                  <span className="text-red-500 text-xs">
+                    {form.formState.errors.nombre_buyer_persona.message as string}
+                  </span>
+                )}
+            </FormItem>
+          )}
+        /> 
+
+
+          <FormField
+            control={form.control}
+            name="descripcion_buyer_persona"
+            render={({ field }) => (
+            <FormItem>
+              <div className="flex items-center gap-2">
+                <Label htmlFor="descripcion_buyer_persona">Descripción Buyer Persona</Label>
+                {/* Icono c on tooltip   */}
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span tabIndex={0}>
+                      <Info className="w-4 h-4 text-muted-foreground cursor-pointer" />
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    Breve perfil de la persona objetivo.s
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+              <FormControl>
+                <Input
+                  id="descripcion_buyer_persona"
+                  type="text"
+                  placeholder="Descripción del Buyer Persona"
+                  value={field.value}
+                  onChange={(e) => field.onChange(e.target.value)}
+                />
+              </FormControl>
+              
+                {form.formState.errors.descripcion_buyer_persona && (
+                  <span className="text-red-500 text-xs">
+                    {form.formState.errors.descripcion_buyer_persona.message as string}
+                  </span>
+                )}
+            </FormItem>
+          )}
+        /> 
+
+
+          <FormField
+            control={form.control}
+            name="url_linkedIn_buyer_persona"
+            render={({ field }) => (
+            <FormItem>
+              <div className="flex items-center gap-2">
+                <Label htmlFor="url_linkedIn_buyer_persona">URL de LinkedIn</Label>
+                {/* Icono c on tooltip   */}
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span tabIndex={0}>
+                      <Info className="w-4 h-4 text-muted-foreground cursor-pointer" />
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    Perfil profesional del buyer persona (LinkedIn).
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+              <FormControl>
+                <Input
+                  id="url_linkedIn_buyer_persona"
+                  type="text"
+                  placeholder="URL de LinkedIn del Buyer Persona"
+                  value={field.value}
+                  onChange={(e) => field.onChange(e.target.value)}
+                />
+              </FormControl>
+              
+                {form.formState.errors.url_linkedIn_buyer_persona && (
+                  <span className="text-red-500 text-xs">
+                    {form.formState.errors.url_linkedIn_buyer_persona.message as string}
+                  </span>
+                )}
+            </FormItem>
+          )}
+        /> 
+            </>
+         )}
+          </div>          
+        </div>
+          
+          
+        <div className="col-span-3 p-2 w-full h-full border-2 border-black rounded-lg relative">          
+          <span className="absolute -top-3 left-4 bg-white px-2 text-sm font-bold">
+            MENSAJE
+          </span>
+
+             <div className="grid grid-cols-3 gap-6 p-3"> 
+            <FormField
             control={form.control}
             name="objetivo_publicacion"
             render={({ field }) => (
@@ -517,7 +746,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     </span>
                   </TooltipTrigger>
                   <TooltipContent>
-                    Selecciona una o varias: Promocionar, Educar, Informar, Inspirar, Entretener, Compartir testimonio 
+                    Propósito de la publicación (ej. promocionar, informar, educar, etc.).
                   </TooltipContent>
                 </Tooltip>
               </div>
@@ -549,8 +778,177 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
             )}
           />
 
-            
-                              <FormField
+           <FormField
+            control={form.control}
+            name="tono_publicacion"
+            render={({ field }) => (
+              <FormItem >
+                <div className="flex items-center gap-2">
+                <Label htmlFor="tono_publicacion">Tono de la publicacion</Label>
+                  <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span tabIndex={0}>
+                      <Info className="w-4 h-4 text-muted-foreground cursor-pointer" />
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                      Estilo comunicativo: profesional, técnico, persuasivo, etc.
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+                <FormControl>
+                  <Select
+                    value={field.value}
+                    onValueChange={(value) => field.onChange(value)}
+                  >
+                    <SelectTrigger className="">
+                      <SelectValue placeholder="Selecciona una tono de la publicacion" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectItem value="Experto">Experto</SelectItem>
+                        <SelectItem value="Amigo">Amigo</SelectItem>
+                        <SelectItem value="Mentor">Mentor</SelectItem>
+                        <SelectItem value="Compañero">Compañero</SelectItem>
+                        <SelectItem value="Amigable">Amigable</SelectItem>
+                        <SelectItem value="Profesional">Profesional</SelectItem>
+                        <SelectItem value="TécnicaTécnica">TécnicaTécnica</SelectItem>
+                        <SelectItem value="Informativa">Informativa</SelectItem>                        
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                  {form.formState.errors.tono_publicacion && (
+                    <span className="text-red-500 text-xs">
+                      {form.formState.errors.tono_publicacion.message as string}
+                    </span>
+                  )}
+              </FormItem>
+            )}
+          /> 
+
+          <FormField
+            control={form.control}
+            name="texto_insp_ref"
+            render={({ field }) => (
+              <FormItem >
+                <div className="flex items-center gap-2">
+                <Label htmlFor="texto_insp_ref"> Texto inspirador o de referencia</Label>
+                  <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span tabIndex={0}>
+                      <Info className="w-4 h-4 text-muted-foreground cursor-pointer" />
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    Fragmento que sirva como guía de tono o estilo.
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+                <FormControl>
+                  <Input
+                    id="texto_insp_ref"
+                    type="text"
+                    placeholder="Texto inspirador o de referencia"
+                    value={field.value}
+                    onChange={(e) => field.onChange(e.target.value)}
+                  />
+                </FormControl>
+                  {form.formState.errors.texto_insp_ref && (
+                    <span className="text-red-500 text-xs">
+                      {form.formState.errors.texto_insp_ref.message as string}
+                    </span>
+                  )}
+              </FormItem>
+            )} 
+          />
+
+
+             <FormField
+            control={form.control}
+            name="ia_estilo_autor"
+            render={({ field }) => (
+              <FormItem >
+                <div className="flex items-center gap-2">
+                <Label htmlFor="ia_estilo_autor"> AI estilo de este autor</Label>
+                  <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span tabIndex={0}>
+                      <Info className="w-4 h-4 text-muted-foreground cursor-pointer" />
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    Referencia opcional a un autor famoso cuyo estilo se desea imitar.
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+                <FormControl>
+                  <Input
+                    id="ia_estilo_autor"
+                    type="text"
+                    placeholder="Menciona un autor famoso (opcional)"
+                    value={field.value}
+                    onChange={(e) => field.onChange(e.target.value)}
+                  />
+                </FormControl>
+                  {form.formState.errors.ia_estilo_autor && (
+                    <span className="text-red-500 text-xs">
+                      {form.formState.errors.ia_estilo_autor.message as string}
+                    </span>
+                  )}
+              </FormItem>
+            )} 
+          />
+
+
+          
+             <FormField
+            control={form.control}
+            name="extension"
+            render={({ field }) => (
+              <FormItem >
+                <div className="flex items-center gap-2">
+                <Label htmlFor="extension">Extensión</Label>
+                  <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span tabIndex={0}>
+                      <Info className="w-4 h-4 text-muted-foreground cursor-pointer" />
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    Longitud estimada del contenido (corta, media, larga).
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+               <FormControl>
+                  <Select
+                    value={field.value}
+                    onValueChange={(value) => field.onChange(value)}
+                  >
+                    <SelectTrigger className="">
+                      <SelectValue placeholder="Seleciona la extension" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectItem value="Corta">Corta</SelectItem>
+                        <SelectItem value="Media">Media</SelectItem>
+                        <SelectItem value="Larga">Larga</SelectItem>                 
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                  {form.formState.errors.tono_publicacion && (
+                    <span className="text-red-500 text-xs">
+                      {form.formState.errors.tono_publicacion.message as string}
+                    </span>
+                  )}
+              </FormItem>
+            )} 
+          />
+
+
+
+          <FormField
             control={form.control}
             name="idioma"
             render={({ field }) => (
@@ -564,7 +962,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     </span>
                   </TooltipTrigger>
                   <TooltipContent>
-                    Selecciona el idioma en el que quieres generar el contenido.
+                    Idioma en el que se desea el contenido.
                   </TooltipContent>
                 </Tooltip>
               </div>
@@ -578,13 +976,13 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>
-                        <SelectItem value="Español (Latinoamérica)">Español (Latinoamérica)</SelectItem>
-                        <SelectItem value="Español (España)">Español (España)</SelectItem>
-                        <SelectItem value="Inglés">Inglés</SelectItem>
-                        <SelectItem value="Francés">Francés</SelectItem>
-                        <SelectItem value="Alemán">Alemán</SelectItem>
-                        <SelectItem value="Mandarín">Mandarín</SelectItem>
-                        <SelectItem value="hindi">hindi</SelectItem>
+                        {
+                          IDIOMAS.map((idioma) => (
+                            <SelectItem key={idioma} value={idioma}>
+                              {idioma}
+                            </SelectItem>
+                          ))
+                        }
                       </SelectGroup>
                     </SelectContent>
                   </Select>
@@ -596,53 +994,14 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                   )}
               </FormItem>
             )}
-          />
+          /> 
 
 
+          </div>
 
-          <FormField
-            control={form.control}
-            name="topic"
-            render={() => (
-              <FormItem>
-                <div className="flex items-center gap-2">
-                <Label htmlFor="topicOrUrl">Idea clave o Noticia</Label>
-                  <Tooltip>
-                  <TooltipTrigger asChild>
-                    <span tabIndex={0}>
-                      <Info className="w-4 h-4 text-muted-foreground cursor-pointer" />
-                    </span>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    Describe brevemente el tema que quieres comunicar. Ejemplo: “Nueva regulación de IA en México y cómo afecta a las empresas tecnológicas”. 
-                  </TooltipContent>
-                </Tooltip>
-              </div>
-                <FormControl>
-                  <Input
-                    id="topic"
-                    type="text"
-                    placeholder="URL de la noticia o tema"
-                    value={
-                      form.getValues("url") || form.getValues("topic") || ""
-                    }
-                    onChange={(e) => {
-                      const value = e.target.value;
-                      const isUrl = /^https?:\/\/.+/i.test(value);
-                      form.setValue("url", isUrl ? value : "");
-                      form.setValue("topic", !isUrl ? value : "");
-                    }}
-                  />
-                </FormControl>
-                 {form.formState.errors.topic && (
-                    <span className="text-red-500 text-xs">
-                      {form.formState.errors.topic.message as string}
-                    </span>
-                  )}                
-              </FormItem>
-            )}
-          />
-
+        </div>             
+                                         
+                                          
           <div className="col-span-3 flex justify-center">            
             <Button type="submit">Generar contenido</Button>
           </div>

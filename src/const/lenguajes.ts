@@ -1,0 +1,37 @@
+export const IDIOMAS = [
+"Español (Latinoamérica)",
+"Español (México)",
+"Español (Argentina)",
+"Español (Colombia)",
+"Español (España)",
+"English (US)",
+"English (UK)",
+"English (Australia)",
+"English (Canada)",
+"English (India)",
+"Français (France)",
+"Français (Canada)",
+"Português (Brasil)",
+"Português (Portugal)",
+"Deutsch (Deutschland)",
+"Deutsch (Österreich)",
+"Deutsch (Schweiz)",
+"Italiano (Italia)",
+"Nederlands (Nederland)",
+"Nederlands (België)",
+"中文（简体）Simplified Chinese (China)",
+"中文（繁體）Traditional Chinese (Taiwan / Hong Kong)",
+"日本語 (Japan)",
+"한국어 (South Korea)",
+"Русский (Russia)",
+"Türkçe (Turkey)",
+"Polski (Poland)",
+"Svenska (Sweden)",
+"हिन्दी (India)",
+"Bahasa Indonesia",
+"Tiếng Việt",
+"ภาษาไทย"
+]  as const
+
+
+export type IdiomaType = typeof IDIOMAS[number];

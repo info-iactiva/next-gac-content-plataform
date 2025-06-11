@@ -42,7 +42,7 @@ export default function Home() {
   return (
     <div className="min-h-screen flex items-center justify-center p-6">
 
-      <Card className="min-w-[400px] max-w-4xl relative ">
+      <Card className="min-w-[1000px] max-w-4xl relative ">
         <CardHeader className="relative flex flex-col items-center  p-0">
           <Image className="w-[30%]" src="/logos/gacLogo.jpg" alt=""   width={200} height={200}/>
           <Image className="absolute top-2 left-5 w-[15%]" src="/logos/logo.webp" alt="" width={200} height={200}/>
