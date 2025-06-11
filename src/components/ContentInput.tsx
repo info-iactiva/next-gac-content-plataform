@@ -46,8 +46,9 @@ const formSchema = z.object({
   extension : z.enum(["Corta", "Media", "Inglés", "Larga"]).optional(),
   // idioma: z.enum(["Español (Latinoamérica)", "Español (España)", "Inglés", "Francés","Alemán","Japonés","","Mandarín","hindi"]).optional(),      
   idioma: z.custom<IdiomaType>((val) => IDIOMAS.includes(val as IdiomaType), {
-  message: "Idioma no válido",
+  message: "Idioma no válido",  
 }),
+  contenido : z.string().min(1,"Campo requerido"),
 })
 // .refine((data) => data.url || data.topic || data.web_site, {
 //   message: "Debes proporcionar una URL o un tema base.",
@@ -84,6 +85,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
       ia_estilo_autor: "",
       extension: "Corta",                             
       idioma: "Español (Latinoamérica)",
+      contenido: "",
     },
   });
   
@@ -376,7 +378,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>                        
-                        <SelectItem value="Si">Si</SelectItem>
+                        <SelectItem value="Si">Sí</SelectItem>
                         <SelectItem value="No">No</SelectItem>                        
                       </SelectGroup>
                     </SelectContent>
@@ -995,6 +997,44 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
               </FormItem>
             )}
           /> 
+
+
+            <FormField
+            control={form.control}
+            name="contenido"
+            render={({ field }) => (
+              <FormItem >
+                <div className="flex items-center gap-2">
+                <Label htmlFor="contenido">Idea principal</Label>
+                  <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span tabIndex={0}>
+                      <Info className="w-4 h-4 text-muted-foreground cursor-pointer" />
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    Idea principal o mensaje que se quiere transmitir en el contenido.
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+                <FormControl>
+                  <Input
+                    id="contenido"
+                    type="text"
+                    placeholder="Idea de referencia o mensaje principal"
+                    value={field.value}
+                    onChange={(e) => field.onChange(e.target.value)}
+                  />
+                </FormControl>
+                  {form.formState.errors.contenido && (
+                    <span className="text-red-500 text-xs">
+                      {form.formState.errors.contenido.message as string}
+                    </span>
+                  )}
+              </FormItem>
+            )} 
+          />                       
+
 
 
           </div>

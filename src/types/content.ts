@@ -20,6 +20,7 @@ export interface IContentInputValues {
       ia_estilo_autor? :  string;
       extension? :  string;
       idioma? :  string;
+      contenido:string
   
 }
 

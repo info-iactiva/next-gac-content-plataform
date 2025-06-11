@@ -3,7 +3,7 @@ import OpenAI from "openai";
 import { extractTextFromURL } from "@/lib/extract";
 import { buildPrompt } from "@/lib/prompts";
 import { buildPromptDOS } from "@/lib/promptsdos";
-
+import { buildPrompttres } from "@/lib/prompttres";
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -14,12 +14,12 @@ const socialTargets = ["Facebook", "Instagram", "X","Blog","LinkedIn","Email","D
 const maxTokensByNetwork: Record<(typeof socialTargets)[number], number> = {
   Facebook: 700,
   Instagram: 750,
-  X: 200,
+  X: 300,
   Blog: 1500,
-  LinkedIn: 200,
-  Email: 200,
-  DirectMessage: 100,
-  WhatsApp: 100,
+  LinkedIn: 300,
+  Email: 300,
+  DirectMessage: 300,
+  WhatsApp: 300,
 };
 
 // Utilidad con timeout
@@ -56,7 +56,8 @@ export async function POST(req: Request) {
       texto_insp_ref,
       ia_estilo_autor,
       extension,                             
-      idioma
+      idioma,
+      contenido
   } = await req.json();
 
   // if (!url && !topic) {
@@ -194,7 +195,8 @@ export async function POST(req: Request) {
     const posts = await Promise.all(
     filteredTargets.map(async (network: "Facebook" | "Instagram" | "X" | "Blog"  | "LinkedIn"| "Email"| "DirectMessage"| "WhatsApp") => {
       try {
-        const prompt = buildPromptDOS({          
+        const prompt = buildPrompttres({       
+        content:contenido,
         network,  
         nombre_empresa,
         nombre_corto_empresa,
@@ -271,6 +273,7 @@ export async function POST(req: Request) {
         
         title = title.replace(/\[.*?\]/g, "").trim();
         content = content.replace(/\[.*?\]/g, "").trim();
+        content = content.replace(/^Meta descripción:\s*/i, "");
 
         return {
           title,
