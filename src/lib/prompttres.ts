@@ -80,7 +80,7 @@ export function buildPrompttres({
     ``,
     ultra_personalizado === "No"
       ? [
-          `▶ Segmento de la audiencia: ${segmento_audiencia || "No especificado"}`,
+          `▶ Segmento socioeconómico de la audiencia (A/B, C+, C, D+, D, E): ${segmento_audiencia || "No especificado"}`,
           `▶ Descripción general de la audiencia: ${descripcion_audiencia || "No especificado"}`,
         ].join("\n")
       : [

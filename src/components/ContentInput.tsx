@@ -29,7 +29,7 @@ const formSchema = z.object({
 
   // target
   ultra_personalizado : z.enum(["Si", "No",""]).optional(),  
-  segmento_audiencia: z.string().optional(),  
+  segmento_audiencia: z.enum(["A/B", "C+", "C", "D+", "D", "E"]),
   descripcion_audiencia: z.string().optional(),  
   nombre_empresa_target: z.string().optional(),  
   web_site_empresa_target: z.string().optional(),  
@@ -71,7 +71,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
       nombre_personaje: "",
       descripcion_personaje: "",
       ultra_personalizado: "No",
-      segmento_audiencia: "",
+      segmento_audiencia: "A/B",
       descripcion_audiencia: "",
       nombre_empresa_target: "",
       web_site_empresa_target: "",
@@ -79,7 +79,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
       nombre_buyer_persona: "",
       descripcion_buyer_persona: "",
       url_linkedIn_buyer_persona: "",
-      objetivo_publicacion: "",      
+      objetivo_publicacion: "Promocionar",      
       tono_publicacion: "Experto",
       texto_insp_ref: "",
       ia_estilo_autor: "",
@@ -414,19 +414,30 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     </span>
                   </TooltipTrigger>
                   <TooltipContent>
-                    Grupo de clientes al que va dirigida la publicación.
+                    Los segmentos socioeconómicos agrupan a la población según su nivel de ingresos, educación, ocupación y estilo de vida, reflejando su poder adquisitivo. 
                   </TooltipContent>
                 </Tooltip>
               </div>
               <FormControl>
-                <Input
-                  id="segmento_audiencia"
-                  type="text"
-                  placeholder="segmento de la audiencia"
-                  value={field.value}
-                  onChange={(e) => field.onChange(e.target.value)}
-                />
-              </FormControl>
+                  <Select
+                    value={field.value}
+                    onValueChange={(value) => field.onChange(value)}
+                  >
+                    <SelectTrigger className="">
+                      <SelectValue placeholder="Seleciona un segmento" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectItem value="A/B">A/B - (Alto)</SelectItem>
+                        <SelectItem value="C+">C+ - (Medio-Alto)</SelectItem>
+                        <SelectItem value="C">C - (Medio)</SelectItem>                 
+                        <SelectItem value="D+">D+ - (Medio-Bajo)</SelectItem>                 
+                        <SelectItem value="D">D - (Bajo)</SelectItem>                 
+                        <SelectItem value="E">E - (Muy Bajo)</SelectItem>                 
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
               
                 {form.formState.errors.segmento_audiencia && (
                   <span className="text-red-500 text-xs">
