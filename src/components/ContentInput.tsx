@@ -1057,6 +1057,9 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
             <Button type="submit">Generar contenido</Button>
           </div>
           
+          <span className="col-span-3 text-xs text-gray-500 text-center">
+            La inteligencia artificial se puede equivocar tanto como en la entrada como en la plantilla de salida, es importante que un ser humano verifique el contenido generado
+          </span>
         </form>
       </FormProvider>
       {/* </FormProvider> */}
