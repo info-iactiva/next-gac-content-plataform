@@ -416,16 +416,20 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
               <div className="flex items-center gap-2">
                 <Label htmlFor="segmento_audiencia"  className="text-xs lg:text-base">Segmento de la audiencia</Label>
                 {/* Icono con tooltip */}
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                     <button type="button"  onClick={(e) => e.preventDefault()} >
-                    <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
-                  </button>
-                  </TooltipTrigger>
-                  <TooltipContent className="text-[8px] md:text-xs">
-                    Los segmentos socioeconómicos agrupan a la población según su nivel de ingresos, educación, ocupación y estilo de vida, reflejando su poder adquisitivo. 
-                  </TooltipContent>
-                </Tooltip>
+
+                {/* <div className="W-[40px]"> */}
+                  <Tooltip >
+                    <TooltipTrigger asChild>
+                      <button type="button"  onClick={(e) => e.preventDefault()} >
+                      <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
+                    </button>
+                    </TooltipTrigger>
+                    <TooltipContent className="text-[8px] md:text-xs w-[200px] md:w-[400px] lg:w-[600px] xl:w-auto">
+                      Los segmentos socioeconómicos agrupan a la población según su nivel de ingresos, educación, ocupación y estilo de vida, reflejando su poder adquisitivo. 
+                    </TooltipContent>
+                  </Tooltip>
+                {/* </div> */}
+                
               </div>
               <FormControl>
                   <Select
