@@ -123,7 +123,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                 <Label htmlFor="nombre_empresa" className="text-xs lg:text-base " >Tu Empresa o Producto</Label>
                   <Tooltip>
                   <TooltipTrigger asChild>
-                     <button type="button">
+                     <button type="button"  onClick={(e) => e.preventDefault()} >
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                   </TooltipTrigger>
@@ -161,7 +161,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                 <Label htmlFor="nombre_corto_empresa"  className="text-xs lg:text-base">Nombre corto de tu empresa</Label>
                   <Tooltip>
                   <TooltipTrigger asChild>
-                      <button type="button">
+                      <button type="button"  onClick={(e) => e.preventDefault()} >
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                   </TooltipTrigger>
@@ -195,21 +195,11 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
             render={({ field }) => (
               <FormItem >
                 <div className="flex items-center gap-2">
-                <Label htmlFor="web_site"  className="mtext-xs lg:text-base">Web site de tu empresa</Label>
-                  {/* <Tooltip>
-                  <TooltipTrigger asChild>
-                    <span tabIndex={0}>
-                      <Info className="w-4 h-4 text-muted-foreground cursor-pointer" />
-                    </span>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    URL principal del sitio web o landing page.
-                  </TooltipContent>
-                </Tooltip> */}
+                <Label htmlFor="web_site"  className="mtext-xs lg:text-base">Web site de tu empresa</Label>    
 
                 <Tooltip>
                 <TooltipTrigger asChild>
-                  <button type="button">
+                  <button type="button"  onClick={(e) => e.preventDefault()} >
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                 </TooltipTrigger>
@@ -252,7 +242,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                 <Label htmlFor="desc_empresa"  className="text-xs lg:text-base">Descripción de tu empresa </Label>
                   <Tooltip>
                   <TooltipTrigger asChild>
-                     <button type="button">
+                     <button type="button"  onClick={(e) => e.preventDefault()} >
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                   </TooltipTrigger>
@@ -291,7 +281,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                   <Label htmlFor="nombre_personaje"  className="text-xs lg:text-base">Nombre del Personaje</Label>
                   <Tooltip>
                   <TooltipTrigger asChild>
-                     <button type="button">
+                     <button type="button"  onClick={(e) => e.preventDefault()} >
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                   </TooltipTrigger>
@@ -328,7 +318,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                 <Label htmlFor="descripcion_personaje"  className="text-xs lg:text-base">Descripción del Personaje</Label>
                   <Tooltip>
                   <TooltipTrigger asChild>
-                      <button type="button">
+                      <button type="button"  onClick={(e) => e.preventDefault()} >
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                   </TooltipTrigger>
@@ -378,7 +368,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                   {/* Icono con tooltip  */}
                   <Tooltip>
                     <TooltipTrigger asChild>
-                        <button type="button">
+                        <button type="button"  onClick={(e) => e.preventDefault()} >
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                     </TooltipTrigger>
@@ -428,7 +418,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                 {/* Icono con tooltip */}
                 <Tooltip>
                   <TooltipTrigger asChild>
-                     <button type="button">
+                     <button type="button"  onClick={(e) => e.preventDefault()} >
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                   </TooltipTrigger>
@@ -479,7 +469,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
 
                 <Tooltip>
                   <TooltipTrigger asChild>
-                      <button type="button">
+                      <button type="button"  onClick={(e) => e.preventDefault()} >
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                   </TooltipTrigger>
@@ -526,7 +516,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
 
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <button type="button">
+                    <button type="button"  onClick={(e) => e.preventDefault()} >
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                   </TooltipTrigger>
@@ -567,7 +557,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
 
                 <Tooltip>
                   <TooltipTrigger asChild>
-                     <button type="button">
+                     <button type="button"  onClick={(e) => e.preventDefault()} >
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                   </TooltipTrigger>
@@ -610,7 +600,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
 
                 <Tooltip>
                   <TooltipTrigger asChild>
-                     <button type="button">
+                     <button type="button"  onClick={(e) => e.preventDefault()} >
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                   </TooltipTrigger>
@@ -651,7 +641,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                 {/* Icono c on tooltip   */}
                 <Tooltip>
                   <TooltipTrigger asChild>
-                     <button type="button">
+                     <button type="button"  onClick={(e) => e.preventDefault()} >
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                   </TooltipTrigger>
@@ -691,7 +681,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                 {/* Icono c on tooltip   */}
                 <Tooltip>
                   <TooltipTrigger asChild>
-                     <button type="button">
+                     <button type="button"  onClick={(e) => e.preventDefault()} >
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                   </TooltipTrigger>
@@ -731,7 +721,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                 {/* Icono c on tooltip   */}
                 <Tooltip>
                   <TooltipTrigger asChild>
-                      <button type="button">
+                      <button type="button"  onClick={(e) => e.preventDefault()} >
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                   </TooltipTrigger>
@@ -780,7 +770,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                 <Label htmlFor="objetivo_publicacion"  className="text-xs lg:text-base">Objetivo de la publicación</Label>
                   <Tooltip>
                   <TooltipTrigger asChild>
-                     <button type="button">
+                     <button type="button"  onClick={(e) => e.preventDefault()} >
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                   </TooltipTrigger>
@@ -826,7 +816,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                 <Label htmlFor="tono_publicacion"  className="text-xs lg:text-base">Tono de la publicacion</Label>
                   <Tooltip>
                   <TooltipTrigger asChild>
-                     <button type="button">
+                     <button type="button"  onClick={(e) => e.preventDefault()} >
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                   </TooltipTrigger>
@@ -875,9 +865,9 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                 <Label htmlFor="texto_insp_ref"  className="text-xs lg:text-base"> Texto inspirador o de referencia</Label>
                   <Tooltip>
                   <TooltipTrigger asChild>
-                    <span tabIndex={0}>
+                    <button type="button"  onClick={(e) => e.preventDefault()}>
                       <Info className="w-4 h-4 text-muted-foreground cursor-pointer" />
-                    </span>
+                    </button>
                   </TooltipTrigger>
                   <TooltipContent>
                     Fragmento que sirva como guía de tono o estilo.
@@ -913,7 +903,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                 <Label htmlFor="ia_estilo_autor"  className="text-xs lg:text-base"> AI estilo de este autor</Label>
                   <Tooltip>
                   <TooltipTrigger asChild>
-                      <button type="button">
+                      <button type="button"  onClick={(e) => e.preventDefault()}>
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                   </TooltipTrigger>
@@ -952,7 +942,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                 <Label htmlFor="extension"  className="text-xs lg:text-base">Extensión</Label>
                   <Tooltip>
                   <TooltipTrigger asChild>
-                     <button type="button">
+                     <button type="button"  onClick={(e) => e.preventDefault()}>
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                   </TooltipTrigger>
@@ -983,7 +973,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                       {form.formState.errors.tono_publicacion.message as string}
                     </span>
                   )}
-              </FormItem>
+              </FormItem> 
             )} 
           />
 
@@ -998,7 +988,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                 <Label htmlFor="idioma"  className="text-xs lg:text-base">Idioma</Label>
                   <Tooltip>
                   <TooltipTrigger asChild>
-                     <button type="button">
+                     <button type="button"  onClick={(e) => e.preventDefault()}>
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                   </TooltipTrigger>
@@ -1047,7 +1037,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                 <Label htmlFor="contenido"  className="text-xs lg:text-base">Idea principal</Label>
                   <Tooltip>
                   <TooltipTrigger asChild>
-                      <button type="button">
+                    <button type="button"  onClick={(e) => e.preventDefault()}>
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                   </TooltipTrigger>

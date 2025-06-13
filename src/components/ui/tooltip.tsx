@@ -10,26 +10,20 @@ import * as RadixTooltip from "@radix-ui/react-tooltip";
 //   );
 // }
 
-// export function Tooltip({ children, ...props }: RadixTooltip.TooltipProps) {
-//   return (
-//     <RadixTooltip.Provider delayDuration={0}>
-//       <RadixTooltip.Root {...props}>
-//         {children}
-//       </RadixTooltip.Root>
-//     </RadixTooltip.Provider>
-//   );
-// }
 
 
 export function Tooltip({ children, ...props }: RadixTooltip.TooltipProps) {
+  const [open, setOpen] = React.useState(false);
+
   return (
     <RadixTooltip.Provider delayDuration={0}>
-      <RadixTooltip.Root disableHoverableContent {...props}>
+      <RadixTooltip.Root open={open} onOpenChange={setOpen} {...props}>
         {children}
       </RadixTooltip.Root>
     </RadixTooltip.Provider>
   );
 }
+
 
 export const TooltipTrigger = RadixTooltip.Trigger;
 
