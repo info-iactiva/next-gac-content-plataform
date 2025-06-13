@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as RadixTooltip from "@radix-ui/react-tooltip";
 
+
 // export function Tooltip({ children, ...props }: RadixTooltip.TooltipProps) {
 //   return (
 //     <RadixTooltip.Provider>
@@ -9,17 +10,26 @@ import * as RadixTooltip from "@radix-ui/react-tooltip";
 //   );
 // }
 
+// export function Tooltip({ children, ...props }: RadixTooltip.TooltipProps) {
+//   return (
+//     <RadixTooltip.Provider delayDuration={0}>
+//       <RadixTooltip.Root {...props}>
+//         {children}
+//       </RadixTooltip.Root>
+//     </RadixTooltip.Provider>
+//   );
+// }
+
+
 export function Tooltip({ children, ...props }: RadixTooltip.TooltipProps) {
   return (
     <RadixTooltip.Provider delayDuration={0}>
-      <RadixTooltip.Root {...props}>
+      <RadixTooltip.Root disableHoverableContent {...props}>
         {children}
       </RadixTooltip.Root>
     </RadixTooltip.Provider>
   );
 }
-
-
 
 export const TooltipTrigger = RadixTooltip.Trigger;
 
