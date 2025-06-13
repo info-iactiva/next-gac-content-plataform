@@ -127,7 +127,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                   </TooltipTrigger>
-                  <TooltipContent>
+                  <TooltipContent className="text-[8px] md:text-xs">
                     Nombre oficial o comercial de tu empresa o línea de productos.
                   </TooltipContent>
                 </Tooltip>
@@ -165,7 +165,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                   </TooltipTrigger>
-                  <TooltipContent>
+                  <TooltipContent className="text-[8px] md:text-xs">
                     Nombre breve o apodo de la empresa usado en redes o marketing.
                   </TooltipContent>
                 </Tooltip>
@@ -203,7 +203,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                 </TooltipTrigger>
-                <TooltipContent side="top" className="text-xs">
+                <TooltipContent  className="text-[8px] md:text-xs">
                   URL principal del sitio web o landing page.
                 </TooltipContent>
               </Tooltip>
@@ -246,7 +246,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                   </TooltipTrigger>
-                  <TooltipContent>
+                  <TooltipContent className="text-[8px] md:text-xs">
                     Resumen de lo que hace la empresa y su propuesta de valor.
                   </TooltipContent>
                 </Tooltip>
@@ -285,7 +285,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                   </TooltipTrigger>
-                  <TooltipContent>
+                  <TooltipContent className="text-[8px] md:text-xs">
                     Nombre del vocero real o ficticio que representa la marca.
                   </TooltipContent>
                 </Tooltip>
@@ -322,7 +322,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                   </TooltipTrigger>
-                  <TooltipContent>
+                  <TooltipContent className="text-[8px] md:text-xs">
                     Breve descripción del personaje que comunica el mensaje.
                   </TooltipContent>
                 </Tooltip>
@@ -372,7 +372,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                     </TooltipTrigger>
-                    <TooltipContent>
+                    <TooltipContent className="text-[8px] md:text-xs">
                       ¿El contenido debe estar extremadamente dirigido a una persona específica? (Sí/No)
                     </TooltipContent>
                   </Tooltip>
@@ -422,7 +422,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                   </TooltipTrigger>
-                  <TooltipContent>
+                  <TooltipContent className="text-[8px] md:text-xs">
                     Los segmentos socioeconómicos agrupan a la población según su nivel de ingresos, educación, ocupación y estilo de vida, reflejando su poder adquisitivo. 
                   </TooltipContent>
                 </Tooltip>
@@ -473,7 +473,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                   </TooltipTrigger>
-                  <TooltipContent>
+                  <TooltipContent className="text-[8px] md:text-xs">
                     Descripción general de los intereses, problemas o perfil del público objetivo.
                   </TooltipContent>
                 </Tooltip>
@@ -520,7 +520,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                   </TooltipTrigger>
-                  <TooltipContent>
+                  <TooltipContent className="text-[8px] md:text-xs">
                     Empresa o marca que consume o representa el buyer persona (si aplica).
                   </TooltipContent>
                 </Tooltip>
@@ -561,7 +561,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                   </TooltipTrigger>
-                  <TooltipContent>
+                  <TooltipContent className="text-[8px] md:text-xs">
                     URL del sitio web del buyer persona si está disponible.
                   </TooltipContent>
                 </Tooltip>
@@ -604,7 +604,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                   </TooltipTrigger>
-                  <TooltipContent>
+                  <TooltipContent className="text-[8px] md:text-xs">
                     Descripción general de la empresa del buyer persona.
                   </TooltipContent>
                 </Tooltip>
@@ -645,7 +645,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                   </TooltipTrigger>
-                  <TooltipContent>
+                  <TooltipContent className="text-[8px] md:text-xs">
                     Nombre del contacto al que se dirige la publicación.
                   </TooltipContent>
                 </Tooltip>
@@ -685,7 +685,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                   </TooltipTrigger>
-                  <TooltipContent>
+                  <TooltipContent className="text-[8px] md:text-xs">
                     Breve perfil de la persona objetivo.s
                   </TooltipContent>
                 </Tooltip>
@@ -725,7 +725,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                   </TooltipTrigger>
-                  <TooltipContent>
+                  <TooltipContent className="text-[8px] md:text-xs">
                     Perfil profesional del buyer persona (LinkedIn).
                   </TooltipContent>
                 </Tooltip>
@@ -774,7 +774,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                   </TooltipTrigger>
-                  <TooltipContent>
+                  <TooltipContent className="text-[8px] md:text-xs">
                     Propósito de la publicación (ej. promocionar, informar, educar, etc.).
                   </TooltipContent>
                 </Tooltip>
@@ -820,7 +820,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                   </TooltipTrigger>
-                  <TooltipContent>
+                  <TooltipContent className="text-[8px] md:text-xs">
                       Estilo comunicativo: profesional, técnico, persuasivo, etc.
                   </TooltipContent>
                 </Tooltip>
@@ -869,7 +869,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                       <Info className="w-4 h-4 text-muted-foreground cursor-pointer" />
                     </button>
                   </TooltipTrigger>
-                  <TooltipContent>
+                  <TooltipContent className="text-[8px] md:text-xs">
                     Fragmento que sirva como guía de tono o estilo.
                   </TooltipContent>
                 </Tooltip>
@@ -907,7 +907,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                   </TooltipTrigger>
-                  <TooltipContent>
+                  <TooltipContent className="text-[8px] md:text-xs">
                     Referencia opcional a un autor famoso cuyo estilo se desea imitar.
                   </TooltipContent>
                 </Tooltip>
@@ -946,7 +946,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                   </TooltipTrigger>
-                  <TooltipContent>
+                  <TooltipContent className="text-[8px] md:text-xs">
                     Longitud estimada del contenido (corta, media, larga).
                   </TooltipContent>
                 </Tooltip>
@@ -992,7 +992,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                   </TooltipTrigger>
-                  <TooltipContent>
+                  <TooltipContent className="text-[8px] md:text-xs">
                     Idioma en el que se desea el contenido.
                   </TooltipContent>
                 </Tooltip>
@@ -1041,7 +1041,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
                   </button>
                   </TooltipTrigger>
-                  <TooltipContent>
+                  <TooltipContent className="text-[8px] md:text-xs">
                     Idea principal o mensaje que se quiere transmitir en el contenido.
                   </TooltipContent>
                 </Tooltip>

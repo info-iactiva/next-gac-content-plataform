@@ -35,7 +35,7 @@ export const TooltipContent = React.forwardRef<
     ref={ref}
     sideOffset={4}
     className={
-      "z-50 rounded-md bg-black px-3 py-2 text-xs text-white shadow-md animate-in fade-in-0 " +       
+      "z-50 rounded-md bg-black px-3 py-2  text-white shadow-md animate-in fade-in-0 " +       
       (className || "")
     }
     {...props}
