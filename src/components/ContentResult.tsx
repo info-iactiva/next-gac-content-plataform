@@ -15,13 +15,13 @@ export default function ContentResult({ posts, onBack }: ContentResultProps) {
         <div className="w-full max-w-6xl">
             {posts.map((post, i) => (
                 <div key={`${post.network}-${i}`} className="mb-4 p-4 border rounded-md">
-                    <h3 className="text-lg font-semibold">{post.title}</h3>
-                    <p className="text-sm text-gray-500">{post.network}</p>
-                    <p className="mt-2">{post.content}</p>
+                    <h3 className=  "md:text-lg font-semibold text-sm">{post.title}</h3>
+                    <p className="md:text-sm text-gray-500 text-xs">{post.network}</p>
+                    <p className="mt-2 text-sm md:text-base">{post.content}</p>
                     {post.error && <p className="text-red-500">Error: {post.error}</p>}
                     <Button
                         variant="outline"
-                        className="mt-2 text-blue-500 hover:underline"
+                        className="mt-2 text-blue-500 hover:underline text-xs md:text-base h-6 md:h-auto lg:mt-7 "
                         onClick={() => navigator.clipboard.writeText(post.title + "\n" + post.content)}
                     >
                         Copiar contenido

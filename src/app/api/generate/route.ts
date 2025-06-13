@@ -181,7 +181,7 @@ export async function POST(req: Request) {
   let filteredTargets: string[] = Array.from(socialTargets);
   console.log(ultra_personalizado)
 
-    if (ultra_personalizado == "No") {
+     if (ultra_personalizado == "No") {
       filteredTargets = filteredTargets.filter(
         t => !["LinkedIn", "DirectMessage", "WhatsApp"].includes(t)
       );
@@ -190,6 +190,17 @@ export async function POST(req: Request) {
         t => !["Facebook", "Instagram", "X", "Blog", "Email"].includes(t)        
       );
     }
+
+
+    // if (ultra_personalizado == "No") {
+    //   filteredTargets = filteredTargets.filter(
+    //     t => !["LinkedIn", "DirectMessage", "WhatsApp"].includes(t)
+    //   );
+    // } else {
+    //   filteredTargets = filteredTargets.filter(
+    //     t => !["Facebook", "Instagram", "X", "Blog", "Email"].includes(t)        
+    //   );
+    // }
 
     console.log("Filtered targets:", filteredTargets);
     const posts = await Promise.all(

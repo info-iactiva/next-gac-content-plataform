@@ -100,27 +100,27 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
 
   return (
     // <main className="w-full h-full">
-    <main className="w-full h-full flex items-center justify-center p-6">
+    <main className="w-full h-full flex items-center justify-center md:p-6 pt-3 ">
       {/* <FormProvider {...form}>               */}
 
       <FormProvider {...form}>
         {/* <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4"> */}
-        <form  onSubmit={form.handleSubmit(onSubmit)} className="w-full max-w-7xl grid grid-cols-3 gap-10 bg-white p-12 rounded-2xl shadow-lg ">
+        <form  onSubmit={form.handleSubmit(onSubmit)} className="w-full max-w-7xl  flex  bg-white lg:gap-10 lg:p-12 rounded-2xl shadow-lg  flex-col  gap-5 md:p-8 " >
         
         <div className="col-span-3 p-2 w-full h-full border-2 border-black rounded-lg relative">          
-          <span className="absolute -top-3 left-4 bg-white px-2 text-sm font-bold ">
+          <span className="absolute -top-3 left-4 bg-white px-2 md:text-sm font-bold  text-xs">
             DATOS DE TU EMPRESA
           </span>
 
-          <div className="grid grid-cols-3 gap-6 p-3">
+          <div className="grid lg:grid-cols-3 gap-6 p-3 md:grid-cols-2 ">
           <FormField
             control={form.control}
             name="nombre_empresa"
             render={({ field }) => (                
               <FormItem >
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 ">
                 {/* <Label htmlFor="nombre_empresa" className="text-xs font-bold">Tu Empresa o Producto</Label> */}
-                <Label htmlFor="nombre_empresa" >Tu Empresa o Producto</Label>
+                <Label htmlFor="nombre_empresa" className="text-xs lg:text-base " >Tu Empresa o Producto</Label>
                   <Tooltip>
                   <TooltipTrigger asChild>
                     <span tabIndex={0}>
@@ -139,6 +139,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     placeholder="Nombre de la empresa o producto"
                     value={field.value}
                     onChange={(e) => field.onChange(e.target.value)}
+                    className="lg:text-sm text-xs"
                   />                  
                 </FormControl>
 
@@ -157,7 +158,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
             render={({ field }) => (
               <FormItem >
                 <div className="flex items-center gap-2">
-                <Label htmlFor="nombre_corto_empresa" >Nombre corto de la empresa</Label>
+                <Label htmlFor="nombre_corto_empresa"  className="text-xs lg:text-base">Nombre corto de tu empresa</Label>
                   <Tooltip>
                   <TooltipTrigger asChild>
                     <span tabIndex={0}>
@@ -176,6 +177,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     placeholder="Nombre corto de la empresa o producto"
                     value={field.value}
                     onChange={(e) => field.onChange(e.target.value)}
+                    className="text-xs lg:text-sm"
                   />
                 </FormControl>
                   {form.formState.errors.nombre_corto_empresa && (
@@ -193,7 +195,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
             render={({ field }) => (
               <FormItem >
                 <div className="flex items-center gap-2">
-                <Label htmlFor="web_site">Web site de la empresa</Label>
+                <Label htmlFor="web_site"  className="mtext-xs lg:text-base">Web site de tu empresa</Label>
                   <Tooltip>
                   <TooltipTrigger asChild>
                     <span tabIndex={0}>
@@ -212,6 +214,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     placeholder="URL de la empresa o producto"
                     value={field.value}
                     onChange={(e) => field.onChange(e.target.value)}
+                    className="text-xs lg:text-sm"
                   />                  
                 </FormControl>
                   {form.formState.errors.web_site && (
@@ -233,7 +236,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
             render={({ field }) => (
               <FormItem >
                 <div className="flex items-center gap-2">
-                <Label htmlFor="desc_empresa">Descripción de la empresa </Label>
+                <Label htmlFor="desc_empresa"  className="text-xs lg:text-base">Descripción de tu empresa </Label>
                   <Tooltip>
                   <TooltipTrigger asChild>
                     <span tabIndex={0}>
@@ -252,6 +255,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     placeholder="Descripción de la empresa (opcional)"
                     value={field.value}
                     onChange={(e) => field.onChange(e.target.value)}
+                    className="text-xs lg:text-sm"
                   />
                 </FormControl>
                   {form.formState.errors.desc_empresa && (
@@ -271,7 +275,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
               <FormItem >
 
                 <div className="flex items-center gap-2">
-                  <Label htmlFor="nombre_personaje">Nombre del Personaje</Label>
+                  <Label htmlFor="nombre_personaje"  className="text-xs lg:text-base">Nombre del Personaje</Label>
                   <Tooltip>
                   <TooltipTrigger asChild>
                     <span tabIndex={0}>
@@ -290,6 +294,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     placeholder="Nombre del personaje (opcional)"
                     value={field.value}
                     onChange={(e) => field.onChange(e.target.value)}
+                    className="text-xs lg:text-sm"
                   />
                 </FormControl>
                  {form.formState.errors.nombre_personaje && (
@@ -307,7 +312,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
             render={({ field }) => (
               <FormItem >
                 <div className="flex items-center gap-2">
-                <Label htmlFor="descripcion_personaje">Descripción del Personaje</Label>
+                <Label htmlFor="descripcion_personaje"  className="text-xs lg:text-base">Descripción del Personaje</Label>
                   <Tooltip>
                   <TooltipTrigger asChild>
                     <span tabIndex={0}>
@@ -326,6 +331,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     placeholder="Descripción del personaje (opcional)"
                     value={field.value}
                     onChange={(e) => field.onChange(e.target.value)}
+                    className="text-xs lg:text-sm"
                   />
                 </FormControl>
                     {form.formState.errors.descripcion_personaje && (
@@ -342,12 +348,12 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
         </div>
         
         <div className="col-span-3 p-2 w-full h-full border-2 border-black rounded-lg relative">          
-          <span className="absolute -top-3 left-4 bg-white px-2 text-sm font-bold">
+          <span className="absolute -top-3 left-4 bg-white px-2 md:text-sm font-bold text-xs">
             TARGET
           </span>
                     
 
-          <div className="grid grid-cols-3 gap-6 p-3">    
+          <div className="grid lg:grid-cols-3 gap-6 p-3 md:grid-cols-2">    
             {/* FALATA NOMBRES */}
             <FormField
               control={form.control}
@@ -355,7 +361,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
               render={({ field }) => (
               <FormItem>
                 <div className="flex items-center gap-2">
-                  <Label htmlFor="ultra_personalizado">¿Ultra personalizado?</Label>
+                  <Label htmlFor="ultra_personalizado"  className="text-xs lg:text-base">¿Ultra personalizado?</Label>
                   {/* Icono con tooltip  */}
                   <Tooltip>
                     <TooltipTrigger asChild>
@@ -405,7 +411,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
             render={({ field }) => (
             <FormItem>
               <div className="flex items-center gap-2">
-                <Label htmlFor="segmento_audiencia">Segmento de la audiencia</Label>
+                <Label htmlFor="segmento_audiencia"  className="text-xs lg:text-base">Segmento de la audiencia</Label>
                 {/* Icono con tooltip */}
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -455,7 +461,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
             render={({ field }) => (
             <FormItem>
               <div className="flex items-center gap-2">
-                <Label htmlFor="descripcion_audiencia">Descripcion de la audiencia</Label>
+                <Label htmlFor="descripcion_audiencia"  className="text-xs lg:text-base">Descripcion de la audiencia</Label>
                 {/* Icono con tooltip     */}
 
                 <Tooltip>
@@ -476,6 +482,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                   placeholder="Descripción de la audiencia"
                   value={field.value}
                   onChange={(e) => field.onChange(e.target.value)}
+                  className="text-xs lg:text-sm"
                 />
               </FormControl>
               
@@ -501,7 +508,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
             render={({ field }) => (
             <FormItem>
               <div className="flex items-center gap-2">
-                <Label htmlFor="nombre_empresa_target">Empresa o Producto</Label>
+                <Label htmlFor="nombre_empresa_target"  className="text-xs lg:text-base">Empresa o Producto</Label>
                 {/* Icono con tooltip     */}
 
                 <Tooltip>
@@ -522,6 +529,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                   placeholder="Nombre de la empresa o producto"
                   value={field.value}
                   onChange={(e) => field.onChange(e.target.value)}
+                  className="text-xs lg:text-sm"
                 />
               </FormControl>
               
@@ -541,7 +549,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
             render={({ field }) => (
             <FormItem>
               <div className="flex items-center gap-2">
-                <Label htmlFor="web_site_empresa_target">Web site de la empresa</Label>
+                <Label htmlFor="web_site_empresa_target"  className="text-xs lg:text-base">Web site de la empresa</Label>
                 {/* Icono con tooltip     */}
 
                 <Tooltip>
@@ -562,6 +570,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                   placeholder="URL de la empresa o producto"
                   value={field.value}
                   onChange={(e) => field.onChange(e.target.value)}
+                  className="text-xs lg:text-sm"
                 />
               </FormControl>
               
@@ -583,7 +592,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
             render={({ field }) => (
             <FormItem>
               <div className="flex items-center gap-2">
-                <Label htmlFor="descripcion_empresa_target">Descripción de la empresa</Label>
+                <Label htmlFor="descripcion_empresa_target"  className="text-xs lg:text-base">Descripción de la empresa</Label>
                 {/* Icono con tooltip     */}
 
                 <Tooltip>
@@ -604,6 +613,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                   placeholder="Descripción de la empresa"
                   value={field.value}
                   onChange={(e) => field.onChange(e.target.value)}
+                  className="text-xs lg:text-sm"
                 />
               </FormControl>
               
@@ -624,7 +634,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
             render={({ field }) => (
             <FormItem>
               <div className="flex items-center gap-2">
-                <Label htmlFor="nombre_buyer_persona">Nombre del Buyer Persona</Label>
+                <Label htmlFor="nombre_buyer_persona"  className="text-xs lg:text-base">Nombre del Buyer Persona</Label>
                 {/* Icono c on tooltip   */}
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -644,6 +654,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                   placeholder="Nombre del Buyer Persona"
                   value={field.value}
                   onChange={(e) => field.onChange(e.target.value)}
+                  className="text-xs lg:text-sm"
                 />
               </FormControl>
               
@@ -663,7 +674,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
             render={({ field }) => (
             <FormItem>
               <div className="flex items-center gap-2">
-                <Label htmlFor="descripcion_buyer_persona">Descripción Buyer Persona</Label>
+                <Label htmlFor="descripcion_buyer_persona"  className="text-xs lg:text-base">Descripción Buyer Persona</Label>
                 {/* Icono c on tooltip   */}
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -683,6 +694,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                   placeholder="Descripción del Buyer Persona"
                   value={field.value}
                   onChange={(e) => field.onChange(e.target.value)}
+                  className="text-xs lg:text-sm"
                 />
               </FormControl>
               
@@ -702,7 +714,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
             render={({ field }) => (
             <FormItem>
               <div className="flex items-center gap-2">
-                <Label htmlFor="url_linkedIn_buyer_persona">URL de LinkedIn</Label>
+                <Label htmlFor="url_linkedIn_buyer_persona"  className="text-xs lg:text-base">URL de LinkedIn</Label>
                 {/* Icono c on tooltip   */}
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -722,6 +734,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                   placeholder="URL de LinkedIn del Buyer Persona"
                   value={field.value}
                   onChange={(e) => field.onChange(e.target.value)}
+                  className="text-xs lg:text-sm"
                 />
               </FormControl>
               
@@ -740,18 +753,18 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
           
           
         <div className="col-span-3 p-2 w-full h-full border-2 border-black rounded-lg relative">          
-          <span className="absolute -top-3 left-4 bg-white px-2 text-sm font-bold">
+          <span className="absolute -top-3 left-4 bg-white px-2 md:text-sm font-bold text-xs">
             MENSAJE
           </span>
 
-             <div className="grid grid-cols-3 gap-6 p-3"> 
+             <div className="grid lg:grid-cols-3 gap-6 p-3 md:grid-cols-2"> 
             <FormField
             control={form.control}
             name="objetivo_publicacion"
             render={({ field }) => (
               <FormItem >
                 <div className="flex items-center gap-2">
-                <Label htmlFor="objetivo_publicacion">Objetivo de la publicación</Label>
+                <Label htmlFor="objetivo_publicacion"  className="text-xs lg:text-base">Objetivo de la publicación</Label>
                   <Tooltip>
                   <TooltipTrigger asChild>
                     <span tabIndex={0}>
@@ -797,7 +810,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
             render={({ field }) => (
               <FormItem >
                 <div className="flex items-center gap-2">
-                <Label htmlFor="tono_publicacion">Tono de la publicacion</Label>
+                <Label htmlFor="tono_publicacion"  className="text-xs lg:text-base">Tono de la publicacion</Label>
                   <Tooltip>
                   <TooltipTrigger asChild>
                     <span tabIndex={0}>
@@ -846,7 +859,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
             render={({ field }) => (
               <FormItem >
                 <div className="flex items-center gap-2">
-                <Label htmlFor="texto_insp_ref"> Texto inspirador o de referencia</Label>
+                <Label htmlFor="texto_insp_ref"  className="text-xs lg:text-base"> Texto inspirador o de referencia</Label>
                   <Tooltip>
                   <TooltipTrigger asChild>
                     <span tabIndex={0}>
@@ -865,6 +878,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     placeholder="Texto inspirador o de referencia"
                     value={field.value}
                     onChange={(e) => field.onChange(e.target.value)}
+                    className="text-xs lg:text-sm"
                   />
                 </FormControl>
                   {form.formState.errors.texto_insp_ref && (
@@ -883,7 +897,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
             render={({ field }) => (
               <FormItem >
                 <div className="flex items-center gap-2">
-                <Label htmlFor="ia_estilo_autor"> AI estilo de este autor</Label>
+                <Label htmlFor="ia_estilo_autor"  className="text-xs lg:text-base"> AI estilo de este autor</Label>
                   <Tooltip>
                   <TooltipTrigger asChild>
                     <span tabIndex={0}>
@@ -902,6 +916,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     placeholder="Menciona un autor famoso (opcional)"
                     value={field.value}
                     onChange={(e) => field.onChange(e.target.value)}
+                    className="text-xs lg:text-sm"
                   />
                 </FormControl>
                   {form.formState.errors.ia_estilo_autor && (
@@ -921,7 +936,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
             render={({ field }) => (
               <FormItem >
                 <div className="flex items-center gap-2">
-                <Label htmlFor="extension">Extensión</Label>
+                <Label htmlFor="extension"  className="text-xs lg:text-base">Extensión</Label>
                   <Tooltip>
                   <TooltipTrigger asChild>
                     <span tabIndex={0}>
@@ -967,7 +982,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
             render={({ field }) => (
               <FormItem >
                 <div className="flex items-center gap-2">
-                <Label htmlFor="idioma">Idioma</Label>
+                <Label htmlFor="idioma"  className="text-xs lg:text-base">Idioma</Label>
                   <Tooltip>
                   <TooltipTrigger asChild>
                     <span tabIndex={0}>
@@ -1016,7 +1031,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
             render={({ field }) => (
               <FormItem >
                 <div className="flex items-center gap-2">
-                <Label htmlFor="contenido">Idea principal</Label>
+                <Label htmlFor="contenido"  className="text-xs lg:text-base">Idea principal</Label>
                   <Tooltip>
                   <TooltipTrigger asChild>
                     <span tabIndex={0}>
@@ -1035,6 +1050,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
                     placeholder="Idea de referencia o mensaje principal"
                     value={field.value}
                     onChange={(e) => field.onChange(e.target.value)}
+                    className="text-xs lg:text-sm"
                   />
                 </FormControl>
                   {form.formState.errors.contenido && (
@@ -1057,7 +1073,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
             <Button type="submit">Generar contenido</Button>
           </div>
           
-          <span className="col-span-3 text-xs text-gray-500 text-center">
+          <span className="col-span-5 p-5 md:p-0 text-[10px] md:text-xs text-gray-500 text-center">
             La inteligencia artificial se puede equivocar tanto como en la entrada como en la plantilla de salida, es importante que un ser humano verifique el contenido generado
           </span>
         </form>
