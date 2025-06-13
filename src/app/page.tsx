@@ -14,10 +14,36 @@ import { FormProvider } from "react-hook-form";
 export default function Home() {
   const [posts, setPosts] = useState<IPost[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [formValues, setFormValues] = useState<IContentInputValues>({
+      nombre_empresa: "",
+      nombre_corto_empresa: "",
+      web_site: "",
+      desc_empresa: "",
+      nombre_personaje: "",
+      descripcion_personaje: "",
+      ultra_personalizado: "No",
+      segmento_audiencia: "A/B",
+      descripcion_audiencia: "",
+      nombre_empresa_target: "",
+      web_site_empresa_target: "",
+      descripcion_empresa_target: "",
+      nombre_buyer_persona: "",
+      descripcion_buyer_persona: "",
+      url_linkedIn_buyer_persona: "",
+      objetivo_publicacion: "Promocionar",      
+      tono_publicacion: "Experto",
+      texto_insp_ref: "",
+      ia_estilo_autor: "",
+      extension: "Corta",                             
+      idioma: "Español (Latinoamérica)",
+      contenido: "",
+  });
 
   const handleGenerate = async (values: IContentInputValues) => {
+    setFormValues(values)    
     setIsLoading(true);
     console.log("here")
+    
     try {
       const res = await fetch("/api/generate", {
         method: "POST",
@@ -39,6 +65,8 @@ export default function Home() {
     setPosts([]);
   };
 
+
+
   return (
     <div className="min-h-screen flex items-center justify-center p-6 ">
 
@@ -50,7 +78,7 @@ export default function Home() {
         <CardContent>
           {isLoading && (<SpinnerOverlay />)}
           {posts.length === 0 ? (
-            <ContentInput onGenerate={(handleGenerate)} />
+            <ContentInput onGenerate={(handleGenerate)} prevdata={formValues} />
           ) : (
             <ContentResult posts={posts} onBack={handleReset} />
           )}

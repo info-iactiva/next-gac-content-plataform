@@ -28,7 +28,7 @@ const formSchema = z.object({
 
 
   // target
-  ultra_personalizado : z.enum(["Si", "No",""]).optional(),  
+  ultra_personalizado : z.enum(["Si", "No"]).optional(),  
   segmento_audiencia: z.enum(["A/B", "C+", "C", "D+", "D", "E"]),
   descripcion_audiencia: z.string().optional(),  
   nombre_empresa_target: z.string().optional(),  
@@ -57,35 +57,36 @@ const formSchema = z.object({
 
 type TPropsContentInputProps = {
   onGenerate: (values: IContentInputValues) => void;
+  prevdata: IContentInputValues
 };
 
-export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
+export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate,prevdata }) => {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {      
-      nombre_empresa: "",
-      nombre_corto_empresa: "",
-      web_site: "",
-      desc_empresa: "",
-      nombre_personaje: "",
-      descripcion_personaje: "",
-      ultra_personalizado: "No",
-      segmento_audiencia: "A/B",
-      descripcion_audiencia: "",
-      nombre_empresa_target: "",
-      web_site_empresa_target: "",
-      descripcion_empresa_target: "",
-      nombre_buyer_persona: "",
-      descripcion_buyer_persona: "",
-      url_linkedIn_buyer_persona: "",
-      objetivo_publicacion: "Promocionar",      
-      tono_publicacion: "Experto",
-      texto_insp_ref: "",
-      ia_estilo_autor: "",
-      extension: "Corta",                             
-      idioma: "Español (Latinoamérica)",
-      contenido: "",
+      nombre_empresa:prevdata.nombre_empresa || "",
+      nombre_corto_empresa: prevdata.nombre_corto_empresa || "",
+      web_site: prevdata.web_site || "",
+      desc_empresa: prevdata.desc_empresa || "",
+      nombre_personaje: prevdata.nombre_personaje || "",
+      descripcion_personaje: prevdata.descripcion_personaje || "",
+      ultra_personalizado: prevdata.ultra_personalizado || "No",
+      segmento_audiencia: prevdata.segmento_audiencia || "A/B",
+      descripcion_audiencia:prevdata.descripcion_audiencia || "",
+      nombre_empresa_target:prevdata.nombre_empresa_target || "",
+      web_site_empresa_target: prevdata.web_site_empresa_target || "",
+      descripcion_empresa_target:prevdata.descripcion_empresa_target || "",
+      nombre_buyer_persona: prevdata.nombre_buyer_persona || "",
+      descripcion_buyer_persona: prevdata.descripcion_buyer_persona || "",
+      url_linkedIn_buyer_persona: prevdata.url_linkedIn_buyer_persona || "",
+      objetivo_publicacion: prevdata.objetivo_publicacion || "Promocionar",      
+      tono_publicacion: prevdata.tono_publicacion || "Experto",
+      texto_insp_ref: prevdata.texto_insp_ref || "",
+      ia_estilo_autor: prevdata.ia_estilo_autor || "",
+      extension: prevdata.extension || "Corta",                             
+      idioma: prevdata.idioma || "Español (Latinoamérica)",
+      contenido:prevdata.contenido || "",
     },
   });
   
