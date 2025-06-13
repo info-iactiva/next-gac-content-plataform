@@ -93,6 +93,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate }) => {
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {  
     // alert("Formulario enviado correctamente");
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     console.log("Form submitted:", data);
 
     onGenerate(data as IContentInputValues);
