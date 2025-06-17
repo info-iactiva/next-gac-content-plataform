@@ -7,9 +7,8 @@ import { IContentInputValues } from "@/types/content";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { SpinnerOverlay } from "@/components/Spinner";
 import Image from "next/image";
-
-import { FormProvider } from "react-hook-form";
-
+import { Protected } from "@/components/protected/protected";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [posts, setPosts] = useState<IPost[]>([]);
@@ -38,6 +37,7 @@ export default function Home() {
       idioma: "Español (Latinoamérica)",
       contenido: "",
   });
+  const router = useRouter();
 
   const handleGenerate = async (values: IContentInputValues) => {
     setFormValues(values)    
@@ -66,16 +66,34 @@ export default function Home() {
   };
 
 
+const handlelogout = (e:React.MouseEvent<HTMLButtonElement>) => {
+  e.preventDefault();
+  localStorage.removeItem("token");  
+  setIsLoading(true);
 
-  return (
-    <div className="min-h-screen flex items-center justify-center p-6 ">
+  setTimeout(() => { 
+    setIsLoading(false);     
+    router.push('/login'); 
+  }, 2000);  
+}
 
-      <Card className="lg:min-w-[1000px] lg:max-w-4xl lg:relative  md:min-w-[650px] md:max-w-2xl min-w-[350px]  ">
+return (
+
+// <Protected> 
+  
+ <div className="min-h-screen flex items-center justify-center p-6 ">
+
+      <Card className="lg:min-w-[1000px] lg:max-w-4xl relative  md:min-w-[650px] md:max-w-2xl min-w-[350px]  ">
         <CardHeader className="relative flex flex-col items-center  p-0">
           <Image className="w-[30%]" src="/logos/gacLogo.jpg" alt=""   width={200} height={200}/>
           <Image className="absolute top-2 left-5 w-[15%]" src="/logos/logo.webp" alt="" width={200} height={200}/>
+          {/* <button className="absolute top-3 right-5 border border-gray-300 bg-white text-gray-700 px-4 py-2 rounded hover:bg-gray-100 transition-colors" onClick={(e) => handlelogout(e)}> */}
+            {/* Cerrar sesión             */}
+          {/* </button> */}
         </CardHeader>
         <CardContent>
+          
+
           {isLoading && (<SpinnerOverlay />)}
           {posts.length === 0 ? (
             <ContentInput onGenerate={(handleGenerate)} prevdata={formValues} />
@@ -87,5 +105,8 @@ export default function Home() {
       </Card>
 
     </div>
+  
+// </Protected>
+   
   );
 }

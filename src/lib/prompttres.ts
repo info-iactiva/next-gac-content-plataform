@@ -228,6 +228,8 @@ export function buildPrompttres({
     `▶ Nombre corto de la empresa: ${nombre_corto_empresa || "No especificado"}`,
     `▶ Sitio web o landing page: ${web_site || "No especificado"}`,
     `▶ Descripción de la empresa: ${desc_empresa || "No especificado"}`,
+    `▶ A partir del siguiente contenido base (idea general o enlace a noticia), redacta el contenido adaptado para el canal objetivo. Si es un enlace, analiza y resume la información clave para integrarla de manera coherente.`,
+    `▶ Contenido base: ${content}`,
     "",
     nombre_personaje && descripcion_personaje
       ? `▶ Personaje comunicador: "${nombre_personaje}", descrito como: ${descripcion_personaje}.`
@@ -274,8 +276,7 @@ export function buildPrompttres({
       ? `▶ Longitud estimada del contenido: ${extension}`
       : null,
     idioma ? `▶ El contenido debe estar redactado en: ${idioma}.` : null,
-    "",
-    `▶ Contenido base para adaptar: ${content}`,      
+    "",   
     `▶ Instrucciones específicas para ${resolvedNetwork}:`,
     responseInstructions[resolvedNetwork],
     

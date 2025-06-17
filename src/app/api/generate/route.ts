@@ -14,12 +14,12 @@ const socialTargets = ["Facebook", "Instagram", "X","Blog","LinkedIn","Email","W
 const maxTokensByNetwork: Record<(typeof socialTargets)[number], number> = {
   Facebook: 700,
   Instagram: 750,
-  X: 300,
+  X: 350,
   Blog: 1500,
-  LinkedIn: 300,
-  Email: 300,
+  LinkedIn: 1000,
+  Email: 400,
   // DirectMessage: 300,
-  WhatsApp: 300,
+  WhatsApp: 400,
 };
 
 // Utilidad con timeout
@@ -292,5 +292,16 @@ export async function POST(req: Request) {
 
 
   return NextResponse.json({ posts });
+}
+
+
+
+function isValidURL(content: string) {
+  try {
+    new URL(content);
+    return true;
+  } catch {
+    return false;
+  }
 }
 
