@@ -79,7 +79,7 @@ const handlelogout = (e:React.MouseEvent<HTMLButtonElement>) => {
 
 return (
 
-// <Protected> 
+<Protected> 
   
  <div className="min-h-screen flex items-center justify-center p-6 ">
 
@@ -87,9 +87,9 @@ return (
         <CardHeader className="relative flex flex-col items-center  p-0">
           <Image className="w-[30%]" src="/logos/gacLogo.jpg" alt=""   width={200} height={200}/>
           <Image className="absolute top-2 left-5 w-[15%]" src="/logos/logo.webp" alt="" width={200} height={200}/>
-          {/* <button className="absolute top-3 right-5 border border-gray-300 bg-white text-gray-700 px-4 py-2 rounded hover:bg-gray-100 transition-colors" onClick={(e) => handlelogout(e)}> */}
-            {/* Cerrar sesión             */}
-          {/* </button> */}
+          <button className="absolute top-3 right-5 border border-gray-300 bg-white text-gray-700 px-4 py-2 rounded hover:bg-gray-100 transition-colors" onClick={(e) => handlelogout(e)}>
+            Cerrar sesión            
+          </button>
         </CardHeader>
         <CardContent>
           
@@ -106,7 +106,7 @@ return (
 
     </div>
   
-// </Protected>
+ </Protected>
    
   );
 }

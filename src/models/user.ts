@@ -1,19 +1,24 @@
-import mongoose, { Document, Model, Schema } from 'mongoose'
+import mongoose, { Document, Model, Schema, Types } from 'mongoose'
 
 export interface IUser extends Document {
   email: string
   password: string
   createdAt: Date
   updatedAt: Date
+  id_rol: Types.ObjectId
+  is_active: boolean
+  used_tokens: number
 }
 
 const UserSchema = new Schema<IUser>(
   {
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
+    id_rol: { type: Schema.Types.ObjectId, ref: 'Rol', required: true },
+    is_active: { type: Boolean, default: true },
+    used_tokens: { type: Number, default: 0 },
   },
   { timestamps: true }
 )
 
-// Evita redefinir el modelo al usar en Hot Reload de Next.js
 export const User: Model<IUser> = mongoose.models.User || mongoose.model<IUser>('User', UserSchema)
