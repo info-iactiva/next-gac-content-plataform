@@ -13,6 +13,14 @@ type ContentResultProps = {
 export default function ContentResult({ posts, onBack }: ContentResultProps) {
     return (
         <div className="w-full max-w-6xl">
+
+            <div className="flex justify-center items-center md:mb-3">                
+                <span className="col-span-5 p-5 md:p-0 text-[10px] md:text-xs text-gray-500 text-center">
+                    La inteligencia artificial se puede equivocar, es importante que un ser humano verifique el contenido generado
+                </span>
+            </div>
+
+
             {posts.map((post, i) => (
                 <div key={`${post.network}-${i}`} className="mb-4 p-4 border rounded-md">
                     <h3 className=  "md:text-lg font-semibold text-sm">{post.title}</h3>
@@ -33,8 +41,9 @@ export default function ContentResult({ posts, onBack }: ContentResultProps) {
                     onClick={onBack}
                 >
                     Volver
-                </Button>
+                </Button>                   
             </div>
+            
         </div>
     );
 }

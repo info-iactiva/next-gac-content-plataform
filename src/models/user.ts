@@ -1,11 +1,12 @@
 import mongoose, { Document, Model, Schema, Types } from 'mongoose'
+import {IRol} from './rol'
 
 export interface IUser extends Document {
   email: string
   password: string
   createdAt: Date
   updatedAt: Date
-  id_rol: Types.ObjectId
+  id_rol: Types.ObjectId | IRol
   is_active: boolean
   used_tokens: number
 }

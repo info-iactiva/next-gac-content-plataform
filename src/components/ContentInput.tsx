@@ -1,5 +1,5 @@
 "use client";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { IContentInputValues } from "@/types/content";
 import { zodResolver } from "@hookform/resolvers/zod"
 
@@ -14,6 +14,8 @@ import { Info } from "lucide-react";
 import { Tooltip, TooltipTrigger, TooltipContent } from "./ui/tooltip";
 import { FormProvider } from "react-hook-form";
 import { IDIOMAS, IdiomaType } from "@/const/lenguajes";
+import { UserProtected } from "@/types/user.protected";
+import { useRouter } from "next/navigation";
 
 
 const formSchema = z.object({
@@ -61,6 +63,21 @@ type TPropsContentInputProps = {
 };
 
 export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate,prevdata }) => {
+  const [user, setUser] = useState<UserProtected | null>(null);  
+  
+  useEffect(() => {       
+      const storedUser = localStorage.getItem("user");        
+      console.log("Stored user:", storedUser);
+      if (storedUser) {
+        try {
+          const parsedUser: UserProtected = JSON.parse(storedUser);
+          setUser(parsedUser);
+        } catch (error) {
+          console.error("Error al parsear el usuario:", error);
+        }
+      }       
+  }, []);
+
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -357,53 +374,66 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate,prevdata 
             TARGET
           </span>
                     
-
-          <div className="grid lg:grid-cols-3 gap-6 p-3 md:grid-cols-2">    
-            {/* FALATA NOMBRES */}
-            <FormField
-              control={form.control}
-              name="ultra_personalizado"
-              render={({ field }) => (
-              <FormItem>
-                <div className="flex items-center gap-2">
-                  <Label htmlFor="ultra_personalizado"  className="text-xs lg:text-base">¿Ultra personalizado?</Label>
-                  {/* Icono con tooltip  */}
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                        <button type="button"  onClick={(e) => e.preventDefault()} >
-                    <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
-                  </button>
-                    </TooltipTrigger>
-                    <TooltipContent className="text-[8px] md:text-xs">
-                      ¿El contenido debe estar extremadamente dirigido a una persona específica? (Sí/No)
-                    </TooltipContent>
-                  </Tooltip>
-                </div>
-               <FormControl>
-                  <Select
-                    value={field.value}
-                    onValueChange={(value) => field.onChange(value)}
-                  >
-                    <SelectTrigger className="">
-                      <SelectValue placeholder="" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>                        
-                        <SelectItem value="Si">Sí</SelectItem>
-                        <SelectItem value="No">No</SelectItem>                        
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-                
-                  {form.formState.errors.ultra_personalizado && (
-                    <span className="text-red-500 text-xs">
-                      {form.formState.errors.ultra_personalizado.message as string}
-                    </span>
-                  )}
-              </FormItem>
-            )}
-          />
+          
+       
+          <div className="grid lg:grid-cols-3 gap-6 p-3 md:grid-cols-2">                
+         
+            {
+              user ?  (
+                 user.plan == "Plan Premium" ? (
+                 <FormField
+                      control={form.control}
+                      name="ultra_personalizado"
+                      render={({ field }) => (
+                      <FormItem>
+                        <div className="flex items-center gap-2">
+                          <Label htmlFor="ultra_personalizado"  className="text-xs lg:text-base">¿Ultra personalizado?</Label>                  
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                                <button type="button"  onClick={(e) => e.preventDefault()} >
+                            <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
+                          </button>
+                            </TooltipTrigger>
+                            <TooltipContent className="text-[8px] md:text-xs">
+                              ¿El contenido debe estar extremadamente dirigido a una persona específica? (Sí/No)
+                            </TooltipContent>
+                          </Tooltip>
+                        </div>
+                      <FormControl>
+                          <Select
+                            value={field.value}
+                            onValueChange={(value) => field.onChange(value)}
+                          >
+                            <SelectTrigger className="">
+                              <SelectValue placeholder="" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectGroup>                        
+                                <SelectItem value="Si">Sí</SelectItem>
+                                <SelectItem value="No">No</SelectItem>                        
+                              </SelectGroup>
+                            </SelectContent>
+                          </Select>
+                        </FormControl>
+                        
+                          {form.formState.errors.ultra_personalizado && (
+                            <span className="text-red-500 text-xs">
+                              {form.formState.errors.ultra_personalizado.message as string}
+                            </span>
+                          )}
+                      </FormItem>
+                    )}
+                  />
+            ) : null
+              )
+              
+              : (
+                null
+              )
+            
+              
+          }
+           
           
           {ultra == "No" && (
 
@@ -862,80 +892,101 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate,prevdata 
             )}
           /> 
 
-          <FormField
-            control={form.control}
-            name="texto_insp_ref"
-            render={({ field }) => (
-              <FormItem >
-                <div className="flex items-center gap-2">
-                <Label htmlFor="texto_insp_ref"  className="text-xs lg:text-base"> Texto inspirador o de referencia</Label>
-                  <Tooltip>
-                  <TooltipTrigger asChild>
-                    <button type="button"  onClick={(e) => e.preventDefault()}>
-                      <Info className="w-4 h-4 text-muted-foreground cursor-pointer" />
-                    </button>
-                  </TooltipTrigger>
-                  <TooltipContent className="text-[8px] md:text-xs">
-                    Fragmento que sirva como guía de tono o estilo.
-                  </TooltipContent>
-                </Tooltip>
-              </div>
-                <FormControl>
-                  <Input
-                    id="texto_insp_ref"
-                    type="text"
-                    placeholder="Texto inspirador o de referencia"
-                    value={field.value}
-                    onChange={(e) => field.onChange(e.target.value)}
-                    className="text-xs lg:text-sm"
+
+          {
+              user ?  (
+                 user.plan == "Plan Premium" ? 
+                 (
+                  <>                                    
+                  <FormField
+                    control={form.control}
+                    name="texto_insp_ref"
+                    render={({ field }) => (
+                      <FormItem >
+                        <div className="flex items-center gap-2">
+                        <Label htmlFor="texto_insp_ref"  className="text-xs lg:text-base"> Texto inspirador o de referencia</Label>
+                          <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button type="button"  onClick={(e) => e.preventDefault()}>
+                              <Info className="w-4 h-4 text-muted-foreground cursor-pointer" />
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent className="text-[8px] md:text-xs">
+                            Fragmento que sirva como guía de tono o estilo.
+                          </TooltipContent>
+                        </Tooltip>
+                      </div>
+                        <FormControl>
+                          <Input
+                            id="texto_insp_ref"
+                            type="text"
+                            placeholder="Texto inspirador o de referencia"
+                            value={field.value}
+                            onChange={(e) => field.onChange(e.target.value)}
+                            className="text-xs lg:text-sm"
+                          />
+                        </FormControl>
+                          {form.formState.errors.texto_insp_ref && (
+                            <span className="text-red-500 text-xs">
+                              {form.formState.errors.texto_insp_ref.message as string}
+                            </span>
+                          )}
+                      </FormItem>
+                    )} 
                   />
-                </FormControl>
-                  {form.formState.errors.texto_insp_ref && (
-                    <span className="text-red-500 text-xs">
-                      {form.formState.errors.texto_insp_ref.message as string}
-                    </span>
-                  )}
-              </FormItem>
-            )} 
-          />
 
 
-             <FormField
-            control={form.control}
-            name="ia_estilo_autor"
-            render={({ field }) => (
-              <FormItem >
-                <div className="flex items-center gap-2">
-                <Label htmlFor="ia_estilo_autor"  className="text-xs lg:text-base"> AI estilo de este autor</Label>
-                  <Tooltip>
-                  <TooltipTrigger asChild>
-                      <button type="button"  onClick={(e) => e.preventDefault()}>
-                    <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
-                  </button>
-                  </TooltipTrigger>
-                  <TooltipContent className="text-[8px] md:text-xs">
-                    Referencia opcional a un autor famoso cuyo estilo se desea imitar.
-                  </TooltipContent>
-                </Tooltip>
-              </div>
-                <FormControl>
-                  <Input
-                    id="ia_estilo_autor"
-                    type="text"
-                    placeholder="Menciona un autor famoso (opcional)"
-                    value={field.value}
-                    onChange={(e) => field.onChange(e.target.value)}
-                    className="text-xs lg:text-sm"
-                  />
-                </FormControl>
-                  {form.formState.errors.ia_estilo_autor && (
-                    <span className="text-red-500 text-xs">
-                      {form.formState.errors.ia_estilo_autor.message as string}
-                    </span>
-                  )}
-              </FormItem>
-            )} 
-          />
+                  <FormField
+                  control={form.control}
+                  name="ia_estilo_autor"
+                  render={({ field }) => (
+                    <FormItem >
+                      <div className="flex items-center gap-2">
+                      <Label htmlFor="ia_estilo_autor"  className="text-xs lg:text-base"> AI estilo de este autor</Label>
+                        <Tooltip>
+                        <TooltipTrigger asChild>
+                            <button type="button"  onClick={(e) => e.preventDefault()}>
+                          <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
+                        </button>
+                        </TooltipTrigger>
+                        <TooltipContent className="text-[8px] md:text-xs">
+                          Referencia opcional a un autor famoso cuyo estilo se desea imitar.
+                        </TooltipContent>
+                      </Tooltip>
+                    </div>
+                      <FormControl>
+                        <Input
+                          id="ia_estilo_autor"
+                          type="text"
+                          placeholder="Menciona un autor famoso (opcional)"
+                          value={field.value}
+                          onChange={(e) => field.onChange(e.target.value)}
+                          className="text-xs lg:text-sm"
+                        />
+                      </FormControl>
+                        {form.formState.errors.ia_estilo_autor && (
+                          <span className="text-red-500 text-xs">
+                            {form.formState.errors.ia_estilo_autor.message as string}
+                          </span>
+                        )}
+                    </FormItem>
+                  )} 
+                />
+                  </>
+
+
+
+                 ) 
+                 
+                 : null)
+
+                 : null
+
+              }
+
+
+
+
 
 
           
@@ -1083,7 +1134,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate,prevdata 
           </div>
           
           <span className="col-span-5 p-5 md:p-0 text-[10px] md:text-xs text-gray-500 text-center">
-            La inteligencia artificial se puede equivocar tanto como en la entrada como en la plantilla de salida, es importante que un ser humano verifique el contenido generado
+            La inteligencia artificial se puede equivocar, es importante que un ser humano verifique el contenido generado
           </span>
         </form>
       </FormProvider>

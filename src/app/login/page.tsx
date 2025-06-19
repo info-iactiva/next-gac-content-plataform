@@ -80,7 +80,8 @@ export default function Login() {
       router.push('/'); // Redirigir a la página principal      
     }, 1000);
     // aquí podrías guardar el token: 
-    localStorage.setItem("token", data.token)    
+    localStorage.setItem("token", data.token)
+    localStorage.setItem("user", JSON.stringify(data.user));    
 
   })
   .catch((error) => {    

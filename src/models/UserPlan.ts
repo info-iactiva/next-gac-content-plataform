@@ -1,8 +1,10 @@
 import mongoose, { Document, Model, Schema, Types } from 'mongoose'
 
+import { IPlan } from './plan'
+
 export interface IUserPlan extends Document {
   id_user: Types.ObjectId
-  id_plan: Types.ObjectId
+  id_plan: Types.ObjectId | IPlan  // 👈 esto permite que esté poblado
   start_date: Date
   end_date: Date
   active: boolean

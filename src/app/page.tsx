@@ -69,6 +69,7 @@ export default function Home() {
 const handlelogout = (e:React.MouseEvent<HTMLButtonElement>) => {
   e.preventDefault();
   localStorage.removeItem("token");  
+  localStorage.removeItem("user");  
   setIsLoading(true);
 
   setTimeout(() => { 
@@ -93,7 +94,7 @@ return (
         </CardHeader>
         <CardContent>
           
-
+            
           {isLoading && (<SpinnerOverlay />)}
           {posts.length === 0 ? (
             <ContentInput onGenerate={(handleGenerate)} prevdata={formValues} />
