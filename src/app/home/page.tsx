@@ -1,202 +1,248 @@
 "use client";
-import { Button } from "@/components/ui/button";import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useRef } from 'react';
+import Image from "next/image";
 
-
-
-export default function Home() {
-    const router = useRouter();
-     const planesRef = useRef<HTMLDivElement>(null);
-
-
-    const handleLogin = () => {        
-        router.push("/login");
-    };
-
-
-    const scrollToPlanes = () => {
-        planesRef.current?.scrollIntoView({ behavior: 'smooth' });
-    };
-
+export default function PricingPage() {
   return (
-    <div className="flex flex-col items-center lg:gap-15">            
+    <div className="bg-gray-100 min-h-screen flex flex-col">
+      {/* Header */}
+        
+<header className="bg-gray-900 text-white py-4 px-4 w-full">
+  <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center sm:items-center relative">
+    {/* Logo a la izquierda */}
+    <div className="sm:absolute sm:left-4 sm:top-1/2 sm:-translate-y-1/2 mb-4 sm:mb-0 w-full sm:w-auto flex justify-center sm:justify-start">
+      <Image
+        src="/logos/logo.webp"
+        alt="Logo izquierda"
+        width={80}
+        height={80}
+        className="h-8 md:h-12 w-auto object-contain"
+        priority
+      />
+    </div>
 
-        <div className="flex justify-between w-full p-2 lg:p-5">
-            <Image className=" w-[30%] md:w-[20%] lg:w-[15%]" src="/logos/logo.webp" alt="" width={200} height={200}/>       
-            <Button type="submit"className=" w-[100px] text-xs lg:w-[150px] lg:text-sm"  onClick={()=> handleLogin()}> INICIAR SESIÓN</Button>
-
-        </div>
-
-        <div className="w-full flex items-center justify-center flex-col min-h-[500px] md:min-h-[300px] lg:min-h-[630px]">
-            <div className="flex w-[80%] flex-col lg:flex-row md:flex-row mt-10 lg:mt-0 lg:gap-10 items-center md:justify-between">
-                <Image className="w-[80%] md:w-[30%]" src="/logos/gacLogo.jpg" alt="" width={200} height={200}/>
-
-                <div className="lg:w-[70%] w-full flex flex-col">
-                    <p className="text-lg text-sm lg:text-2xl text-center md:text-left">
-                        GAC es una herramienta inteligente diseñada para transformar tus ideas en contenido de alto impacto en segundos. Gracias a la inteligencia artificial, GAC crea textos personalizados, coherentes y optimizados, adaptados a tu marca, audiencia y objetivos.
-                    </p>
-
-                    <div className="flex w-full pt-2 pr-5 justify-end md:justify-start">
-                        <span onClick={scrollToPlanes} className="text-sxs underline cursor-pointer lg:text-base hover:text-blue-500" >
-                            Ver planes y precios
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-               
-
-        <div className="w-[80%] flex flex-col gap-5 lg:w-[80%] lg:mt-10 lg:gap-10 pb-10 ">
-            <h3 className="font-bold lg:text-3xl" >Características destacadas:</h3>
-
-            <ul  className="list-disc pl-5 text-sm md:text-base md:grid md:grid-cols-2  gap-4 lg:text-xl lg:gap-6">
-                <li>Generación de contenido ultra personalizable</li>
-                <li>Adaptación a diferentes públicos y estilos de comunicación</li>
-                <li>Fácil de usar, sin necesidad de conocimientos técnicos</li>
-                <li>Ideal para empresas, agencias, creadores de contenido y emprendedores</li>                
-
-            </ul>
-        </div>
-       
+    {/* Texto centrado */}
+    <div className="flex-1 flex justify-center px-4 text-center">
+      <div className="max-w-lg">
+        <h1 className="text-xl sm:text-2xl md:text-4xl font-bold mb-1 leading-tight">
+          Conquista las redes sociales con el GAC de iActiva
+        </h1>
+        <p className="text-xs sm:text-sm md:text-base">
+          Genera contenido potente y profesional con ayuda de nuestra IA
+        </p>
+      </div>
+    </div>
+  </div>
+</header>
 
 
-        <div ref={planesRef} className="mt-20 mb-10  md:m-10  md:w-[80%] ">
-            <h2 className="text-2xl font-bold mb-5 md:mb-0">Planes</h2>
 
-            {/* <div className="overflow-x-auto w-full">
-                <table className="min-w-full table-auto border-collapse text-white text-sm lg:text-base">
-                    <thead>
-                    <tr className="bg-gray-800 text-center">
-                        <th className="py-4 px-2 bg-black text-left"> </th>
-                        <th className="py-4 px-4 bg-[#114C50]">ESTÁNDAR CON ANUNCIOS<br /><span className="text-xs block mt-1">MXN 149/mes (final)</span></th>
-                        <th className="py-4 px-4 bg-[#114C50]">ESTÁNDAR<br /><span className="text-xs block mt-1">MXN 249/mes (final)</span></th>
-                        <th className="py-4 px-4 bg-cyan-500 relative">
-                        <div className="absolute -top-2 right-2 bg-white text-black text-xs px-2 py-1 rounded-full">Más popular</div>
-                        PREMIUM<br /><span className="text-xs block mt-1">MXN 319/mes (final)</span>
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody className="text-center">
-                    <tr className="border-t border-gray-700">
-                        <td className="text-left py-3 px-2 bg-black">El deporte de ESPN</td>
-                        <td className="py-3 px-4">ESPN y ESPN3</td>
-                        <td className="py-3 px-4">ESPN y ESPN3</td>
-                        <td className="py-3 px-4">Todos los canales y +500 eventos</td>
-                    </tr>
-                    <tr className="border-t border-gray-700">
-                        <td className="text-left py-3 px-2 bg-black">Estrenos de películas, series originales y clásicos</td>
-                        <td className="py-3 px-4">✔️</td>
-                        <td className="py-3 px-4">✔️</td>
-                        <td className="py-3 px-4">✔️</td>
-                    </tr>
-                    <tr className="border-t border-gray-700">
-                        <td className="text-left py-3 px-2 bg-black">Películas y series sin interrupciones publicitarias</td>
-                        <td className="py-3 px-4">—</td>
-                        <td className="py-3 px-4">✔️</td>
-                        <td className="py-3 px-4">✔️</td>
-                    </tr>
-                    <tr className="border-t border-gray-700">
-                        <td className="text-left py-3 px-2 bg-black">Calidad de video hasta 4K UHD/HDR + Dolby Atmos</td>
-                        <td className="py-3 px-4">—</td>
-                        <td className="py-3 px-4">—</td>
-                        <td className="py-3 px-4">✔️</td>
-                    </tr>
-                    <tr className="border-t border-gray-700">
-                        <td className="text-left py-3 px-2 bg-black">Dispositivos simultáneos</td>
-                        <td className="py-3 px-4">2</td>
-                        <td className="py-3 px-4">2</td>
-                        <td className="py-3 px-4">4</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div> */}
-
-
-            <div className="w-full text-white text-sm lg:text-base">
-                {/* Mobile cards */}
-                <div className="flex flex-col gap-6 md:hidden">
-                    {/* Plan 1 */}
-                    <div className="bg-gray-800 p-4 rounded-md">
-                    <h3 className="text-lg font-bold text-center mb-2">Sencillo</h3>
-                    <p className="text-center mb-4 text-gray-300">MXN 149/mes (final)</p>
-                    <ul className="space-y-2 text-sm">
-                        <li>✔️ 15 Tokens</li>
-                        <li>✔️ Generacion de contenido en base a buyer persona</li>                                                
-                    </ul>
-                    </div>                  
-
-                    {/* Plan 3 */}
-                    <div className="bg-cyan-600 p-4 rounded-md relative">
-                    <div className="absolute top-2 right-2 bg-white text-black text-xs px-2 py-1 rounded-full">Más popular</div>
-                    <h3 className="text-lg font-bold text-center mb-2">PREMIUM</h3>
-                    <p className="text-center mb-4 text-gray-100">MXN 319/mes (final)</p>
-                    <ul className="space-y-2 text-sm">
-                        <li>✔️ Ultra personalizado</li>
-                        <li>✔️ Con mas de 30 tokens</li>
-                        <li>✔️ Uso mensual</li>                        
-                    </ul>
-                    </div>
-                </div>
-
-                {/* Desktop table */}
-                <div className="hidden md:block overflow-x-auto mt-8">
-                    <table className="min-w-full table-auto border-collapse text-white text-sm">
-                    <thead>
-                        <tr className="bg-gray-800 text-center">
-                        <th className="py-4 px-2 bg-black text-left"> </th>
-                        <th className="py-4 px-4 bg-[#114C50]">Sencillo<br /><span className="text-xs block mt-1">MXN 149/mes</span></th>                        
-                        <th className="py-4 px-4 bg-cyan-500 relative">
-                            <div className="absolute -top-1.5 right-1 bg-white text-black text-xs px-2 py-1 rounded-full">Más popular</div>
-                            PREMIUM<br /><span className="text-xs block mt-1">MXN 319/mes</span>
-                        </th>
-                        </tr>
-                    </thead>
-                    <tbody className="text-center">                        
-                        <tr className="border-t border-gray-700">
-                            <td className="text-left py-3 px-2 bg-black">Tokens limitados</td>
-                            <td className="py-3 px-4">✔️</td>
-                            <td className="py-3 px-4">✔️</td>                        
-                        </tr>
-                        <tr className="border-t border-gray-700">
-                            <td className="text-left py-3 px-2 bg-black">Ultra personalizado</td>
-                            <td className="py-3 px-4">✔️</td>
-                            <td className="py-3 px-4">✔️</td>                        
-                        </tr>  
-                        <tr className="border-t border-gray-700">
-                            <td className="text-left py-3 px-2 bg-black">Tokens ilimitados</td>
-                            <td className="py-3 px-4">—</td>
-                            <td className="py-3 px-4">✔️</td>                        
-                        </tr>     
-                        <tr className="border-t border-gray-700">
-                            <td className="text-left py-3 px-2 bg-black">Acceso a todos los tipos datos</td>
-                            <td className="py-3 px-4">—</td>
-                            <td className="py-3 px-4">✔️</td>                        
-                        </tr>   
-               
-                    </tbody>
-                    </table>
-                </div>
+        {/* Intro Section - Mejorada */}
+        <section className="py-8 px-4 flex justify-center ">
+          <div className="bg-white rounded-2xl shadow-md p-6 md:p-10  max-w-6xl w-full flex flex-col md:flex-row items-center md:items-start gap-6">
+            
+            {/* Imagen */}
+            <div className="flex-shrink-0 w-48 md:w-56">
+              <Image
+                src="/logos/gacLogo.jpg"
+                alt="GAC Logo"
+                width={224}   // 56 * 4 (tailwind spacing)
+                height={224}
+                className="rounded-xl object-contain"
+              />
             </div>
 
+            {/* Texto + botón */}
+            <div className="text-center md:text-left flex flex-col justify-center">
+              <p className="text-base md:text-lg text-gray-700  max-w-6xl ">
+                Ya seas emprendedor, PYME o gran empresa, el{" "}
+                <strong className="text-black">
+                  Generador Automático de Contenido (GAC)
+                </strong>{" "}
+                de iActiva te ayuda a comunicar con claridad, frecuencia y
+                creatividad. Elige el paquete que se ajuste a tus necesidades y
+                empieza a publicar en minutos.
+              </p>
+              <a
+                href="https://mail.google.com/mail/?view=cm&to=info@iactiva.ai&su=Solicitud%20de%20demo%20GAC%20iActiva&body=Hola%2C%20me%20gustar%C3%ADa%20solicitar%20una%20demo%20gratuita%20del%20Generador%20Autom%C3%A1tico%20de%20Contenido%20(GAC).%20Gracias."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block mt-6 bg-green-600 hover:bg-green-700 text-white font-bold py-2.5 px-6 rounded-lg transition self-center md:self-start"
+              >
+                Solicita tu demo gratuita
+              </a>
+            </div>
+          </div>
+        </section>
+      {/* Pricing Table */}
+     {/* <div className="w-full px-4 py-6 overflow-x-auto relative">
+  <div className="text-xs text-gray-500 mb-2 block md:hidden">
+    🔄 Desliza horizontalmente para ver todos los planes
+  </div>
+  <div className="min-w-[600px] md:min-w-full">
+    <table className="w-full max-w-7xl mx-auto bg-white border border-gray-300 text-sm md:text-base rounded-xl overflow-hidden">
+      <thead>
+        <tr className="bg-green-600 text-white">
+          <th className="p-3 border border-gray-300 text-left">Características</th>
+          <th className="p-3 border border-gray-300">Básico</th>
+          <th className="p-3 border border-gray-300">Pro</th>
+          <th className="p-3 border border-gray-300">Premium</th>
+        </tr>
+      </thead>
+      <tbody className="text-center">
+        {[
+          ["Configuración completa de tu empresa o marca", "Sí", "Sí", "Sí"],
+          ["Segmentación básica del público objetivo", "Sí", "Sí", "Sí"],
+          ["Generación de publicaciones con tono, idioma y extensión definidos", "Sí", "Sí", "Sí"],
+          ["Cantidad de publicaciones mensuales", "Hasta 45", "Ilimitadas*", "Según contrato"],
+          ["Inspiración con textos o autores famosos", "No", "Sí", "Sí"],
+          ["Segmentación ultrapersonalizada (Buyer Persona, LinkedIn)", "No", "Sí", "Sí"],
+          ["Nivel de IA disponible: Básica", "Sí", "Sí", "Sí"],
+          ["Nivel de IA disponible: Potente", "No", "Sí", "Sí"],
+          ["Suscripción anual incluida", "1ª gratuita", "$500 / año", "Cotización"],
+          ["Mensualidad", "$99 / mes", "$299 / mes", "Cotización"],
+          ["Pago anual anticipado (Bundle)", "No disponible", "$3,270.40", "Cotización"],
+          ["Renovación automática con beneficio", "Sí: 1 año gratis", "Sí: 1 año gratis", "Sí: 1 año gratis"],
+          ["Integración con sistemas internos", "No", "No", "Sí"],
+          ["Workflows personalizados", "No", "No", "Sí"],
+          ["Soporte y capacitación avanzada", "No", "No", "Sí"],
+        ].map((row, i) => (
+          <tr key={i} className={i % 2 === 0 ? "bg-gray-50" : "bg-white"}>
+            {row.map((cell, j) => (
+              <td
+                key={j}
+                className={`p-3 border border-gray-300 ${j === 0 ? "text-left font-medium text-gray-700" : ""}`}
+              >
+                {cell}
+              </td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div> */}
 
+
+<section className="px-4 py-8 max-w-6xl mx-auto">
+  <h2 className="text-2xl font-semibold text-center mb-6 text-gray-800">
+    Comparación de planes
+  </h2>
+
+  {/* Versión mobile: cards */}
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {[
+      {
+        nombre: "Básico",
+        precio: "$99 / mes",
+        detalles: [
+          "Configuración completa de tu empresa o marca",
+          "Segmentación básica del público objetivo",
+          "Generación de publicaciones con tono, idioma y extensión definidos",
+          "Hasta 45 publicaciones mensuales",
+          "Nivel de IA: Básica",
+          "Suscripción anual incluida: 1ª gratuita",
+          "Renovación automática: 1 año gratis",
+        ],
+        extras: [],
+      },
+      {
+        nombre: "Pro",
+        precio: "$299 / mes",
+        detalles: [
+          "Configuración completa de tu empresa o marca",
+          "Segmentación básica del público objetivo",
+          "Generación de publicaciones con tono, idioma y extensión definidos",
+          "Publicaciones ilimitadas*",
+          "Inspiración con textos o autores famosos",
+          "Segmentación ultrapersonalizada",
+          "Nivel de IA: Básica y Potente",
+          "Suscripción anual: $500 / año",
+          "Pago anticipado: $3,270.40 (ahorra 20%)",
+          "Renovación automática: 1 año gratis",
+        ],
+        extras: [],
+      },
+      {
+        nombre: "Premium (A medida)",
+        precio: "Cotización",
+        detalles: [
+          "Configuración completa de tu empresa o marca",
+          "Segmentación básica del público objetivo",
+          "Generación de publicaciones con tono, idioma y extensión definidos",
+          "Publicaciones: Según contrato",
+          "Inspiración con textos o autores famosos",
+          "Segmentación ultrapersonalizada",
+          "Nivel de IA: Básica y Potente",
+          "Suscripción anual: Cotización",
+          "Pago anticipado: Cotización",
+          "Renovación automática: 1 año gratis",
+          "Integración con sistemas internos",
+          "Workflows personalizados",
+          "Soporte y capacitación avanzada",
+        ],
+        extras: [],
+      },
+    ].map((plan) => (
+      <div
+        key={plan.nombre}
+        className="bg-white rounded-2xl shadow-md p-6 flex flex-col justify-between"
+      >
+        <div>
+          <h3 className="text-xl font-bold text-green-700 mb-2">{plan.nombre}</h3>
+          <p className="text-lg font-semibold text-gray-900 mb-4">{plan.precio}</p>
+          <ul className="space-y-2 text-sm text-gray-700">
+            {plan.detalles.map((d, i) => (
+              <li key={i} className="flex items-start gap-2">
+                <span className="text-green-600 font-bold">✓</span>
+                <span>{d}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="mt-6">
+          {/* <a
+            href="https://mail.google.com/mail/?view=cm&to=info@iactiva.ai&su=Interesado%20en%20plan%20GAC%20-%20"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block text-center bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition"
+          >
+            Contactar por este plan
+          </a> */}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+
+
+
+      {/* Dudas Section - Mejorada */}
+      <section className="py-8 px-4 flex justify-center w-full ">
+        <div className="bg-white rounded-2xl shadow-md p-6 md:p-10  max-w-4xl w-full  text-center">
+          <h2 className="text-xl md:text-2xl font-semibold mb-4 text-gray-800">
+            ¿Tienes dudas o necesitas una solución a medida?
+          </h2>
+          <p className="text-gray-700 mb-6">
+            Contáctanos y te ayudamos a construir el paquete perfecto para tu negocio.
+          </p>
+        <a
+        href="https://mail.google.com/mail/?view=cm&to=info@iactiva.ai&su=Consulta%20sobre%20GAC%20iActiva&body=Hola%2C%20tengo%20algunas%20dudas%20y%20me%20gustar%C3%ADa%20saber%20m%C3%A1s%20sobre%20las%20opciones%20que%20ofrecen%20con%20el%20GAC.%20Gracias."
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-2.5 px-6 rounded-lg transition"
+      >
+        Escríbenos ahora
+      </a>
 
 
         </div>
+      </section>
 
-
-                                         
+      {/* Footer */}
+      <footer className="bg-gray-800 text-white text-center py-6 text-sm mt-auto">
+        &copy; 2025 iActiva. Todos los derechos reservados.
+      </footer>
     </div>
   );
 }
-
-
- 
-        {/* <button className="absolute top-3 right-5 border border-gray-300 bg-white text-gray-700 px-4 py-2 rounded hover:bg-gray-100 transition-colors" onClick={(e) => alert("e")}>
-            INICIAR SESIÓN
-        </button> */}
-
-        
-          
-      {/* <p className="text-lg mb-4">Crea contenido personalizado para tu empresa y audiencia.</p>    */}
