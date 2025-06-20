@@ -2,13 +2,10 @@
 import { useForm } from "react-hook-form";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import Image from "next/image";
-
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod";
 import { FormProvider } from "react-hook-form";
-import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 import {  FormControl, FormField, FormItem } from "@/components/ui/form";
-import { Info } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -19,6 +16,8 @@ import { formSchemaRegister } from "./zod.validation";
 import { useRouter } from "next/navigation";
 import { set } from "mongoose";
 import { Eye, EyeOff } from "lucide-react";
+import { TermsModal } from "./terminos";
+import { PrivacyModal } from "./privacidad";
 
 
 export default function Register() {
@@ -26,6 +25,8 @@ export default function Register() {
   const router = useRouter();
 
   const [showPassword, setShowPassword] = useState(false);
+  const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
+  const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false);
 
 
 
@@ -71,10 +72,6 @@ export default function Register() {
       setIsLoading(true);
     }, 1000);    
 
-    // setTimeout(() => {                              
-    // }, 2000);    
-
-
 
     setTimeout(() => {
       setIsLoading(false);
@@ -90,7 +87,7 @@ export default function Register() {
 
     return  <div className="min-h-screen flex items-center justify-center p-6 ">
 
-      <Card className=" relative  md:min-w-[450px] md:max-w-2xl min-w-[300px]  flex  gap-10 flex-col">
+      <Card className=" relative  md:min-w-[450px] md:max-w-xl min-w-[300px]  flex  flex-col  p-0 m-0">
         <CardHeader className="relative flex flex-col items-center  p-0">          
           <Image className="absolute top-2 left-5 w-[15%]" src="/logos/logo.webp" alt="" width={200} height={200}/>
         </CardHeader>
@@ -130,36 +127,6 @@ export default function Register() {
               </FormItem>
             )}/>        
 
-
-{/* 
-
-              <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (                
-              <FormItem >
-                <div className="flex items-center gap-2 ">                
-                <Label htmlFor="password" className="text-xs lg:text-base " >Contraseña</Label>
-              </div>
-                <FormControl>
-                  <Input
-                    id="password"
-                    type="password"
-                    placeholder="Ingresa tu contraseña"
-                    value={field.value}
-                    onChange={(e) => field.onChange(e.target.value)}
-                    className="lg:text-sm text-xs"
-                  />                  
-                </FormControl>
-
-                {form.formState.errors.password && (
-                  <span className="text-red-500 text-xs">
-                    {form.formState.errors.password.message as string}
-                  </span>
-                )}
-              </FormItem>
-            )}/>         */}
-
             <FormField
               control={form.control}
               name="password"
@@ -197,13 +164,64 @@ export default function Register() {
               )}
             />
 
+            <div className="max-w-[100%] m-auto">
+
+              <FormField
+                control={form.control}
+                name="acceptTerms"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col gap-1">
+                    <label className="flex items-start gap-2 text-xs md:text-xs">
+                      <input
+                        type="checkbox"
+                        checked={field.value || false}
+                        onChange={(e) => field.onChange(e.target.checked)}
+                        className="w-4 h-4 mt-1"
+                      />
+                      <span >
+                        Al registrarte y utilizar los servicios del Generador Automático de Contenido (GAC) de iActiva, reconoces haber leído y aceptado expresamente nuestros{" "}
+                        <button
+                          type="button"
+                          onClick={() => setIsTermsModalOpen(true)}
+                          className="underline text-blue-600"
+                        >
+                          Términos y Condiciones
+                        </button>{" "}
+                        y nuestro{" "}
+                        <button
+                          type="button"
+                          onClick={() => setIsPrivacyModalOpen(true)}
+                          className="underline text-blue-600"
+                        >
+                          Aviso de Privacidad
+                        </button>.
+                        El uso del servicio implica tu aceptación plena y sin reservas del contrato de prestación de servicios correspondiente, que se considera celebrado en la Ciudad de México.
+                      </span>
+                    </label>
+                    {form.formState.errors.acceptTerms && (
+                      <span className="text-red-500 text-xs">
+                        {form.formState.errors.acceptTerms.message as string}
+                      </span>
+                    )}
+                  </FormItem>
+                )}
+              />
 
 
 
+            </div>
+              
 
-             <div className="col-span-3 flex justify-center">            
-                <Button type="submit">Ingresar</Button>
-              </div>
+
+            {/* <TermsModal isOpen={isTermsModalOpen} onClose={() => setIsTermsModalOpen(false)} /> */}
+            <TermsModal isOpen={isTermsModalOpen} onClose={() => setIsTermsModalOpen(false)} />
+            <PrivacyModal isOpen={isPrivacyModalOpen} onClose={() => setIsPrivacyModalOpen(false)} />
+
+
+
+             <Button type="submit" disabled={!form.watch("acceptTerms") || isLoading}>
+              Ingresar
+            </Button>
                       
           </form>
             

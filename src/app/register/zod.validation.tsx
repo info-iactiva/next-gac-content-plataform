@@ -17,5 +17,8 @@ export const formSchemaRegister = z.object({
     .regex(/[A-Z]/, "Debe tener al menos una letra mayúscula")
     .regex(/[0-9]/, "Debe tener al menos un número")
     .regex(/[^A-Za-z0-9]/, "Debe tener al menos un carácter especial"),
+  acceptTerms: z.literal(true, {
+    errorMap: () => ({ message: "Debes aceptar los Términos y Condiciones" }),
+  }),
 });
 
