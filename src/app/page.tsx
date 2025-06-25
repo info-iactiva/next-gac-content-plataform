@@ -328,7 +328,7 @@ export default function PricingPage() {
                </>
             }
             classNameButton="self-center !important"
-            classNameForm="lg:w-[100%]"
+            classNameForm="lg:w-full !important"
             />
 
         </div>
