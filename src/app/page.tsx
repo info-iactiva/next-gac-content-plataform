@@ -21,6 +21,12 @@ export default function PricingPage() {
         router.push("/login");
     };
 
+
+    const handleClick = (text:string) => {    
+    router.push(`/contratar?plan=${encodeURIComponent(text)}`);
+    };
+
+
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col">
           
@@ -194,7 +200,7 @@ export default function PricingPage() {
             {plan.nombre === "Básico" || plan.nombre === "Pro" ? (           
               <div key={plan.nombre} className="w-full  mt-5">
                  <button
-                  onClick={() => alert(plan.nombre)}
+                  onClick={() => handleClick(plan.nombre)}
                   className={`inline-block  bg-green-600 hover:bg-green-700 text-white font-bold  px-3 py-1 rounded-lg transition `}
                 >
                   Contratar                  
@@ -216,7 +222,7 @@ export default function PricingPage() {
                 </li>
               </ul>    
              <button
-                  onClick={() => alert("Basico renovación automática")}
+                  onClick={() => handleClick("Basico renovación automática") }
                   className={`inline-block mt-3  bg-green-600 hover:bg-green-700 text-sm md:text-base  text-white font-bold  px-3 py-1 rounded-lg transition `}
                 >
                   Contratar renovación automática               
@@ -244,7 +250,7 @@ export default function PricingPage() {
                 </li>
               </ul>    
              <button
-                  onClick={() => alert("Pro Plus")}
+                  onClick={() => handleClick("Pro Plus") }
                   className={`inline-block mt-3  bg-green-600 hover:bg-green-700 text-white font-bold  px-3 py-1 rounded-lg transition  `}
                 >
                   Contratar Pro Plus
