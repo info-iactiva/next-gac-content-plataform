@@ -89,9 +89,18 @@ export default function ContratacionPage() {
     return (
 
       <>
-         <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-6 text-green-700 mt-5">
-          Sección de Contratación
-        </h1>
+       <div className="w-full md:max-w-[80%] mx-auto px-4 mb-6 flex flex-col md:flex-row items-center justify-between gap-4">
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-green-700 text-center md:text-left">
+            Sección de Contratación
+          </h1>
+
+          <button
+                  onClick={() => router.push('/')}
+                  className={`inline-block mt-3  bg-green-600 hover:bg-green-700 text-white font-bold  px-3 py-1 rounded-lg transition  `}
+                >
+                Regresar
+              </button>   
+        </div>
 
          <div className="min-h-screen flex flex-col lg:flex-row-reverse items-start p-6 gap-6 w-full md:max-w-[80%] mx-auto">
              
