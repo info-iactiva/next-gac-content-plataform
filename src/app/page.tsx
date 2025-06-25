@@ -2,6 +2,8 @@
 import Image from "next/image";
 import { useRef } from 'react';
 import { useRouter } from "next/navigation";
+import DemoSection from "./home/demosection";
+import { Divide } from "lucide-react";
 
 export default function PricingPage() {
 
@@ -108,8 +110,7 @@ export default function PricingPage() {
               />
             </div>
 
-            {/* Texto + botón */}
-            <div className="text-center md:text-left flex flex-col justify-center">
+            {/* <div className="text-center md:text-left flex flex-col justify-center">
               <p className="text-base md:text-lg text-gray-700  max-w-6xl ">
                 Ya seas emprendedor, PYME o gran empresa, el{" "}
                 <strong className="text-black">
@@ -127,7 +128,22 @@ export default function PricingPage() {
               >
                 Solicita tu demo gratuita
               </a>
-            </div>
+            </div> */}
+
+            <DemoSection textfirstbutton="Solicita tu demo gratuita"
+            refdirectemail="https://mail.google.com/mail/?view=cm&to=info@iactiva.ai&su=Solicitud%20de%20demo%20GAC%20iActiva&body=Hola%2C%20me%20gustar%C3%ADa%20solicitar%20una%20demo%20gratuita%20del%20Generador%20Autom%C3%A1tico%20de%20Contenido%20(GAC).%20Gracias."
+            children={
+                <p className="text-base md:text-lg text-gray-700 max-w-6xl">
+                Ya seas emprendedor, PYME o gran empresa, el{" "}
+                <strong className="text-black">
+                  Generador Automático de Contenido (GAC)
+                </strong>{" "}
+                de iActiva te ayuda a comunicar con claridad, frecuencia y creatividad.
+                Elige el paquete que se ajuste a tus necesidades y empieza a publicar en minutos.
+              </p>
+            }
+            classNameButton="self-center !important lg:self-start"
+            />
           </div>
         </section>
       {/* Pricing Table */}
@@ -276,7 +292,7 @@ export default function PricingPage() {
 
       {/* Dudas Section - Mejorada */}
       <section className="py-8 px-4 flex justify-center w-full ">
-        <div className="bg-white rounded-2xl shadow-md p-6 md:p-10  max-w-4xl w-full  text-center">
+        {/* <div className="bg-white rounded-2xl shadow-md p-6 md:p-10  max-w-4xl w-full  text-center">
           <h2 className="text-xl md:text-2xl font-semibold mb-4 text-gray-800">
             ¿Tienes dudas o necesitas una solución a medida?
           </h2>
@@ -292,6 +308,28 @@ export default function PricingPage() {
         Escríbenos ahora
       </a>
 
+
+        </div> */}
+
+        <div className="bg-white rounded-2xl shadow-md p-6 md:p-10  max-w-4xl w-full  flex flex-col items-center  text-center">
+  
+        
+        <DemoSection
+         textfirstbutton=" Escríbenos ahora"
+            refdirectemail="https://mail.google.com/mail/?view=cm&to=info@iactiva.ai&su=Consulta%20sobre%20GAC%20iActiva&body=Hola%2C%20tengo%20algunas%20dudas%20y%20me%20gustar%C3%ADa%20saber%20m%C3%A1s%20sobre%20las%20opciones%20que%20ofrecen%20con%20el%20GAC.%20Gracias."
+            children={
+               <>
+                <h2 className="text-xl md:text-2xl font-semibold mb-4 text-gray-800">
+                    ¿Tienes dudas o necesitas una solución a medida?
+                  </h2>
+                  <p className="text-gray-700 mb-6">
+                    Contáctanos y te ayudamos a construir el paquete perfecto para tu negocio.
+                  </p>
+               </>
+            }
+            classNameButton="self-center !important"
+            classNameForm="lg:w-[100%]"
+            />
 
         </div>
       </section>
