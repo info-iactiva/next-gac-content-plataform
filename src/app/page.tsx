@@ -6,6 +6,8 @@ import DemoSection from "./home/demosection";
 import { Divide } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+
+//mongo
 export default function PricingPage() {
 
 
