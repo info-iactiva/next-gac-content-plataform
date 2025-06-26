@@ -210,18 +210,7 @@ export default function Login() {
 
              <div className="col-span-3 flex justify-center">            
                 <Button type="submit">Ingresar</Button>
-              </div>
-
-              <div className="w-full text-center text-xs md:text-sm">
-                ¿No tienes una cuenta?{" "}
-                <button
-                  type="button"
-                  onClick={() => router.push('/register')}
-                  className="text-blue-600 hover:underline font-semibold"
-                >
-                  Crear cuenta
-                </button>
-              </div>
+              </div>          
                       
           </form>
             
