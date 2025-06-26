@@ -109,33 +109,6 @@ const handleSubmitData = async (data: z.infer<typeof formSchemahomepage>) => {
       toast.error(err.text || "Error desconocido");      
     }
 
-
-    
-  //   await fetch('/api/emailsender', {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //   },
-  //       body: JSON.stringify({ email: data.email, nombre:data.nombre, comentarios:data.comentarios }),
-  //   })
-  //   .then(async (res) => {                
-  //    if (!res.ok) {
-  //     const errorData = await res.json();
-  //     throw new Error(errorData.error || 'Error desconocido');
-  //   }
-
-  //   const data = await res.json();
-  //   toast.success(data.message || 'Correo enviado correctamente');
-  //   form.reset();
-  //   setShowForm(false);
-  //   setShowOptions(false);
-  //   })
-  // .catch((error) => {    
-  //   toast.error(error.error || 'Error al enviar el correo');
-  //   console.log(error.message)
-  // }).finally(() => {
-  //   setIsLoading(false);
-  //   })
   };
 
 

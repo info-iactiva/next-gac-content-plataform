@@ -281,6 +281,7 @@ export default function ContratacionPage() {
                     "Hasta 45 publicaciones mensuales",
                     "Nivel de IA: Básica",
                     "Suscripción anual incluida: 1ª gratuita",                    
+                    "No se te cobrara la renovacion de fin de año"
                     ],
                     extras: [],                    
                 },
@@ -297,12 +298,31 @@ export default function ContratacionPage() {
                     "Nivel de IA: Básica y Potente",
                     "Suscripción anual: $500 / año",
                     "Pago anticipado: $3,270.40 (ahorra 20%)",          
+                    "Renovación despues del año: $300",  
                     ],
                     extras: [],                    
-                },               
+                },     
+                
                  {
-                    nombre: "Pro Plus",
+                    nombre: "Pro Autorenovable",
                     precio: "12 meses a $349",
+                    detalles: [
+                    "Configuración completa de tu empresa o marca",
+                    "Segmentación básica del público objetivo",
+                    "Generación de publicaciones con tono, idioma y extensión definidos",
+                    "Publicaciones ilimitadas*",
+                    "Inspiración con textos o autores famosos",
+                    "Segmentación ultrapersonalizada",
+                    "Nivel de IA: Básica y Potente",
+                    "Suscripción anual: $500 / año",
+                    "Pago anticipado: $3,270.40 (ahorra 20%)", 
+                    "No se te cobrara la renovacion de fin de año"                           
+                    ],
+                    extras: [],                    
+                },    
+                 {
+                    nombre: "Pro Autorenovable Plus",
+                    precio: "",
                     detalles: [
                     "Configuración completa de tu empresa o marca",
                     "Segmentación básica del público objetivo",
@@ -334,7 +354,7 @@ export default function ContratacionPage() {
                     </ul>                                             
                        
                     {
-                       plansaved === 'Pro Plus' && (
+                       plansaved === 'Pro Autorenovable Plus' && (
                         <ul className="space-y-2 text-sm text-gray-700 mt-1">
                             <li className="flex items-start gap-2">   
                             <span className="text-green-600 font-bold">✓</span>
@@ -351,7 +371,7 @@ export default function ContratacionPage() {
                         </ul>    
                         )
                     }
-
+{/* 
                 {
                     plansaved == "Basico renovación automática" && (
                            <ul className="space-y-2 text-sm text-gray-700 mt-1">
@@ -361,7 +381,7 @@ export default function ContratacionPage() {
                             </li>
                         </ul>    
                     )
-                }
+                } */}
 
                     </div>    
                 </div>

@@ -1,10 +1,11 @@
 "use client";
 import Image from "next/image";
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useRouter } from "next/navigation";
 import DemoSection from "./home/demosection";
 import { Divide } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import FormContact from "./home/form.contact";
 
 export default function PricingPage() {
 
@@ -26,6 +27,7 @@ export default function PricingPage() {
     router.push(`/contratar?plan=${encodeURIComponent(text)}`);
     };
 
+    const [showForm, setShowForm] = useState(false);
 
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col">
@@ -143,6 +145,7 @@ export default function PricingPage() {
           "Nivel de IA: Básica y Potente",
           "Suscripción anual: $500 / año",
           "Pago anticipado: $3,270.40 (ahorra 20%)",          
+          "Renovación despues del año: $300",
         ],
         extras: [],
       },
@@ -188,14 +191,26 @@ export default function PricingPage() {
             {plan.nombre === "Premium (A medida)" && (           
               <div className="w-full  mt-4">
                 <button
-                  onClick={() => alert(plan.nombre)}
+                  onClick={() => setShowForm(true)}
                   className={`inline-block mt-6 bg-green-600 hover:bg-green-700 text-white font-bold  px-3 py-1  rounded-lg transition`}
                 >
                   Contactar                  
                 </button>
+
+                 {
+                    showForm && (
+                        <div>
+                          <FormContact setShowForm={setShowForm}></FormContact>
+                        </div>              
+                    )
+                  }
+
+
               </div>              
             )}
 
+
+           
 
             {plan.nombre === "Básico" || plan.nombre === "Pro" ? (           
               <div key={plan.nombre} className="w-full  mt-5">
@@ -232,8 +247,27 @@ export default function PricingPage() {
 
 
         {plan.nombre === "Pro" && (
-          <div className="mt-5">
-            <h3 className="text-xl font-bold text-green-700 mb-2">Pro Plus</h3>
+          <>
+
+            <div className="mt-5">
+            <h3 className="text-xl font-bold text-green-700 mb-2">Pro Autorenovable</h3>
+              <ul className="space-y-2 text-sm text-gray-700">
+                  <li className="flex items-start gap-2">   
+                    <span className="text-green-600 font-bold">✓</span>
+                    <span>No se te cobrara la renovacion de fin de año</span>                                
+                  </li>
+                </ul>   
+             <button
+                  onClick={() => handleClick("Pro Autorenovable") }
+                  className={`inline-block mt-3  bg-green-600 hover:bg-green-700 text-white font-bold  px-3 py-1 rounded-lg transition  `}
+                >
+                  Contratar Pro Autorenovable
+              </button>    
+          </div>
+
+          
+           <div className="mt-5">
+            <h3 className="text-xl font-bold text-green-700 mb-2">Pro Autorenovable Plus</h3>
              
               <ul className="space-y-2 text-sm text-gray-700">
                 <li className="flex items-start gap-2">   
@@ -250,12 +284,16 @@ export default function PricingPage() {
                 </li>
               </ul>    
              <button
-                  onClick={() => handleClick("Pro Plus") }
+                  onClick={() => handleClick("Pro Autorenovable Plus") }
                   className={`inline-block mt-3  bg-green-600 hover:bg-green-700 text-white font-bold  px-3 py-1 rounded-lg transition  `}
                 >
-                  Contratar Pro Plus
+                  Contratar Pro  Autorenovable Plus
               </button>    
           </div>
+          
+
+          </>
+          
         )}
 
 
