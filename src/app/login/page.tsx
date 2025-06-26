@@ -77,7 +77,7 @@ export default function Login() {
     toast.success("Inicio de sesión exitoso");
 
     setTimeout(() => {                        
-      router.push('/'); // Redirigir a la página principal      
+      router.push('/gac'); // Redirigir a la página principal      
     }, 1000);
     // aquí podrías guardar el token: 
     localStorage.setItem("token", data.token)

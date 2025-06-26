@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
-import {main} from '@/lib/seeding/mongo'
+import { seedData } from '@/lib/seeding/seeding'
 
 export async function POST(request: Request) { 
-  const result = await main()
+  const result = await seedData()
   return NextResponse.json({ message: result })
 }

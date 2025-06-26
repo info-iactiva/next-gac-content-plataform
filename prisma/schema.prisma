@@ -1,0 +1,78 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Rol {
+  id        Int     @id @default(autoincrement())
+  name      String  @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users     User[]
+}
+
+model Plan {
+  id            Int           @id @default(autoincrement())
+  nombre        String        @unique
+  tokens        Int
+  ilimit_tokesn Boolean
+  price         Float
+  duration      PlanDuration
+
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  userPlans     UserPlan[]
+}
+
+
+model User {
+  id          Int     @id @default(autoincrement())
+  email       String  @unique
+  password    String
+  is_active   Boolean @default(true)
+  used_tokens Int     @default(0)
+
+  id_rol      Int
+  rol         Rol     @relation(fields: [id_rol], references: [id])
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  userPlans   UserPlan[]
+}
+
+model UserPlan {
+  id         Int      @id @default(autoincrement())
+  id_user    Int
+  id_plan    Int
+
+  user       User     @relation(fields: [id_user], references: [id])
+  plan       Plan     @relation(fields: [id_plan], references: [id])
+
+  start_date DateTime
+  end_date   DateTime
+  active     Boolean  @default(true)
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+enum PlanDuration {
+  ONE_DAY     @map("1 día")
+  ONE_WEEK    @map("1 semana")
+  ONE_MONTH   @map("1 mes")
+  ONE_YEAR    @map("1 año")
+}
+

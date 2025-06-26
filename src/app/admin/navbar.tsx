@@ -31,7 +31,7 @@ export function Navbar() {
         {/* Menu desktop */}
         <ul className="hidden md:flex space-x-6 text-sm md:text-base font-medium items-center">
           <li>
-            <Link href="/" className="hover:text-blue-600 transition">
+            <Link href="/gac" className="hover:text-blue-600 transition">
               GAC
             </Link>
           </li>
