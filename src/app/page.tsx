@@ -111,10 +111,14 @@ export default function PricingPage() {
 
 
 <section ref={planesRef}  className="px-4 py-8 max-w-6xl mx-auto">
-  <h2 className="text-2xl font-semibold text-center mb-6 text-gray-800">
+  <h2 className="text-2xl font-semibold text-center mb-1 text-gray-800">
     Comparación de planes
   </h2>
 
+             
+  <h2 className=" col-span-5 lg:text-base mb-4 text-[10px] md:text-xs text-gray-500 text-center">
+          Todos los planes son ajustables por inflación.
+  </h2>
   {/* Versión mobile: cards */}
   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
     {[
