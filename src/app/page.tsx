@@ -195,7 +195,13 @@ export default function PricingPage() {
             {plan.nombre === "Premium (A medida)" && (           
               <div className="w-full  mt-4">
                 <button
-                  onClick={() => setShowForm(true)}
+                  onClick={() => {
+                    if (!showForm) {
+                      setShowForm(true);
+                    }else {
+                      setShowForm(false);
+                    }
+                  }}
                   className={`inline-block mt-6 bg-green-600 hover:bg-green-700 text-white font-bold  px-3 py-1  rounded-lg transition`}
                 >
                   Contactar                  
