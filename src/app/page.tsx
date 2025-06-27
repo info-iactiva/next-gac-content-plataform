@@ -6,6 +6,8 @@ import DemoSection from "./home/demosection";
 import { Divide } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import FormContact from "./home/form.contact";
+import CarouselB2F from "./home/carrusel/Carrusel";
+import Link from "next/link";
 
 export default function PricingPage() {
 
@@ -75,7 +77,7 @@ export default function PricingPage() {
           </div>
         </header>
 
-
+      
 
         {/* Intro Section - Mejorada */}
         <section className="py-8 px-4 flex justify-center ">
@@ -110,21 +112,38 @@ export default function PricingPage() {
       </section>    
 
 
+
+<CarouselB2F/>
+<section>        
+
+  <div className="bg-white rounded-2xl shadow-md p-6 md:p-10 max-w-6xl mx-auto text-center flex flex-col items-center gap-4">
+    
+        <span className="text-2xl">
+          <strong>Recursos de interés</strong>          
+        </span>
+                  
+        <span>         
+          ¡Accede <Link href="/interes" className="text-blue-600 hover:underline">aquí</Link> a información que aumentará tus conocimientos para incrementar las ventas de tu negocio!
+        </span>
+  </div>
+
+    
+</section>
+
+
 <section ref={planesRef}  className="px-4 py-8 max-w-6xl mx-auto">
-  <h2 className="text-2xl font-semibold text-center mb-1 text-gray-800">
+  <h2 className="text-2xl font-semibold text-center mb-4 text-gray-800 ">
     Comparación de planes
   </h2>
 
              
-  <h2 className=" col-span-5 lg:text-base mb-4 text-[10px] md:text-xs text-gray-500 text-center">
-          Todos los planes son ajustables por inflación.
-  </h2>
+ 
   {/* Versión mobile: cards */}
   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
     {[
       {
         nombre: "Básico",
-        precio: "12 meses a $99",
+        precio: "12 meses a $99 cada uno",
         detalles: [
           "Configuración completa de tu empresa o marca",
           "Segmentación básica del público objetivo",
@@ -132,24 +151,24 @@ export default function PricingPage() {
           "Hasta 45 publicaciones mensuales",
           "Nivel de IA: Básica",
           "Suscripción anual incluida: 1ª gratuita",
-          "Renovación despues del año: $300",
+          // "Renovación despues del año: $300",
         ],
         extras: [],
       },
       {
         nombre: "Pro",
-        precio: "12 meses a $349",
+        precio: "12 meses a $349 cada uno",
         detalles: [
           "Configuración completa de tu empresa o marca",
           "Segmentación básica del público objetivo",
           "Generación de publicaciones con tono, idioma y extensión definidos",
-          "Publicaciones ilimitadas*",
+          "Hasta 100 publicaciones mensuales",
           "Inspiración con textos o autores famosos",
-          "Segmentación ultrapersonalizada",
+          "Segmentación  ultra personalizada",
           "Nivel de IA: Básica y Potente",
           "Suscripción anual: $500 / año",
           "Pago anticipado: $3,270.40 (ahorra 20%)",          
-          "Renovación despues del año: $300",
+          // "Renovación despues del año: $300",
         ],
         extras: [],
       },
@@ -162,7 +181,7 @@ export default function PricingPage() {
           "Generación de publicaciones con tono, idioma y extensión definidos",
           "Publicaciones: Según contrato",
           "Inspiración con textos o autores famosos",
-          "Segmentación ultrapersonalizada",
+          "Segmentación ultra personalizada",
           "Nivel de IA: Básica y Potente",
           "Suscripción anual: Cotización",
           "Pago anticipado: Cotización",
@@ -234,7 +253,7 @@ export default function PricingPage() {
             ) : null          
           }
 
-        {plan.nombre === "Básico" && (
+        {/* {plan.nombre === "Básico" && (
           <div>
             <p className="text-black mb-6 mt-5">
               <strong>Si deseas activar la renovación automática:</strong>                             
@@ -253,13 +272,13 @@ export default function PricingPage() {
                   Contratar renovación automática               
               </button>    
           </div>
-        )}
+        )} */}
 
 
         {plan.nombre === "Pro" && (
           <>
 
-            <div className="mt-5">
+            {/* <div className="mt-5">
             <h3 className="text-xl font-bold text-green-700 mb-2">Pro Autorenovable</h3>
               <ul className="space-y-2 text-sm text-gray-700">
                   <li className="flex items-start gap-2">   
@@ -273,11 +292,11 @@ export default function PricingPage() {
                 >
                   Contratar Pro Autorenovable
               </button>    
-          </div>
+          </div> */}
 
           
            <div className="mt-5">
-            <h3 className="text-xl font-bold text-green-700 mb-2">Pro Autorenovable Plus</h3>
+            <h3 className="text-xl font-bold text-green-700 mb-2">Pro Con Descuento</h3>
              
               <ul className="space-y-2 text-sm text-gray-700">
                 <li className="flex items-start gap-2">   
@@ -290,11 +309,11 @@ export default function PricingPage() {
                 </li>
                 <li className="flex items-start gap-2">   
                   <span className="text-green-600 font-bold">✓</span>
-                  <span>Pagos despues del primer año a: <strong>$3,830.40</strong> </span>                                
+                  <span>Pagos después del primer año a: <strong>$3,830.40</strong> </span>                                
                 </li>
               </ul>    
              <button
-                  onClick={() => handleClick("Pro Autorenovable Plus") }
+                  onClick={() => handleClick("Pro Con Descuento") }
                   className={`inline-block mt-3  bg-green-600 hover:bg-green-700 text-white font-bold  px-3 py-1 rounded-lg transition  `}
                 >
                   Contratar Pro  Autorenovable Plus
@@ -311,6 +330,10 @@ export default function PricingPage() {
       </div>
     ))}
   </div>
+
+   <h2 className=" col-span-5 lg:text-base mt-4 text-[10px] md:text-xs text-gray-500 text-center">
+          Todos los planes son ajustables por inflación.
+  </h2>
 </section>
 
 

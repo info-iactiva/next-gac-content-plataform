@@ -216,7 +216,8 @@ export async function POST(req: Request) {
         extension,
         idioma,
         });
-
+        // gpt-4.o modelo potente IA
+        // no: gpt-3.5-turbo  normal IA
         const completion = await withTimeout(
           openai.chat.completions.create({
             model: "gpt-3.5-turbo",

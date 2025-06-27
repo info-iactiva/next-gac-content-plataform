@@ -258,7 +258,7 @@ export default function ContratacionPage() {
                 {[
                 {
                     nombre: "Básico",
-                    precio: "12 meses a $99",
+                    precio: "12 meses a $99 cada uno",
                     detalles: [
                     "Configuración completa de tu empresa o marca",
                     "Segmentación básica del público objetivo",
@@ -266,62 +266,29 @@ export default function ContratacionPage() {
                     "Hasta 45 publicaciones mensuales",
                     "Nivel de IA: Básica",
                     "Suscripción anual incluida: 1ª gratuita",
-                    "Renovación despues del año: $300",
+                    // "Renovación despues del año: $300",
                     ],
                     extras: [],                    
-                },
-
-                 {
-                    nombre: "Basico renovación automática",
-                    precio: "12 meses a $99",
-                    detalles: [
-                    "Configuración completa de tu empresa o marca",
-                    "Segmentación básica del público objetivo",
-                    "Generación de publicaciones con tono, idioma y extensión definidos",
-                    "Hasta 45 publicaciones mensuales",
-                    "Nivel de IA: Básica",
-                    "Suscripción anual incluida: 1ª gratuita",                    
-                    "No se te cobrara la renovacion de fin de año"
-                    ],
-                    extras: [],                    
-                },
+                },                
                 {
                     nombre: "Pro",
-                    precio: "12 meses a $349",
+                    precio: "12 meses a $349 cada uno",
                     detalles: [
                     "Configuración completa de tu empresa o marca",
                     "Segmentación básica del público objetivo",
                     "Generación de publicaciones con tono, idioma y extensión definidos",
-                    "Publicaciones ilimitadas*",
+                    "Hasta 100 publicaciones mensuales",
                     "Inspiración con textos o autores famosos",
-                    "Segmentación ultrapersonalizada",
+                    "Segmentación  ultra personalizada",
                     "Nivel de IA: Básica y Potente",
                     "Suscripción anual: $500 / año",
                     "Pago anticipado: $3,270.40 (ahorra 20%)",          
-                    "Renovación despues del año: $300",  
+                    // "Renovación despues del año: $300",  
                     ],
                     extras: [],                    
-                },     
-                
+                },                        
                  {
-                    nombre: "Pro Autorenovable",
-                    precio: "12 meses a $349",
-                    detalles: [
-                    "Configuración completa de tu empresa o marca",
-                    "Segmentación básica del público objetivo",
-                    "Generación de publicaciones con tono, idioma y extensión definidos",
-                    "Publicaciones ilimitadas*",
-                    "Inspiración con textos o autores famosos",
-                    "Segmentación ultrapersonalizada",
-                    "Nivel de IA: Básica y Potente",
-                    "Suscripción anual: $500 / año",
-                    "Pago anticipado: $3,270.40 (ahorra 20%)", 
-                    "No se te cobrara la renovacion de fin de año"                           
-                    ],
-                    extras: [],                    
-                },    
-                 {
-                    nombre: "Pro Autorenovable Plus",
+                    nombre: "Pro Con Descuento",
                     precio: "",
                     detalles: [
                     "Configuración completa de tu empresa o marca",
@@ -329,7 +296,7 @@ export default function ContratacionPage() {
                     "Generación de publicaciones con tono, idioma y extensión definidos",
                     "Publicaciones ilimitadas*",
                     "Inspiración con textos o autores famosos",
-                    "Segmentación ultrapersonalizada",
+                    "Segmentación  ultra personalizada",
                     "Nivel de IA: Básica y Potente",                    
                     ],
                     extras: [],                    
@@ -354,7 +321,7 @@ export default function ContratacionPage() {
                     </ul>                                             
                        
                     {
-                       plansaved === 'Pro Autorenovable Plus' && (
+                       plansaved === 'Pro Con Descuento' && (
                         <ul className="space-y-2 text-sm text-gray-700 mt-1">
                             <li className="flex items-start gap-2">   
                             <span className="text-green-600 font-bold">✓</span>
@@ -366,7 +333,7 @@ export default function ContratacionPage() {
                             </li>
                             <li className="flex items-start gap-2">   
                             <span className="text-green-600 font-bold">✓</span>
-                            <span>Pagos despues del primer año a: <strong>$3,830.40</strong> </span>                                
+                            <span>Pagos después del primer año a: <strong>$3,830.40</strong> </span>                                
                             </li>
                         </ul>    
                         )
