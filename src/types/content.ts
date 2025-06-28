@@ -23,6 +23,7 @@ export interface IContentInputValues {
       extension? :  "Corta" | "Media" | "Inglés" | "Larga"
       idioma? :  IdiomaType;
       contenido:string
+      ia_potente: boolean; 
   
 }
 

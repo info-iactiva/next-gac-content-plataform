@@ -40,6 +40,7 @@ export default function Home() {
       extension: "Corta",                             
       idioma: "Español (Latinoamérica)",
       contenido: "",
+      ia_potente: false, 
   });
   const router = useRouter();
 

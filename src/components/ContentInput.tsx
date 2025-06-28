@@ -16,41 +16,37 @@ import { FormProvider } from "react-hook-form";
 import { IDIOMAS, IdiomaType } from "@/const/lenguajes";
 import { UserProtected } from "@/types/user.protected";
 import { useRouter } from "next/navigation";
+import { Switch } from "./ui/siwtch";
 
 
-const formSchema = z.object({
-  // businessName: z.string().min(1, "Campo requerido"),
-  //datos empresa
-  nombre_empresa: z.string().min(1,"Campo requerido"),
-  nombre_corto_empresa: z.string().optional(),
-  web_site: z.string().optional(),
-  desc_empresa: z.string().optional(),
-  nombre_personaje: z.string().optional(),
-  descripcion_personaje: z.string().optional(),  
+const formSchema = z.object({  
+  nombre_empresa: z.string().min(1,"Campo requerido").max(200, "Máximo 200 caracteres"),
+  nombre_corto_empresa: z.string().max(200, "Máximo 200 caracteres").optional(),
+  web_site: z.string().max(200, "Máximo 200 caracteres").optional(),
+  desc_empresa: z.string().max(2000, "Máximo 2000 caracteres").optional(),
+  nombre_personaje: z.string().max(100, "Máximo 100 caracteres").optional(),
+  descripcion_personaje: z.string().max(500 , "Máximo 500 caracteres").optional(),  
 
-
-  // target
   ultra_personalizado : z.enum(["Si", "No"]).optional(),  
   segmento_audiencia: z.enum(["A/B", "C+", "C", "D+", "D", "E"]),
-  descripcion_audiencia: z.string().optional(),  
-  nombre_empresa_target: z.string().optional(),  
-  web_site_empresa_target: z.string().optional(),  
-  descripcion_empresa_target: z.string().optional(),  
-  nombre_buyer_persona: z.string().optional(),
-  descripcion_buyer_persona: z.string().optional(),
-  url_linkedIn_buyer_persona: z.string().optional(),
-  
-  //mensaje
+  descripcion_audiencia: z.string().max(1000, "Máximo 1000 caracteres").optional(),  
+  nombre_empresa_target: z.string().max(200, "Máximo 200 caracteres").optional(),  
+  web_site_empresa_target: z.string().max(200, "Máximo 200 caracteres").optional(),  
+  descripcion_empresa_target: z.string().max(200, "Máximo 200 caracteres").optional(),  
+  nombre_buyer_persona: z.string().max(200, "Máximo 200 caracteres").optional(),
+  descripcion_buyer_persona: z.string().max(200, "Máximo 200 caracteres").optional(),
+  url_linkedIn_buyer_persona: z.string().max(200, "Máximo 200 caracteres").optional(),
+    
   objetivo_publicacion: z.enum(["Promocionar", "Educar", "Inspirar", "Entretener","Compartir testimonio",""]).optional(),
   tono_publicacion: z.enum(["Experto", "Amigo", "Mentor", "Compañero", "Amigable", "Profesional", "Inspiradora", "Técnica", "Informativa"]),
-  texto_insp_ref : z.string().optional(),
-  ia_estilo_autor : z.string().optional(),
-  extension : z.enum(["Corta", "Media", "Inglés", "Larga"]).optional(),
-  // idioma: z.enum(["Español (Latinoamérica)", "Español (España)", "Inglés", "Francés","Alemán","Japonés","","Mandarín","hindi"]).optional(),      
+  texto_insp_ref : z.string().max(2000, "Máximo 2000 caracteres").optional(),
+  ia_estilo_autor : z.string().max(100, "Máximo 100 caracteres").optional(),
+  extension : z.enum(["Corta", "Media", "Inglés", "Larga"]).optional(),  
   idioma: z.custom<IdiomaType>((val) => IDIOMAS.includes(val as IdiomaType), {
   message: "Idioma no válido",  
 }),
-  contenido : z.string().min(1,"Campo requerido"),
+  contenido : z.string().min(1,"Campo requerido").max(200, "Máximo 200 caracteres"),
+  ia_potente : z.boolean().optional(),  
 })
 // .refine((data) => data.url || data.topic || data.web_site, {
 //   message: "Debes proporcionar una URL o un tema base.",
@@ -104,6 +100,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate,prevdata 
       extension: prevdata.extension || "Corta",                             
       idioma: prevdata.idioma || "Español (Latinoamérica)",
       contenido:prevdata.contenido || "",
+      ia_potente: prevdata.ia_potente || false,
     },
   });
   
@@ -1102,7 +1099,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate,prevdata 
                     Idea principal o mensaje que se quiere transmitir en el contenido.
                   </TooltipContent>
                 </Tooltip>
-              </div>
+                </div>
                 <FormControl>
                   <Input
                     id="contenido"
@@ -1120,8 +1117,53 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate,prevdata 
                   )}
               </FormItem>
             )} 
-          />                       
+          />                    
 
+
+             {
+              user ?  ( user.plan == "Plan Premium"  ||   user.plan == "Pro"  ? 
+              ( 
+                
+                <FormField
+                control={form.control}
+                name="ia_potente"
+                render={({ field }) => (
+                  <FormItem >
+                    <div className="flex items-center gap-2">
+                      <Label htmlFor="ia_potente"  className="text-xs lg:text-base">IA Potente</Label>
+                        <Tooltip>
+                        <TooltipTrigger asChild>
+                          <button type="button"  onClick={(e) => e.preventDefault()}>
+                          <Info className="w-4 h-4 text-muted-foreground cursor-pointer " />
+                        </button>
+                        </TooltipTrigger>
+                        <TooltipContent className="text-[8px] md:text-xs">
+                          Activa esta opción para utilizar la IA más avanzada y obtener resultados de mayor calidad.
+                        </TooltipContent>
+                      </Tooltip>
+                      </div>
+                    <FormControl>
+                      <Switch
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                      {form.formState.errors.ia_potente && (
+                      <span className="text-red-500 text-xs">
+                        {form.formState.errors.ia_potente.message as string}
+                      </span>
+                    )}
+                  </FormItem>
+                )}
+              />
+
+
+                ) 
+              
+              : null) : null
+            }
+
+            
 
 
           </div>
