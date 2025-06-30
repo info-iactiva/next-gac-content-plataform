@@ -20,6 +20,7 @@ import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
 import { TermsModal } from '../register/terminos';
 import { PrivacyModal } from "../register/privacidad";
+import Register from '../register/page';
 
 export default function ContratacionPage() {
     const searchParams = useSearchParams();
@@ -102,9 +103,10 @@ export default function ContratacionPage() {
               </button>   
         </div>
 
-         <div className="min-h-screen flex flex-col lg:flex-row-reverse items-start p-6 gap-6 w-full md:max-w-[80%] mx-auto">
-             
-        <div className="w-full lg:w-1/2">
+        <div className="min-h-screen flex flex-col lg:flex-row-reverse items-start p-6 gap-6 w-full md:max-w-[80%] mx-auto">
+        
+        <Register></Register>
+        {/* <div className="w-full lg:w-1/2">
         <Card  className="relative flex flex-col p-0 m-0">
         <CardHeader className="relative flex flex-col items-center  p-0">          
           <Image className="absolute top-2 left-5 w-[15%]" src="/logos/logo.webp" alt="" width={200} height={200}/>
@@ -230,8 +232,7 @@ export default function ContratacionPage() {
             </div>
               
 
-
-            {/* <TermsModal isOpen={isTermsModalOpen} onClose={() => setIsTermsModalOpen(false)} /> */}
+            
             <TermsModal isOpen={isTermsModalOpen} onClose={() => setIsTermsModalOpen(false)} />
             <PrivacyModal isOpen={isPrivacyModalOpen} onClose={() => setIsPrivacyModalOpen(false)} />
 
@@ -249,7 +250,7 @@ export default function ContratacionPage() {
         </CardContent>
         
       </Card>
-        </div>
+        </div> */}
       
 
        <div className="w-full lg:w-1/2 flex items-center justify-center">

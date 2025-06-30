@@ -1,8 +1,11 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 import { carouselData } from "./gac_b2f_carousel_completo";    
-import { parseISO, isAfter, isEqual, startOfDay } from "date-fns";
+import { useRouter } from "next/navigation";
 
-const CarouselB2F = () => {
+
+export default function CarouselB2F ()  {
   const [data] = useState(carouselData.days);
   const [currentIndex, setCurrentIndex] = useState(0);
   
@@ -15,15 +18,6 @@ const CarouselB2F = () => {
     return () => clearInterval(interval);
   }, [data.length]);
 
-  const goPrev = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? data.length - 1 : prevIndex - 1
-    );
-  };
-
-  const goNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % data.length);
-  };
 
   const goToIndex = (index) => {
     setCurrentIndex(index);
@@ -32,6 +26,7 @@ const CarouselB2F = () => {
   const card = data[currentIndex];  
   const isUnlocked = card.status === "unlocked";
 
+  const router = useRouter();
 
   return (
     <section className="w-full max-w-6xl mx-auto px-4 py-10 flex flex-col items-center">
@@ -41,40 +36,74 @@ const CarouselB2F = () => {
 
       <div className="relative flex flex-col sm:flex-row items-center">
         
-        {/* <button
-          onClick={goPrev}
-          className="
-            p-3 rounded-full 
-            text-gray-700 
-            hover:bg-gray-200 hover:bg-opacity-50 
-            transition 
-            duration-200 
-            ease-in-out
-            select-none
-            mb-4 sm:mb-0
-            sm:mr-4
-            w-10 h-10
-            flex items-center justify-center
-          "
-          aria-label="Anterior"
-          style={{ userSelect: "none" }}
-        >
-          &#8592;
-        </button> */}
-
-        {/* Card */}
-        <div className="w-[260px] sm:w-[400px]  lg:w-[700px] h-[380px] bg-white border shadow rounded-lg p-4 flex flex-col justify-between">
+        <div className="w-[260px] sm:w-[400px]  lg:w-[700px] h-[380px]  lg:h-[500px] bg-white border shadow rounded-lg p-4 flex flex-col justify-between">
 
           <h3 className="text-base font-semibold mb-2">{card.title}</h3>
 
           {isUnlocked ? (
             <>
+
+            <div className="flex flex-col h-full">
+            <div className="w-full h-64 sm:h-72 md:h-80 lg:h-[350px] overflow-hidden rounded mb-4">
               <img
                 src={card.content.image}
                 alt={card.title}
-                className="w-full h-28 object-cover rounded mb-2"
+                className="w-full h-full object-cover"
               />
+            </div> 
+            
+            <div className="flex-1 flex flex-col">
               <h4 className="text-sm font-bold mb-1">{card.content.headline}</h4>
+              <p className="text-xs text-gray-700 mb-2 line-clamp-3">
+                {card.content.text}
+              </p>
+
+              {card.content.cta_link && (
+                // <a
+                //   href={card.content.cta_link}
+                //   className="text-blue-600 hover:underline text-sm mt-auto"
+                // >
+                  
+                // </a>
+                 <button
+                          type="button"
+                          onClick={() => router.push(card.content.cta_link)}
+                          className="underline text-blue-600"
+                        >
+                          {card.content.cta_label}
+                </button>
+                )}
+            </div>
+          </div>
+
+
+              {/* <img
+                src={card.content.image}
+                alt={card.title}
+                className="w-auto h-28 object-cover rounded mb-2"
+              /> */}
+              {/* <div className="w-full h-40 sm:h-52 md:h-60 lg:h-64 overflow-hidden rounded mb-2">
+              <img
+                src={card.content.image}
+                alt={card.title}
+                className="w-full h-full object-cover"
+              />
+            </div> */}
+            {/* <img
+            src={card.content.image}
+            alt={card.title}
+            className="w-full h-full object-contain"
+          /> */}
+
+                {/* <div className="w-full h-60 bg-gray-100 flex items-center justify-center rounded mb-2">
+        <img
+          src={card.content.image}
+          alt={card.title}
+          className="max-h-full object-contain"
+        />
+      </div> */}
+
+              {/* <h4 className="text-sm font-bold mb-1">{card.content.headline}</h4>
               <p className="text-xs text-gray-700 mb-3">{card.content.text}</p>
               {card.content.cta_link && (
                 <a
@@ -83,15 +112,16 @@ const CarouselB2F = () => {
                 >
                   {card.content.cta_label}
                 </a>
-              )}
+              )} */}
+
+
             </>
           ) : (
             <div className="flex-1 flex items-center justify-center text-center text-gray-500 italic text-xs">
               {card.teaser_text}
             </div>
           )}
-
-          {/* Indicadores puntitos */}
+          
           <div className="flex justify-center mt-4 space-x-2">
             {data.map((_, idx) => (
               <button
@@ -110,32 +140,9 @@ const CarouselB2F = () => {
             ))}
           </div>
         </div>
-{/*         
-        <button
-          onClick={goNext}
-          className="
-            p-3 rounded-full 
-            text-gray-700 
-            hover:bg-gray-200 hover:bg-opacity-50 
-            transition 
-            duration-200 
-            ease-in-out
-            select-none
-            mt-4 sm:mt-0
-            sm:ml-4
-            w-10 h-10
-            flex items-center justify-center
-          "
-          aria-label="Siguiente"
-          style={{ userSelect: "none" }}
-        >
-          &#8594;
-        </button> */}
-
         
       </div>
     </section>
   );
 };
 
-export default CarouselB2F;

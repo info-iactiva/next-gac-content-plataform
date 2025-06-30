@@ -101,27 +101,35 @@ return (
 
 <Protected> 
   
- <div className="min-h-screen flex items-center justify-center p-6 ">
+ <div className="min-h-screen flex items-center justify-center p-6 relative">
+      
+
 
       <Card className="lg:min-w-[1000px] lg:max-w-4xl relative  md:min-w-[650px] md:max-w-2xl min-w-[350px]  ">
         <CardHeader className="relative flex flex-col items-center p-0">
               <Image className="w-[30%]" src="/logos/gacLogo.jpg" alt="" width={200} height={200} />
               <Image className="absolute top-2 left-5 w-[15%]" src="/logos/logo.webp" alt="" width={200} height={200} />
 
-              {/* Contenedor de botones arriba a la derecha */}
-              <div className="absolute top-3 right-4 flex flex-col md:flex-row gap-2">
                 {user?.rol === "admin" && (
                   <button
                     className="border border-blue-500 text-blue-700 bg-white 
-                      px-2 py-1 text-xs 
-                      md:px-4 md:py-2 md:text-sm 
-                      rounded hover:bg-blue-50 transition"
+                      px-2 py-1 text-[10px] md:px-4 md:py-2 md:text-sm md:top-20                      
+                      rounded hover:bg-blue-50 transition  absolute top-10 left-4 lg:left-8"
                     onClick={() => router.push("/admin")}
                   >
                     Administración
                   </button>
-                )}
+      )}
+              {/* Contenedor de botones arriba a la derecha */}
+              <div className="absolute top-3 right-4 flex flex-col md:flex-row gap-2">          
 
+                <button
+                  className="border border-green-500 text-green-700 bg-white 
+                    px-2 py-1 text-xs 
+                    md:px-4 md:py-2 md:text-sm 
+                    rounded hover:bg-green-50 transition"
+                  onClick={() => router.push("/manual")}
+                >Manual de uso</button>
                 <button
                   className="border border-gray-300 bg-white text-gray-700 
                     px-2 py-1 text-xs 

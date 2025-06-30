@@ -18,6 +18,7 @@ import { set } from "mongoose";
 import { Eye, EyeOff } from "lucide-react";
 import { TermsModal } from "./terminos";
 import { PrivacyModal } from "./privacidad";
+import { ContractModal } from "./contrato";
 
 
 export default function Register() {
@@ -27,6 +28,7 @@ export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
   const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false);
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
 
 
@@ -85,9 +87,9 @@ export default function Register() {
   }
 
 
-    return  <div className="min-h-screen flex items-center justify-center p-6 ">
-
-      <Card className=" relative  md:min-w-[450px] md:max-w-xl min-w-[300px]  flex  flex-col  p-0 m-0">
+    return <
+    >
+        <Card className=" relative  md:min-w-[450px] md:max-w-xl min-w-[300px]  flex  flex-col  p-0 m-0">
         <CardHeader className="relative flex flex-col items-center  p-0">          
           <Image className="absolute top-2 left-5 w-[15%]" src="/logos/logo.webp" alt="" width={200} height={200}/>
         </CardHeader>
@@ -195,7 +197,15 @@ export default function Register() {
                         >
                           Aviso de Privacidad
                         </button>.
-                        El uso del servicio implica tu aceptación plena y sin reservas del contrato de prestación de servicios correspondiente, que se considera celebrado en la Ciudad de México.
+                        El uso del servicio implica tu aceptación plena y sin reservas del{" "}
+                         <button
+                          type="button"
+                          onClick={() => setIsContactModalOpen(true)}
+                          className="underline text-blue-600"
+                        >
+                          contrato
+                        </button>.
+                         de prestación de servicios correspondiente, que se considera celebrado en la Ciudad de México.
                       </span>
                     </label>
                     {form.formState.errors.acceptTerms && (
@@ -216,7 +226,7 @@ export default function Register() {
             {/* <TermsModal isOpen={isTermsModalOpen} onClose={() => setIsTermsModalOpen(false)} /> */}
             <TermsModal isOpen={isTermsModalOpen} onClose={() => setIsTermsModalOpen(false)} />
             <PrivacyModal isOpen={isPrivacyModalOpen} onClose={() => setIsPrivacyModalOpen(false)} />
-
+            <ContractModal  isOpen={isContactModalOpen} onClose={()=> setIsContactModalOpen(false)}/>
 
 
              <Button type="submit" disabled={!form.watch("acceptTerms") || isLoading}>
@@ -233,7 +243,7 @@ export default function Register() {
 
       </Card>
 
-    </div>
+    </>        
 
 }
       

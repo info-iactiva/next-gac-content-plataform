@@ -123,7 +123,7 @@ export default function PricingPage() {
         </span>
                   
         <span>         
-          ¡Accede <Link href="/interes" className="text-blue-600 hover:underline">aquí</Link> a información que aumentará tus conocimientos para incrementar las ventas de tu negocio!
+          ¡Accede <Link href="/blog" className="text-blue-600 hover:underline">aquí</Link> a información que aumentará tus conocimientos para incrementar las ventas de tu negocio!
         </span>
   </div>
 

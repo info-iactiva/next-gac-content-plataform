@@ -5,14 +5,14 @@ export const carouselData = {
     {
       "day": 1,
       "title": "Período 1",
-      "status": "locked",
+      "status": "unlocked",
       "unlocked_date": "2025-06-26",
       "content": {
-        "headline": "¿Qué es B2F y por qué importa?",
-        "text": "Descubre el modelo que pone a tus seguidores al centro de tu estrategia digital.",
-        "image": "/assets/b2f_day1.jpg",
+        "headline": "¿Qué es B2F y por qué deberías conocerlo ya?",
+        "text": "Descubre y vende más",
+        "image": "/assets/carrusel/periodo1.png",
         "cta_label": "Leer más",
-        "cta_link": "https://gac.iactiva.ai/blog/b2f-dia1"
+        "cta_link": "blog/periodouno"
       },
       "teaser_text": "¡Prepárate! Aquí aparecerá el contenido del Período 1."
     },
