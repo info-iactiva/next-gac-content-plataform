@@ -7,8 +7,11 @@ export default function B2FPage() {
   const router = useRouter();
 
   return (
-    <div className="max-w-3xl mx-auto p-6 text-gray-800">
-      <h1 className="text-2xl font-bold mb-4 text-center">🌎 El contexto ha cambiado</h1>
+    <div className="max-w-4xl mx-auto p-6 text-gray-800">
+      
+      <img src={'/assets/periodouno/image1.png'} alt=""   className=" m-auto w-[60%] h-[60%] rounded-sm"/>
+
+      <h1 className="mt-5 text-2xl font-bold mb-4 text-center">🌎 El contexto hsa cambiado</h1>
       <blockquote className="italic border-l-4 border-blue-500 pl-4 mb-4">
         “Las marcas que no construyen comunidad están condenadas a perseguir métricas vacías.”
         <br />— Brian Solis (2011)
@@ -53,8 +56,9 @@ export default function B2FPage() {
         <li>El objetivo no es solo que te sigan. Es que regresen. Es que recomienden. Es que se sientan parte.</li>
       </ul>
 
-      <h2 className="text-xl font-bold mt-8 mb-2">🧩 ¿Cómo se diferencia del marketing tradicional?</h2>
-      <p className="mb-4">
+      <h2 className="text-xl font-bold mt-8 mb-3">🧩 ¿Cómo se diferencia del marketing tradicional?</h2>
+      <img src="/assets/periodouno/image2.png" alt=""  className=" m-auto w-[60%] h-[60%] rounded-sm" />
+      <p className="mb-4 mt-5">
         Veamos cómo se compara el enfoque B2F frente al marketing tradicional:
       </p>
       <div className="border rounded-md p-4 mb-4 bg-gray-50">
@@ -96,60 +100,103 @@ export default function B2FPage() {
       </p>
 
       <h2 className="text-xl font-bold mt-8 mb-2">🛠 ¿Cómo se implementa?</h2>
-      <p className="mb-4">
-        Implementar B2F no es improvisar contenido emocional. Es tener una estrategia sólida, estructurada y adaptable que contemple:
-      </p>
-      <ul className="list-disc list-inside mb-4 space-y-1">
-        <li><strong>Quién eres tú (Emisor):</strong> ¿Qué representa tu marca? ¿Cómo suena tu voz? ¿Qué valores la inspiran?</li>
-        <li><strong>A quién te diriges (Target):</strong> ¿Conoces bien a tus seguidores? ¿Sabes cómo piensan, sienten y qué canales prefieren?</li>
-        <li><strong>Qué quieres decir (Mensaje):</strong> ¿Tienes claro tu objetivo por publicación? ¿Buscas educar, entretener, invitar, inspirar?</li>
-      </ul>
-      <p className="mb-4">
-        Las tasas promedio de engagement en redes sociales se sitúan entre el 1.4 % y el 2.8 % (HubSpot Research, 2024). Esto demuestra que conectar con tu comunidad es perfectamente alcanzable si tu mensaje es auténtico.
-      </p>
-      <p className="mb-4">
-        La buena noticia es que no necesitas hacerlo solo. El GAC de iActiva está diseñado precisamente para eso: automatizar tu comunicación sin perder tu esencia.
-      </p>
 
+      <div className="flex flex-col md:flex-row gap-5 items-start  mt-5">
+        <div>
+         <p className="mb-4">
+          Implementar B2F no es improvisar contenido emocional. Es tener una estrategia sólida, estructurada y adaptable que contemple:
+        </p>
+        <ul className="list-disc list-inside mb-4 space-y-1">
+          <li><strong>Quién eres tú (Emisor):</strong>  <br />  ¿Qué representa tu marca? <br /> ¿Cómo suena tu voz? <br />  ¿Qué valores la inspiran?</li>
+          <li><strong>A quién te diriges (Target):</strong> <br />  ¿Conoces bien a tus seguidores?  <br />  ¿Sabes cómo piensan, sienten y qué canales prefieren?</li>
+          <li><strong>Qué quieres decir (Mensaje):</strong> <br />   ¿Tienes claro tu objetivo por publicación? <br />  ¿Buscas educar, entretener, invitar, inspirar?</li>
+        </ul>       
+        </div>
+
+       <img src="/assets/periodouno/image3.png" alt="" className=" m-auto w-[70%] h-[70%]   md:w-[40%] md:h-[40%] rounded-sm" />
+
+      </div>
+
+      <div className="flex flex-col md:flex-row gap-5 items-start mt-10" >
+        <div>
+           <p className="mb-4">
+            Las tasas promedio de engagement en redes sociales se sitúan entre el 1.4 % y el 2.8 % (HubSpot Research, 2024). Esto demuestra que conectar con tu comunidad es perfectamente alcanzable si tu mensaje es auténtico.
+          </p>
+          <p className="mb-4">
+            La buena noticia es que no necesitas hacerlo solo. El GAC de iActiva está diseñado precisamente para eso: automatizar tu comunicación sin perder tu esencia.
+          </p>
+        </div>
+
+        <img src="/assets/periodouno/image4.png" alt="" className=" m-auto w-[70%] h-[70%] md:w-[40%] md:h-[40%] rounded-sm"/>
+      </div>
+      
       <h2 className="text-xl font-bold mt-8 mb-2">✨ ¿Para quién sirve el B2F?</h2>
       <blockquote className="italic border-l-4 border-blue-500 pl-4 mb-4">
         “Si tienes algo que decir y alguien que te escucha, ya tienes una audiencia. El B2F convierte eso en capital social.”
         <br />— Marie Forleo (2019)
       </blockquote>
-      <p className="mb-4">
-        Actualmente, el 90 % de las PYMEs utilizan redes sociales, y el 78 % lo hacen para aumentar sus ingresos (Shopify, 2024; Hootsuite & We Are Social, 2024). Esto prueba que construir comunidad tiene un impacto directo en los resultados comerciales.
-      </p>
+
+      <div className="flex flex-col  md:flex-row gap-5 items-center mt-10">
+        <img src="/assets/periodouno/image6.png" alt="" className=" m-auto w-[70%] h-[70%] md:w-[40%] md:h-[40%] rounded-sm"/>
+          <div>
+            <p className="mb-4">
+              Actualmente, el 90 % de las PYMEs utilizan redes sociales, y el 78 % lo hacen para aumentar sus ingresos (Shopify, 2024; Hootsuite & We Are Social, 2024). Esto prueba que construir comunidad tiene un impacto directo en los resultados comerciales.
+            </p>
+          </div>          
+      </div>
+      
+
+
       <p className="mb-4">
         Los consumidores que interactúan activamente con las marcas gastan hasta un 40 % más (Shopify, 2024). No se trata solo de visibilidad: es negocio puro.
       </p>
-      <p className="mb-4">B2F es útil para:</p>
-      <ul className="list-disc list-inside mb-4 space-y-1">
-        <li>Establecer un lazo emocional entre tu marca y tu audiencia</li>
-        <li>Crear o fortalecer tu marca personal</li>
-        <li>Emprendedoras que gestionan su marca personal</li>
-        <li>PyMEs que desean posicionarse sin perder autenticidad</li>
-        <li>Consultoras o coaches que generan contenido educativo</li>
-        <li>Grandes empresas que quieren dejar de sonar como robots</li>
-        <li>Y sí, también para ti, que estás leyendo esto.</li>
-      </ul>
+      <p className="mb-4 text-lg lg:text-2xl lg:mt-10 lg:mb-5"><strong>B2F es útil para:</strong></p>
+
+      <div className="flex flex-col  md:flex-row gap-5 items-start mt-5">
+        <div>
+          <ul className="list-disc list-inside mb-4 space-y-1">
+            <li>Establecer un lazo emocional entre tu marca y tu audiencia</li>
+            <li>Crear o fortalecer tu marca personal</li>
+            <li>Emprendedoras que gestionan su marca personal</li>
+            <li>PyMEs que desean posicionarse sin perder autenticidad</li>
+            <li>Consultoras o coaches que generan contenido educativo</li>
+            <li>Grandes empresas que quieren dejar de sonar como robots</li>
+            <li>Y sí, también para ti, que estás leyendo esto.</li>
+          </ul>
+        </div>
+        <img src="/assets/periodouno/image7.png" alt="" className=" m-auto w-[70%] h-[70%] md:w-[40%] md:h-[40%] rounded-sm"/>
+      </div>
+      
 
       <h2 className="text-xl font-bold mt-8 mb-2">🎯 ¿Qué te llevarás de este periodo?</h2>
-      <p className="mb-4">
-        En este primer periodo de contenidos sobre B2F descubrirás:
-      </p>
-      <ul className="list-disc list-inside mb-4 space-y-1">
-        <li>La arquitectura exacta del B2F (Emisor–Target–Mensaje)</li>
-        <li>Qué errores evitar</li>
-        <li>Casos reales de empresas que ya aplican B2F con éxito</li>
-        <li>Cómo el GAC convierte ideas en conexiones reales</li>
-        <li>Y lo más importante: cómo puedes usar tecnología para escalar tu voz sin perder el control.</li>
-      </ul>
-      <p className="mb-4 font-semibold italic">
-        “No necesitas hacer más publicaciones. Necesitas hacer publicaciones que conecten.” — La Caballera Rosa
-      </p>
-      <button className="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mb-8" onClick={() => router.push('/gac')}>
-        Haz clic aquí para conocer cómo funciona el GAC
-      </button>
+      <div className="flex flex-col  md:flex-row gap-5 items-start mt-5">
+        <div>
+            <p className="mb-4">
+            En este primer periodo de contenidos sobre B2F descubrirás:
+          </p>
+          <ul className="list-disc list-inside mb-4 space-y-1">
+            <li>La arquitectura exacta del B2F (Emisor–Target–Mensaje)</li>
+            <li>Qué errores evitar</li>
+            <li>Casos reales de empresas que ya aplican B2F con éxito</li>
+            <li>Cómo el GAC convierte ideas en conexiones reales</li>
+            <li>Y lo más importante: cómo puedes usar tecnología para escalar tu voz sin perder el control.</li>
+          </ul>
+          <p className="mb-4 font-semibold italic">
+            “No necesitas hacer más publicaciones. Necesitas hacer publicaciones que conecten.” — La Caballera Rosa
+          </p>
+          <p>
+            📅 En el siguiente periodo exploraremos más sobre cómo pasar de publicaciones genéricas a verdaderas conversaciones con tu comunidad. 
+          </p>
+        </div>
+        <img src="/assets/periodouno/image8.png" alt="" className=" m-auto w-[70%] h-[70%] md:w-[40%] md:h-[40%] rounded-sm"/>
+      </div>
+
+      <div className="mt-10 text-center">
+      <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 " onClick={() => router.push('/gac')}>
+          Haz clic aquí para conocer cómo funciona el GAC
+        </button>
+      </div>
+      
 
       <h2 className="text-xl font-bold mt-8 mb-2">📚 Bibliografía</h2>
       <ul className="list-disc list-inside space-y-1">
