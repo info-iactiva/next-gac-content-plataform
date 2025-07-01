@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import FormContact from "./home/form.contact";
 import CarouselB2F from "./home/carrusel/Carrusel";
 import Link from "next/link";
-
+import { PLANES } from "@/const/planes"; 
 export default function PricingPage() {
 
 
@@ -140,7 +140,7 @@ export default function PricingPage() {
  
   {/* Versión mobile: cards */}
   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    {[
+    {/* {[
       {
         nombre: "Básico",
         precio: "12 meses a $99 cada uno",
@@ -192,7 +192,9 @@ export default function PricingPage() {
         ],
         extras: [],
       },
-    ].map((plan) => (
+    ] 
+     */}
+      {PLANES.map((plan) => (
       <div
         key={plan.nombre}
         className="bg-white rounded-2xl shadow-md p-6 flex flex-col justify-between"
@@ -305,18 +307,18 @@ export default function PricingPage() {
                 </li>
                 <li className="flex items-start gap-2">   
                   <span className="text-green-600 font-bold">✓</span>
-                  <span>20% de descuento</span>                                
+                  <span>Incluye 20% de descuento</span>                                
                 </li>
                 <li className="flex items-start gap-2">   
                   <span className="text-green-600 font-bold">✓</span>
-                  <span>Pagos después del primer año a: <strong>$3,830.40</strong> </span>                                
+                  <span>Pagos anuales después del primer año a: <strong>$3,830.40</strong> </span>                                
                 </li>
               </ul>    
              <button
                   onClick={() => handleClick("Pro Con Descuento") }
                   className={`inline-block mt-3  bg-green-600 hover:bg-green-700 text-white font-bold  px-3 py-1 rounded-lg transition  `}
                 >
-                  Contratar Pro  Autorenovable Plus
+                Contratar Pro Con Descuento
               </button>    
           </div>
           

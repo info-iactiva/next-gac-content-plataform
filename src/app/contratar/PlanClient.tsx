@@ -280,10 +280,10 @@ export default function ContratacionPage() {
                     "Generación de publicaciones con tono, idioma y extensión definidos",
                     "Hasta 100 publicaciones mensuales",
                     "Inspiración con textos o autores famosos",
-                    "Segmentación  ultra personalizada",
+                    "Comunicación  ultra personalizada",
                     "Nivel de IA: Básica y Potente",
                     "Suscripción anual: $500 / año",
-                    "Pago anticipado: $3,270.40 (ahorra 20%)",          
+                    // "Pago anticipado: $3,270.40 (ahorra 20%)",          
                     // "Renovación despues del año: $300",  
                     ],
                     extras: [],                    
@@ -330,11 +330,11 @@ export default function ContratacionPage() {
                             </li>
                             <li className="flex items-start gap-2">   
                             <span className="text-green-600 font-bold">✓</span>
-                            <span>20% de descuento</span>                                
+                            <span>Incluye 20% de descuento</span>                                
                             </li>
                             <li className="flex items-start gap-2">   
                             <span className="text-green-600 font-bold">✓</span>
-                            <span>Pagos después del primer año a: <strong>$3,830.40</strong> </span>                                
+                            <span>Pagos anuales después del primer año a: <strong>$3,830.40</strong> </span>                                
                             </li>
                         </ul>    
                         )
