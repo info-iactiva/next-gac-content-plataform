@@ -12,7 +12,7 @@ export const carouselData = {
         "text": "Descubre y vende más",
         "image": "/assets/carrusel/periodo1.png",
         "cta_label": "Leer más",
-        "cta_link": "blog/periodouno"
+        "cta_link": "/blog/periodouno"
       },
       "teaser_text": "¡Prepárate! Aquí aparecerá el contenido del Período 1."
     },
