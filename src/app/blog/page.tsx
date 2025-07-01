@@ -33,19 +33,19 @@ export default function Blog() {
       <ul className="space-y-4">
         {publicaciones.map((pub) => (
           <li key={pub.periodo}>
-            <button
-              onClick={() =>{
-                if (pub.active) {
-                  router.push(pub.url);
-                } else {
-                  alert('¡Prepárate! Aquí aparecerá el contenido del ' + pub.periodo + '.');
-                }
-              }}
-              className="w-full text-left p-4 rounded-lg shadow-md bg-white hover:bg-blue-50 border border-gray-200 transition duration-200 flex justify-between items-center"
-            >
-              <span className="text-lg font-medium text-gray-800">{pub.titulo}</span>
-              <span className="text-sm text-blue-600">{pub.periodo}</span>
-            </button>
+          <button
+            onClick={() => {
+              if (pub.active) {
+                router.push(pub.url);
+              }
+            }}
+            className={`w-full text-left p-4 rounded-lg shadow-md bg-white border border-gray-200 transition duration-200 flex justify-between items-center ${
+              pub.active ? "cursor-pointer hover:bg-blue-50" : "cursor-default"
+            }`}
+          >
+            <span className="text-lg font-medium text-gray-800">{pub.titulo}</span>
+            <span className="text-sm text-blue-600">{pub.periodo}</span>
+          </button>
           </li>
         ))}
       </ul>
