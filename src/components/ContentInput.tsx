@@ -55,15 +55,15 @@ const formSchema = z.object({
 
 type TPropsContentInputProps = {
   onGenerate: (values: IContentInputValues) => void;
-  prevdata: IContentInputValues
+  prevdata: IContentInputValues,
+  tokensRestantes: number;
 };
 
-export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate,prevdata }) => {
+export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate,prevdata,tokensRestantes}) => {
   const [user, setUser] = useState<UserProtected | null>(null);  
   
   useEffect(() => {       
-      const storedUser = localStorage.getItem("user");        
-      console.log("Stored user:", storedUser);
+      const storedUser = localStorage.getItem("user");              
       if (storedUser) {
         try {
           const parsedUser: UserProtected = JSON.parse(storedUser);
@@ -377,7 +377,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate,prevdata 
          
             {
               user ?  (
-                 user.plan == "Plan Premium" ? (
+                 user.plan == "Premium" ||  user.plan == "Pro" ||  user.plan == "Pro Con Descuento"? (
                  <FormField
                       control={form.control}
                       name="ultra_personalizado"
@@ -892,7 +892,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate,prevdata 
 
           {
               user ?  (
-                 user.plan == "Plan Premium" ? 
+                 user.plan == "Pro" || user.plan == "Pro Con Descuento" || user.plan == "Premium"  ? 
                  (
                   <>                                    
                   <FormField
@@ -1121,7 +1121,7 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate,prevdata 
 
 
              {
-              user ?  ( user.plan == "Plan Premium"  ||   user.plan == "Pro"  ? 
+              user ?  ( user.plan == "Premium"  ||   user.plan == "Pro" ||   user.plan == "Pro Con Descuento"  ? 
               ( 
                 
                 <FormField
@@ -1171,8 +1171,8 @@ export const ContentInput: FC<TPropsContentInputProps> = ({ onGenerate,prevdata 
         </div>             
                                          
                                           
-          <div className="col-span-3 flex justify-center">            
-            <Button type="submit">Generar contenido</Button>
+          <div className="col-span-3 flex justify-center" >            
+            <Button type="submit" disabled={tokensRestantes == 0 ? true : false }  >Generar contenido</Button>
           </div>
           
           <span className="col-span-5 p-5 md:p-0 text-[10px] md:text-xs text-gray-500 text-center">

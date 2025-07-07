@@ -3,4 +3,6 @@ export interface UserProtected {
     is_active: boolean;
     rol:string;
     plan: string;
+    is_pagado: boolean;
+    tokens_restantes: number;
 }

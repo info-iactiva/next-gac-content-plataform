@@ -4,6 +4,7 @@ import { extractTextFromURL } from "@/lib/extract";
 import { buildPrompt } from "@/lib/prompts";
 import { buildPromptDOS } from "@/lib/promptsdos";
 import { buildPrompttres } from "@/lib/prompttres";
+import { prisma } from '@/lib/prisma/prisma'
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -15,7 +16,7 @@ const maxTokensByNetwork: Record<(typeof socialTargets)[number], number> = {
   Facebook: 700,
   Instagram: 750,
   X: 350,
-  Blog: 1500,
+  Blog: 2000,
   LinkedIn: 1000,
   Email: 400,
   // DirectMessage: 300,
@@ -57,11 +58,12 @@ export async function POST(req: Request) {
       ia_estilo_autor,
       extension,                             
       idioma,
-      contenido
+      contenido,
+      ia_potente,
+      userid,
   } = await req.json();
 
-  
-
+      
   let articleContent = "";
   let title = "";
 
@@ -75,8 +77,19 @@ export async function POST(req: Request) {
     }else{
       filteredTargets = ["WhatsApp", "Email", "LinkedIn"];
     }
+    
+    const user = await getUserById(parseInt(userid))
 
-    // console.log("Filtered targets:", filteredTargets);
+    if (!user) {
+      return NextResponse.json({ error: "Usuario no encontrado" }, { status: 404 });
+    }
+
+    if (user.used_tokens > user.plan.tokens) {
+      return NextResponse.json({ error: "Límite de tokens alcanzado" }, { status: 403 });
+    }
+
+    await updateuserToken(user.id,user.used_tokens);
+    console.log("Filtered targets:", filteredTargets);
     const posts = await Promise.all(
     filteredTargets.map(async (network: "Facebook" | "Instagram" | "X" | "Blog"  | "LinkedIn"| "Email"| "DirectMessage"| "WhatsApp") => {
       try {
@@ -109,7 +122,8 @@ export async function POST(req: Request) {
         // no: gpt-3.5-turbo  normal IA
         const completion = await withTimeout(
           openai.chat.completions.create({
-            model: "gpt-3.5-turbo",
+            // model: "gpt-3.5-turbo",
+            model: "gpt-4o",
             messages: [{ role: "user", content: prompt }],
             temperature: 0.7,
             max_tokens: maxTokensByNetwork[network],
@@ -167,8 +181,8 @@ export async function POST(req: Request) {
 
 
 
-
   return NextResponse.json({ posts });
+  // return NextResponse.json({ message: "Función gu" });
 }
 
 
@@ -182,3 +196,26 @@ function isValidURL(content: string) {
   }
 }
 
+
+
+const getUserById = async (userid: number) => {
+  const user = await prisma.user.findUnique({ 
+    where: { id: userid },  
+    include: {        
+        plan: true 
+      },
+  });
+  if (!user) {
+    throw new Error("Usuario no encontrado");
+  }
+  return user;
+}
+
+const updateuserToken = async (userid: number,tokensnumber:number) => {
+   await prisma.user.update({
+        where: { id: userid },
+        data: {                    
+          used_tokens: tokensnumber+1          
+        }
+      });    
+}

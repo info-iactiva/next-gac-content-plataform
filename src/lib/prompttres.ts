@@ -195,7 +195,7 @@ export function buildPrompttres({
 
   const responseInstructions = {
     Blog:
-      "Longitud ideal: 300 a 600 palabras. Redacción clara, fluida y útil. Incluir subtítulos, estructura SEO optimizada y llamadas a la acción con enlaces al sitio web. Reforzar ideas clave y adaptarse al buyer persona. Incluir una meta descripción al inicio.",
+      "Longitud ideal: 300 a 600 palabras. Incluir subtítulos, estructura SEO optimizada y llamadas a la acción con enlaces al sitio web. Reforzar ideas clave y adaptarse al buyer persona. Incluir una meta descripción al inicio.",
     Facebook:
       "Máximo 150 caracteres. Frase directa, amigable y con un llamado a la acción. Acompañar con un enlace si aplica.",
     Instagram:
@@ -203,15 +203,15 @@ export function buildPrompttres({
       nombre_corto_empresa +
       ". Estilo visual, cercano y emocional.",
     X:
-      "Máximo 280 caracteres. Tono ingenioso, actual y fácil de compartir. Comienza con frase de impacto. 1 o 2 hashtags relevantes incluyendo #" +
+       `Máximo 279 caracteres. ${tono_publicacion}. Comienza con frase de impacto. 1 o 2 hashtags relevantes incluyendo # ` +
       nombre_corto_empresa +
       ".",
-    "Artículo para LinkedIn":
-      "Crea un artículo profesional para publicar en LinkedIn. Longitud recomendada: 400 a 800 palabras. Incluye título llamativo, introducción que conecte con la audiencia, desarrollo con datos o insights y una conclusión con llamada a la acción. Tono profesional, motivador y enfocado al crecimiento o aprendizaje.",
+    "Artículo para LinkedIn":      
+      "Crea un artículo profesional para publicar en LinkedIn. Longitud maxima de 1000 caracteres. Incluye título llamativo, introducción que conecte con la audiencia, desarrollo con datos o insights y una conclusión con llamada a la acción. Tono profesional, motivador y enfocado al crecimiento o aprendizaje.",
     "Mensaje individual para LinkedIn":
       `Escribe un mensaje directo personalizado para el buyer persona${
         url_linkedIn_buyer_persona ? ` en ${url_linkedIn_buyer_persona}` : ""
-      }. Sé cordial, directo y menciona brevemente la propuesta de la empresa. Invita a continuar la conversación o agendar una llamada. Incluye el sitio web: ${web_site}.`,
+      }. usa un  tono: ${tono_publicacion}  menciona brevemente la propuesta de la empresa. Invita a continuar la conversación o agendar una llamada. Incluye el sitio web: ${web_site}.`,
     Email: `Genera un breve correo que salude al buyer persona y presente el contenido de manera directa. Incluye una llamada a la acción y enlace a ${web_site}.`,
     DirectMessage: `Genera un mensaje directo (Messenger o LinkedIn) saludando al buyer persona${
       url_linkedIn_buyer_persona ? ` en ${url_linkedIn_buyer_persona}` : ""

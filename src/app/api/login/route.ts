@@ -83,6 +83,7 @@ export async function POST(request: Request) {
       where: { email },
       include: {
         rol: true,
+        plan: true, // 👈 incluir directamente el plan
       },
     })
 
@@ -95,17 +96,6 @@ export async function POST(request: Request) {
     if (!isValidPassword) {
       return NextResponse.json({ error: 'Contraseña incorrecta' }, { status: 401 })
     }
-
-    // 3. Buscar plan activo
-    const userPlan = await prisma.userPlan.findFirst({
-      where: {
-        id_user: user.id,
-        active: true,
-      },
-      include: {
-        plan: true,
-      },
-    })
 
     // 4. Generar token
     const token = jwt.sign(
@@ -121,7 +111,9 @@ export async function POST(request: Request) {
         id: user.id,
         is_active: user.is_active,
         rol: user.rol.name,
-        plan: userPlan?.plan.nombre ?? null,
+        plan: user.plan?.nombre ?? null,
+        is_pagado: user.is_pagado, 
+        tokens_restantes: (user.plan?.tokens - user.used_tokens) 
       },
     })
   } catch (error) {

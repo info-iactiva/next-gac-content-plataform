@@ -9,8 +9,10 @@ export const PLANES = [
           "Hasta 45 publicaciones mensuales",
           "Nivel de IA: Básica",
           "Suscripción anual incluida: 1ª gratuita",
-          // "Renovación despues del año: $300",
+          "Renovación después del primer año: $300",
         ],
+        namekey:'Plan Básico Mensual',
+
         extras: [],
       },
       {
@@ -29,6 +31,7 @@ export const PLANES = [
           // "Renovación despues del año: $300",
         ],
         extras: [],
+        namekey:'Plan Pro Mensual',
       },
       {
         nombre: "Premium (A medida)",
@@ -49,5 +52,6 @@ export const PLANES = [
           "Soporte y capacitación avanzada",
         ],
         extras: [],
+        namekey:'',
       },
     ]

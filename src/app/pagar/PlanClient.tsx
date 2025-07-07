@@ -27,6 +27,7 @@ export default function ContratacionPage() {
     const searchParams = useSearchParams();
     const plansaved  = searchParams.get('plan');
     const idplan  = searchParams.get('idplan');
+    const iduser  = searchParams.get('iduser');
     const router = useRouter();
     
     const [registrado,setRegistrado] = useState(false);
@@ -48,14 +49,15 @@ export default function ContratacionPage() {
               </button>   
         </div>
 
-        <div className="min-h-screen flex flex-col lg:flex-row-reverse items-start p-6 gap-6 w-full md:max-w-[80%] mx-auto">
+        <div className=" flex flex-col-reverse items-center p-6 gap-6 w-full md:max-w-[80%] mx-auto ">
         
 
-
-        <Register                
-        idplan={idplan ? idplan : ''}
-        nameplan={plansaved ? plansaved : ''}
-      ></Register>       
+        
+        
+        <div className={`  `}>
+            <h1 className='text-center text-xl font-bold mb-5'>Pagar:</h1>
+            <Suscripcion planId={idplan} userId={iduser}/>
+        </div>
 
        <div className="w-full lg:w-1/2 flex items-center justify-center">
 

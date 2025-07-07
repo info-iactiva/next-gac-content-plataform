@@ -39,23 +39,8 @@ export default function Login() {
     const handleLogin = async (data: z.infer<typeof formSchemaLogin>) => {
     setIsLoading(true);
     const { email, password } = data;
-    
-    console.log("Email:", email);
-    console.log("Password:", password);
-    
-    // await fetch('/api/login', {
-    //   method: 'POST',
-    //   body: JSON.stringify({ email, password }),
-    //   headers: { 'Content-Type': 'application/json' },
-    // }).then((res) => {
-    //     console.log("respuesta", res)
-    //     setIsLoading(false);
-    //   }).catch((error) => {
-    //     console.error('Error al enviar los datos:', error);
-    //     console.log("Error al enviar los datos:", error);
-    //     setIsLoading(false);
-    //     }
-    //   );
+        
+        
 
 
   await fetch('/api/login', {
@@ -96,9 +81,25 @@ export default function Login() {
     return  <div className="min-h-screen flex items-center justify-center p-6 ">
 
       <Card className=" relative  md:min-w-[450px] md:max-w-2xl min-w-[300px]  flex  gap-10 flex-col">
-        <CardHeader className="relative flex flex-col items-center  p-0">          
-          <Image className="absolute top-2 left-5 w-[15%]" src="/logos/logo.webp" alt="" width={200} height={200}/>
-        </CardHeader>
+        <CardHeader className="flex flex-row justify-between items-center p-2">
+        <div className="w-[15%] relative">
+          <Image
+            src="/logos/logo.webp"
+            alt="Logo"
+            width={300}
+            height={300}
+            className="object-contain"
+          />
+        </div>
+
+        <button
+          onClick={() => router.push("/")}
+          className="bg-green-500 text-white text-xs font-semibold px-3 py-1 rounded-full hover:bg-green-600 transition"
+          type="button"
+        >
+          Ir al inicio
+        </button>
+      </CardHeader>
         <CardContent>
             
         <div className="w-full h-full flex items-center justify-center md:p-6 pt-3 flex-col gap-2">
@@ -135,37 +136,6 @@ export default function Login() {
                 )}
               </FormItem>
             )}/>        
-
-
-{/* 
-
-              <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (                
-              <FormItem >
-                <div className="flex items-center gap-2 ">                
-                <Label htmlFor="password" className="text-xs lg:text-base " >Contraseña</Label>
-              </div>
-                <FormControl>
-                  <Input
-                    id="password"
-                    type="password"
-                    placeholder="Ingresa tu contraseña"
-                    value={field.value}
-                    onChange={(e) => field.onChange(e.target.value)}
-                    className="lg:text-sm text-xs"
-                  />                  
-                </FormControl>
-
-                {form.formState.errors.password && (
-                  <span className="text-red-500 text-xs">
-                    {form.formState.errors.password.message as string}
-                  </span>
-                )}
-              </FormItem>
-            )}/>         */}
-
 
 
             <FormField

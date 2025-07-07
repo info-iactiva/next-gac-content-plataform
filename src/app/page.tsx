@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useRef, useState } from 'react';
+import { use, useRef, useState,useEffect } from 'react';
 import { useRouter } from "next/navigation";
 import DemoSection from "./home/demosection";
 import { Divide } from "lucide-react";
@@ -9,10 +9,31 @@ import FormContact from "./home/form.contact";
 import CarouselB2F from "./home/carrusel/Carrusel";
 import Link from "next/link";
 import { PLANES } from "@/const/planes"; 
+import { set } from "mongoose";
 export default function PricingPage() {
 
 
   const planesRef = useRef<HTMLDivElement>(null);
+  const [planes,setPlanes] = useState([]);
+
+  useEffect(() => {
+
+    const getplanes = async () => {
+           try {
+              const res = await fetch("/api/paypal/list-plans", {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },                
+              });              
+              const data = await res.json();
+              setPlanes(data.plans);
+              console.log("Respuesta de la API:", data);              
+            } catch (err) {
+              console.log("Error generando contenido:", err);
+            }
+          }
+
+        getplanes();
+  },[])
 
    const scrollToPlanes = () => {
         planesRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -24,12 +45,21 @@ export default function PricingPage() {
         router.push("/login");
     };
 
+  
+    const handleClick = (text:string,idplan:string) => {    
+    // router.push(`/contratar?plan=${encodeURIComponent(text)}`);
+    router.push(`/contratar?plan=${encodeURIComponent(text)}&idplan=${encodeURIComponent(idplan)}`);
 
-    const handleClick = (text:string) => {    
-    router.push(`/contratar?plan=${encodeURIComponent(text)}`);
     };
 
     const [showForm, setShowForm] = useState(false);
+
+  function getPlanIdByName( nameToFind: string): string | null {
+  const plan = planes.find(plan => plan.name === nameToFind);
+  return plan ? plan.id : null;
+}
+
+
 
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col">
@@ -93,7 +123,36 @@ export default function PricingPage() {
                 className="rounded-xl object-contain"
               />
             </div>
-         
+            {/* GET PLAN */}
+            {/* <button onClick={ async () => {  
+               try {
+              const res = await fetch("/api/paypal/list-plans", {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },                
+              });              
+              const data = await res.json();
+              console.log("Respuesta de la API:", data);              
+            } catch (err) {
+              console.log("Error generando contenido:", err);
+            }
+            }}>
+              get planes
+            </button> */}
+            {/* CREAR PLAN */}
+              {/* <button onClick={ async () => {  
+               try {
+              const res = await fetch("/api/paypal/create-plan", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },                
+              });              
+              const data = await res.json();
+              console.log("Respuesta de la API:", data);              
+            } catch (err) {
+              console.log("Error generando contenido:", err);
+            }
+            }}>
+              crear planes
+            </button> */}
             <DemoSection textfirstbutton="Solicita tu demo gratuita"
             refdirectemail="https://mail.google.com/mail/?view=cm&to=info@iactiva.ai&su=Solicitud%20de%20demo%20GAC%20iActiva&body=Hola%2C%20me%20gustar%C3%ADa%20solicitar%20una%20demo%20gratuita%20del%20Generador%20Autom%C3%A1tico%20de%20Contenido%20(GAC).%20Gracias."
             children={
@@ -246,7 +305,7 @@ export default function PricingPage() {
             {plan.nombre === "Básico" || plan.nombre === "Pro" ? (           
               <div key={plan.nombre} className="w-full  mt-5">
                  <button
-                  onClick={() => handleClick(plan.nombre)}
+                  onClick={() => handleClick(plan.nombre,getPlanIdByName(plan.namekey))}
                   className={`inline-block  bg-green-600 hover:bg-green-700 text-white font-bold  px-3 py-1 rounded-lg transition `}
                 >
                   Contratar                  
@@ -254,74 +313,40 @@ export default function PricingPage() {
               </div>              
             ) : null          
           }
-
-        {/* {plan.nombre === "Básico" && (
-          <div>
-            <p className="text-black mb-6 mt-5">
-              <strong>Si deseas activar la renovación automática:</strong>                             
-            </p>    
-             
-              <ul className="space-y-2 text-sm text-gray-700">
-                <li className="flex items-start gap-2">   
-                  <span className="text-green-600 font-bold">✓</span>
-                  <span>No se te cobrara la renovacion de fin de año</span>                                
-                </li>
-              </ul>    
-             <button
-                  onClick={() => handleClick("Basico renovación automática") }
-                  className={`inline-block mt-3  bg-green-600 hover:bg-green-700 text-sm md:text-base  text-white font-bold  px-3 py-1 rounded-lg transition `}
-                >
-                  Contratar renovación automática               
-              </button>    
-          </div>
-        )} */}
+      
 
 
         {plan.nombre === "Pro" && (
-          <>
-
-            {/* <div className="mt-5">
-            <h3 className="text-xl font-bold text-green-700 mb-2">Pro Autorenovable</h3>
-              <ul className="space-y-2 text-sm text-gray-700">
-                  <li className="flex items-start gap-2">   
-                    <span className="text-green-600 font-bold">✓</span>
-                    <span>No se te cobrara la renovacion de fin de año</span>                                
-                  </li>
-                </ul>   
-             <button
-                  onClick={() => handleClick("Pro Autorenovable") }
-                  className={`inline-block mt-3  bg-green-600 hover:bg-green-700 text-white font-bold  px-3 py-1 rounded-lg transition  `}
-                >
-                  Contratar Pro Autorenovable
-              </button>    
-          </div> */}
-
-          
-           <div className="mt-5">
-            <h3 className="text-xl font-bold text-green-700 mb-2">Pro Con Descuento</h3>
-             
-              <ul className="space-y-2 text-sm text-gray-700">
-                <li className="flex items-start gap-2">   
-                  <span className="text-green-600 font-bold">✓</span>
-                  <span>Primer pago anual de <strong>$4,230.40</strong> </span>                                
-                </li>
-                <li className="flex items-start gap-2">   
-                  <span className="text-green-600 font-bold">✓</span>
-                  <span>Incluye 20% de descuento</span>                                
-                </li>
-                <li className="flex items-start gap-2">   
-                  <span className="text-green-600 font-bold">✓</span>
-                  <span>Pagos anuales después del primer año a: <strong>$3,830.40</strong> </span>                                
-                </li>
-              </ul>    
-             <button
-                  onClick={() => handleClick("Pro Con Descuento") }
-                  className={`inline-block mt-3  bg-green-600 hover:bg-green-700 text-white font-bold  px-3 py-1 rounded-lg transition  `}
-                >
-                Contratar Pro Con Descuento
-              </button>    
-          </div>
-          
+          <>           
+         <div className="mt-5">
+  <h3 className="text-xl font-bold text-green-700 mb-2 flex items-center gap-2">
+    Pro Con Descuento
+    <span className="bg-green-500 text-white text-xs font-semibold px-2 py-0.5 rounded-full">
+      Más popular
+    </span>
+  </h3>
+   
+  <ul className="space-y-2 text-sm text-gray-700">
+    <li className="flex items-start gap-2">   
+      <span className="text-green-600 font-bold">✓</span>
+      <span>Primer pago anual de <strong>$4,230.40</strong> </span>                                
+    </li>
+    <li className="flex items-start gap-2">   
+      <span className="text-green-600 font-bold">✓</span>
+      <span>Incluye 20% de descuento</span>                                
+    </li>
+    <li className="flex items-start gap-2">   
+      <span className="text-green-600 font-bold">✓</span>
+      <span>Pagos anuales después del primer año a: <strong>$3,830.40</strong> </span>                                
+    </li>
+  </ul>    
+  <button
+    onClick={() => handleClick("Pro Con Descuento", getPlanIdByName('Plan Pro Anual con Descuento'))}
+    className="inline-block mt-3 bg-green-600 hover:bg-green-700 text-white font-bold px-3 py-1 rounded-lg transition"
+  >
+    Contratar Pro Con Descuento
+  </button>    
+</div>
 
           </>
           

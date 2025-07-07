@@ -9,19 +9,30 @@ import {  FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { SpinnerOverlay } from "@/components/Spinner";
 import {  toast } from 'sonner'
 import { formSchemaRegister } from "./zod.validation";
 import { useRouter } from "next/navigation";
 import { set } from "mongoose";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Info } from "lucide-react";
 import { TermsModal } from "./terminos";
 import { PrivacyModal } from "./privacidad";
 import { ContractModal } from "./contrato";
+import Suscripcion from "@/components/paypal/paypalbutton";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { SECTORES } from "./sectores";
 
 
-export default function Register() {
+type RegisterProps = {    
+  children?: React.ReactNode;  
+  idplan?: string;  
+  nameplan?: string;
+}
+
+
+export default function Register({ children,idplan,nameplan}: RegisterProps) {
 
   const router = useRouter();
 
@@ -29,64 +40,74 @@ export default function Register() {
   const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
   const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [check,setCheck] = useState(true);  
+  const [idUser,setIdUser] = useState('');
+  const pagarRef = useRef<HTMLDivElement>(null);
+  
+const hanleonregister = async (data: z.infer<typeof formSchemaRegister>) => {
+          
+          const { email, password,nombre,apellidos ,nombre_empresa,numero_empleados,sector} = data;
+          setIsLoading(true);          
+  
+  
+        await fetch('/api/register', {
+          method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({ email, password,nameplan,nombre,apellidos,nombre_empresa,numero_empleados,sector}),
+                })
+            .then(async (res) => {                        
+  
+              if (!res.ok) {
+                const errorData = await res.json();
+                // console.error('Error al crear la cuenta:', errorData);
+                
+                if (errorData.pagado == false) {
+                  setIdUser(errorData.user.userid);
+                  setCheck(false)
+                  scrollToPagar();
+                  throw new Error('No ha pagado la suscripción, por favor pague para continuar');                                    
+                }
 
+                if (errorData.error) {
+                  // console.error('hay error.error');
+                  throw new Error(errorData.error || 'Error desconocido');
+                }                                                
+                
+              }
+              
+              const data = await res.json();              
+              scrollToPagar();
 
-
-  const form = useForm<z.infer<typeof formSchemaRegister>>({
-      resolver: zodResolver(formSchemaRegister),
-      defaultValues: {      
-        email: "",
-        password: "",       
-      },
-    });
-
-    const [isLoading, setIsLoading] = useState(false);    
-      
-    const handleLogin = async (data: z.infer<typeof formSchemaRegister>) => {
-    setIsLoading(true);
-    const { email, password } = data;
-    
-    console.log("Email:", email);
-    console.log("Password:", password);       
-
-
-  await fetch('/api/register', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ email, password }),
-  })
-  .then(async (res) => {            
-    setIsLoading(false);
-
-     if (!res.ok) {
-      const errorData = await res.json();
-      throw new Error(errorData.error || 'Error desconocido');
+              setIdUser(data.user.id);
+              setIsLoading(false);               
+              setCheck(false)
+            })
+            .catch((error) => {    
+              setIsLoading(false);               
+              toast.error(error.message)              
+            }) 
     }
 
-    const data = await res.json();
-    console.log('Login exitoso:', data);    
-    toast.success("Cuenta creada exitosamente");    
-    
-    
-    setTimeout(() => {                        
-      setIsLoading(true);
-    }, 1000);    
+      const form = useForm<z.infer<typeof formSchemaRegister>>({
+        resolver: zodResolver(formSchemaRegister),
+        defaultValues: {
+          email: "",
+          password: "",
+          nombre: "",
+          apellidos: "",
+          nombre_empresa: "",
+          numero_empleados: "",
+          sector: "", 
+        },
+      });
 
-
-    setTimeout(() => {
-      setIsLoading(false);
-      router.push('/login');
-    }, 2600);
-
-  })
-  .catch((error) => {    
-    toast.error(error.message)
-  }) 
-  }
-
-
+    const [isLoading, setIsLoading] = useState(false);         
+      
+    const scrollToPagar = () => {
+        pagarRef.current?.scrollIntoView({ behavior: 'smooth' });
+    };
     return <
     >
         <Card className=" relative  md:min-w-[450px] md:max-w-xl min-w-[300px]  flex  flex-col  p-0 m-0">
@@ -100,7 +121,160 @@ export default function Register() {
         {isLoading && (<SpinnerOverlay />)}
 
         <FormProvider {...form}>
-          <form  onSubmit={form.handleSubmit(handleLogin)} className="w-full max-w-7xl p-5 flex lg:gap-7 lg:p-12 rounded-2xl flex-col  gap-5 md:p-8 " >
+          <form  onSubmit={form.handleSubmit(hanleonregister)} className="w-full max-w-7xl p-5 flex lg:gap-7 lg:p-12 rounded-2xl flex-col  gap-5 md:p-8 " >
+
+
+            <FormField
+            control={form.control}
+            name="nombre"
+            render={({ field }) => (                
+              <FormItem >
+                <div className="flex items-center gap-2 ">                
+                <Label htmlFor="nombre" className="text-xs lg:text-base " >Nombre</Label>
+              </div>
+                <FormControl>
+                  <Input
+                    id="nombre"
+                    type="nombre"
+                    placeholder="Ingresa tu nombre"
+                    value={field.value}
+                    onChange={(e) => field.onChange(e.target.value)}
+                    className="lg:text-sm text-xs"
+                  />                  
+                </FormControl>
+
+                {form.formState.errors.nombre && (
+                  <span className="text-red-500 text-xs">
+                    {form.formState.errors.nombre.message as string}
+                  </span>
+                )}
+              </FormItem>
+            )}/>        
+
+             <FormField
+            control={form.control}
+            name="apellidos"
+            render={({ field }) => (                
+              <FormItem >
+                <div className="flex items-center gap-2 ">                
+                <Label htmlFor="apellidos" className="text-xs lg:text-base " >Apellidos</Label>
+              </div>
+                <FormControl>
+                  <Input
+                    id="apellidos"
+                    type="apellidos"
+                    placeholder="Ingresa tus apellidos"
+                    value={field.value}
+                    onChange={(e) => field.onChange(e.target.value)}
+                    className="lg:text-sm text-xs"
+                  />                  
+                </FormControl>
+
+                {form.formState.errors.apellidos && (
+                  <span className="text-red-500 text-xs">
+                    {form.formState.errors.apellidos.message as string}
+                  </span>
+                )}
+              </FormItem>
+            )}/>   
+
+
+              <FormField
+            control={form.control}
+            name="nombre_empresa"
+            render={({ field }) => (                
+              <FormItem >
+                <div className="flex items-center gap-2 ">                
+                <Label htmlFor="nombre_empresa" className="text-xs lg:text-base " >Nombre de la empresa</Label>
+              </div>
+                <FormControl>
+                  <Input
+                    id="nombre_empresa"
+                    type="nombre_empresa"
+                    placeholder="Ingresa el nombre de tu empresa"
+                    value={field.value}
+                    onChange={(e) => field.onChange(e.target.value)}
+                    className="lg:text-sm text-xs"
+                  />                  
+                </FormControl>
+
+                {form.formState.errors.nombre_empresa && (
+                  <span className="text-red-500 text-xs">
+                    {form.formState.errors.nombre_empresa.message as string}
+                  </span>
+                )}
+              </FormItem>
+            )}/>   
+
+
+            
+              <FormField
+            control={form.control}
+            name="numero_empleados"
+            render={({ field }) => (                
+              <FormItem >
+                <div className="flex items-center gap-2 ">                
+                <Label htmlFor="numero_empleados" className="text-xs lg:text-base " >Número de empleados</Label>
+              </div>
+                <FormControl>
+                  <Input
+                    id="numero_empleados"
+                    type="numero_empleados"
+                    placeholder="Ingresa el nombre de tu empresa"
+                    value={field.value}
+                    onChange={(e) => field.onChange(e.target.value)}
+                    className="lg:text-sm text-xs"
+                  />                  
+                </FormControl>
+
+                {form.formState.errors.numero_empleados && (
+                  <span className="text-red-500 text-xs">
+                    {form.formState.errors.numero_empleados.message as string}
+                  </span>
+                )}
+              </FormItem>
+            )}/>   
+
+
+
+                    <FormField
+                        control={form.control}
+                        name="sector"
+                        render={({ field }) => (
+                          <FormItem >
+                            <div className="flex items-center gap-2">
+                            <Label htmlFor="sector"  className="text-xs lg:text-base">Sector</Label>                             
+                          </div>
+                            <FormControl>
+                              <Select
+                                value={field.value}
+                                onValueChange={(value) => field.onChange(value)}
+                              >
+                                <SelectTrigger className="">
+                                  <SelectValue placeholder="Sector" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectGroup>
+                                    {
+                                      SECTORES.map((sector) => (
+                                        <SelectItem key={sector} value={sector}>
+                                          {sector}
+                                        </SelectItem>
+                                      ))
+                                    }
+                                  </SelectGroup>
+                                </SelectContent>
+                              </Select>
+                            </FormControl>
+                             {form.formState.errors.sector && (
+                                <span className="text-red-500 text-xs">
+                                  {form.formState.errors.sector.message as string}
+                                </span>
+                              )}
+                          </FormItem>
+                        )}
+                      /> 
+
 
           <FormField
             control={form.control}
@@ -177,7 +351,10 @@ export default function Register() {
                       <input
                         type="checkbox"
                         checked={field.value || false}
-                        onChange={(e) => field.onChange(e.target.checked)}
+                        onChange={(e) => {
+                          field.onChange(e.target.checked)
+
+                        }}
                         className="w-4 h-4 mt-1"
                       />
                       <span >
@@ -237,7 +414,14 @@ export default function Register() {
             
         </FormProvider>
 
+            {children}
 
+
+
+            <div ref={pagarRef}  className={`rounded-2xl w-[50%] p-6 m-auto ${check ? ' hidden' : ''}`}>
+                <h1 className='text-center text-xl font-bold mb-5'>Pagar:</h1>
+                <Suscripcion planId={idplan} userId={idUser}/>
+            </div>
         </div>
         </CardContent>
 

@@ -22,57 +22,104 @@ model Rol {
   users     User[]
 }
 
+// model Plan {
+//   id            Int           @id @default(autoincrement())
+//   nombre        String        @unique
+//   tokens        Int
+//   ilimit_tokesn Boolean  
+
+//   createdAt     DateTime      @default(now())
+//   updatedAt     DateTime      @updatedAt
+
+//   userPlans     UserPlan[]
+// }
+
+
+// model User {
+//   id          Int     @id @default(autoincrement())
+//   email       String  @unique
+//   password    String
+//   is_active   Boolean @default(true)
+//   is_pagado     Boolean @default(false)
+//   used_tokens Int     @default(0)
+
+//   id_rol      Int
+//   rol         Rol     @relation(fields: [id_rol], references: [id])
+
+//   createdAt   DateTime @default(now())
+//   updatedAt   DateTime @updatedAt
+
+//   userPlans   UserPlan[]
+//   subscriptions Subscription[]
+// }
+
 model Plan {
-  id            Int           @id @default(autoincrement())
-  nombre        String        @unique
+  id            Int      @id @default(autoincrement())
+  nombre        String   @unique
   tokens        Int
-  ilimit_tokesn Boolean
-  price         Float
-  duration      PlanDuration
+  ilimit_tokesn Boolean  
 
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
-  userPlans     UserPlan[]
+  users         User[]   // Relación uno a muchos con User
 }
 
 
 model User {
-  id          Int     @id @default(autoincrement())
-  email       String  @unique
-  password    String
-  is_active   Boolean @default(true)
-  used_tokens Int     @default(0)
+  id                   Int        @id @default(autoincrement())
+  nombre              String
+  apellidos           String
+  nombre_empresa     String
+  numero_empleados Int
+  sector             String
+  email                String     @unique
+  password             String
+  is_active            Boolean    @default(true)
+  is_pagado            Boolean    @default(false)
+  used_tokens          Int        @default(0)
 
-  id_rol      Int
-  rol         Rol     @relation(fields: [id_rol], references: [id])
+  id_rol               Int
+  rol                  Rol        @relation(fields: [id_rol], references: [id])
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  planId               Int?       // puede ser null
+  plan                 Plan?      @relation(fields: [planId], references: [id]) // relación opcional
 
-  userPlans   UserPlan[]
+  fechaPlanContratado  DateTime?  // opcional (por defecto null)
+
+  createdAt            DateTime   @default(now())
+  updatedAt            DateTime   @updatedAt
+
+  subscriptions        Subscription[]
 }
 
-model UserPlan {
-  id         Int      @id @default(autoincrement())
-  id_user    Int
-  id_plan    Int
 
-  user       User     @relation(fields: [id_user], references: [id])
-  plan       Plan     @relation(fields: [id_plan], references: [id])
+// model UserPlan {
+//   id         Int      @id @default(autoincrement())
+//   id_user    Int
+//   id_plan    Int
 
-  start_date DateTime
-  end_date   DateTime
-  active     Boolean  @default(true)
+//   user       User     @relation(fields: [id_user], references: [id])
+//   plan       Plan     @relation(fields: [id_plan], references: [id])
 
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+//   start_date DateTime
+//   end_date   DateTime
+//   active     Boolean  @default(true)
+
+//   createdAt  DateTime @default(now())
+//   updatedAt  DateTime @updatedAt
+// }
+
+model Subscription {
+  id              String   @id @default(cuid())
+  userId          Int      // corregido: antes era String
+  paypalId        String   @unique
+  planId          String
+  status          String
+  startDate       DateTime
+  nextBillingDate DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user            User     @relation(fields: [userId], references: [id])
 }
-
-enum PlanDuration {
-  ONE_DAY     @map("1 día")
-  ONE_WEEK    @map("1 semana")
-  ONE_MONTH   @map("1 mes")
-  ONE_YEAR    @map("1 año")
-}
-

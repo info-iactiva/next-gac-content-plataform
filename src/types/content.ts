@@ -24,6 +24,7 @@ export interface IContentInputValues {
       idioma? :  IdiomaType;
       contenido:string
       ia_potente: boolean; 
+      userid?: string; 
   
 }
 

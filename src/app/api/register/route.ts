@@ -36,15 +36,36 @@ import { prisma } from '@/lib/prisma/prisma'
 import bcrypt from 'bcryptjs'
 
 export async function POST(request: Request) {
-  const { email, password } = await request.json()
+  const { 
+    email, 
+    password , 
+    nameplan,
+    nombre,
+    apellidos,
+    nombre_empresa,
+    numero_empleados,
+    sector
+  } = await request.json()
 
+    console.log('Datos recibidos:', { email, password, nameplan, nombre, apellidos, nombre_empresa,numero_empleados: parseInt(numero_empleados), sector })
+  // console.log('Datos recibidos:', { email, password })
   // 1. Verificar si ya existe el usuario
+  
+  
   const existingUser = await prisma.user.findUnique({
     where: { email },
   })
 
+  // console.log('Usuario existente:', existingUser)
+
+  
+  console.log(existingUser)
   if (existingUser) {
-    return NextResponse.json({ error: 'El correo ya existe' }, { status: 400 })
+    if(existingUser.is_pagado){
+        return NextResponse.json({ error: 'El correo ya existe' }, { status: 400 })          
+    }       
+    return NextResponse.json({pagado:false,user: {  userid: existingUser.id,}}, { status: 400 })        
+      
   }
 
   // 2. Obtener rol y plan por defecto
@@ -52,11 +73,11 @@ export async function POST(request: Request) {
     where: { name: 'usuario' },
   })
 
-  const defaultPlan = await prisma.plan.findUnique({
-    where: { nombre: 'Plan Sencillo' },
-  })
+  // const defaultPlan = await prisma.plan.findUnique({
+  //   where: { nombre: 'Plan Sencillo' },
+  // })
 
-  if (!defaultRole || !defaultPlan) {
+  if (!defaultRole) {
     return NextResponse.json(
       { error: 'Rol o plan por defecto no encontrados' },
       { status: 500 }
@@ -65,7 +86,7 @@ export async function POST(request: Request) {
 
   // 3. Encriptar contraseña
   const hashedPassword = await bcrypt.hash(password, 10)
-
+  const defaultPlan = await getLocalPlanID(nameplan);
   // 4. Crear usuario
   const newUser = await prisma.user.create({
     data: {
@@ -73,24 +94,31 @@ export async function POST(request: Request) {
       password: hashedPassword,
       id_rol: defaultRole.id,
       is_active: false,
-      used_tokens: 0,
+      used_tokens: 0,   
+      planId: defaultPlan.id, 
+      is_pagado: false, 
+      nombre,
+      apellidos,
+      nombre_empresa,
+       numero_empleados : parseInt(numero_empleados),
+      sector,
     },
   })
 
-  // 5. Crear asignación de plan con fechas
-  const now = new Date()
-  const oneMonthLater = new Date()
-  oneMonthLater.setMonth(now.getMonth() + 1)
+  // // 5. Crear asignación de plan con fechas
+  // const now = new Date()
+  // const oneMonthLater = new Date()
+  // oneMonthLater.setMonth(now.getMonth() + 1)
 
-  await prisma.userPlan.create({
-    data: {
-      id_user: newUser.id,
-      id_plan: defaultPlan.id,
-      start_date: now,
-      end_date: oneMonthLater,
-      active: true,
-    },
-  })
+  // await prisma.userPlan.create({
+  //   data: {
+  //     id_user: newUser.id,
+  //     id_plan: defaultPlan.id,
+  //     start_date: now,
+  //     end_date: oneMonthLater,
+  //     active: true,
+  //   },
+  // })
 
   return NextResponse.json({
     message: 'Usuario registrado',
@@ -98,3 +126,16 @@ export async function POST(request: Request) {
   })
 }
 
+
+
+
+
+const getLocalPlanID  = async (planname:string) => {
+
+    const plan = await prisma.plan.findUnique({
+      where: { nombre: planname },
+    })
+
+    return plan
+
+}

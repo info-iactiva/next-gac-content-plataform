@@ -58,7 +58,7 @@ import { Rol } from "@/models/rol";
 
 
 
-import { PrismaClient, PlanDuration } from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
@@ -81,18 +81,24 @@ export async function seedData(): Promise<void> {
     await prisma.plan.createMany({
       data: [
         {
-          tokens: 30,
-          ilimit_tokesn: false,
-          price: 9.99,
-          duration: PlanDuration.ONE_MONTH,
-          nombre: 'Plan Sencillo',
+          tokens: 45,
+          ilimit_tokesn: false,          
+          nombre: 'Básico',
         },
         {
-          tokens: 0,
-          ilimit_tokesn: true,
-          price: 19.99,
-          duration: PlanDuration.ONE_MONTH,
-          nombre: 'Plan Premium',
+          tokens: 100,
+          ilimit_tokesn: false,                 
+          nombre: 'Pro',
+        },
+        {
+          tokens: 100,
+          ilimit_tokesn: false,                    
+          nombre: 'Pro Con Descuento',
+        },
+        {
+          tokens: 100,
+          ilimit_tokesn: false,          
+          nombre: 'Premium',
         },
       ],
     })
