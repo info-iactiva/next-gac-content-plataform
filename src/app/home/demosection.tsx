@@ -12,6 +12,7 @@ import { SpinnerOverlay } from "@/components/Spinner";
 import {  toast } from 'sonner'
 import { set } from "mongoose";
 import emailjs from '@emailjs/browser';
+import { useRouter } from "next/navigation";
 
 type DemoSectionProps = {
     textfirstbutton: string;
@@ -20,6 +21,7 @@ type DemoSectionProps = {
     maintitle?: string;
     classNameButton?: string;
     classNameForm?: string;
+    showsecondbutton?: boolean;
       
 }
     
@@ -31,11 +33,11 @@ type FormData = {
 
 
 
-export default function DemoSection({ textfirstbutton, refdirectemail,children ,maintitle,classNameButton,classNameForm}: DemoSectionProps) {
+export default function DemoSection({ textfirstbutton, refdirectemail,children ,maintitle,classNameButton,classNameForm,showsecondbutton=false}: DemoSectionProps) {
 
   const [showOptions, setShowOptions] = useState(false);
   const [showForm, setShowForm] = useState(false);
-
+  const router = useRouter();
 
     const form = useForm<z.infer<typeof formSchemahomepage>>({
         resolver: zodResolver(formSchemahomepage),
@@ -131,13 +133,31 @@ const handleSubmitData = async (data: z.infer<typeof formSchemahomepage>) => {
 
     {children && ( children)}
   {!showOptions ? (
-    <button
+    <div className="flex flex-col items-center md:items-start lg:flex-row  md:items-center lg:gap-5">
+
+ <button
       onClick={() => setShowOptions(true)}
-      className={`inline-block mt-6 bg-green-600 hover:bg-green-700 text-white font-bold py-2.5 px-6 rounded-lg transition self-start ${classNameButton}`}
+      className={`inline-block mt-6 bg-green-600 hover:bg-green-700 text-white font-bold py-2.5 px-6 rounded-lg transition${classNameButton}`}
     >
         {textfirstbutton}
       
     </button>
+
+    {
+      showsecondbutton &&(
+         <button 
+        onClick={() => router.push('/funcion')}
+         className={`inline-block mt-6 bg-green-600 hover:bg-green-700 text-white font-bold py-2.5 px-6 rounded-lg transition `}>
+          Descubre cómo funciona el GAC
+        </button>
+      )
+    }
+   
+
+
+
+    </div>
+   
   ) : (
     <div className="mt-6 flex flex-col gap-4">
       {/* Botones */}
@@ -158,6 +178,9 @@ const handleSubmitData = async (data: z.infer<typeof formSchemahomepage>) => {
         >
           {showForm ? "Ocultar formulario" : "Llenar formulario"}
         </button>
+
+      
+            
       </div>
 
       {/* Formulario */}

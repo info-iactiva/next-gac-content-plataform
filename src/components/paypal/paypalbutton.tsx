@@ -25,15 +25,6 @@ export default function Suscripcion({ planId,userId }) {
           }}          
           onApprove={async (data, actions) => {
           console.log("Suscripción creada:", data.subscriptionID);           
-          // alert("Suscripción creada: " + data.subscriptionID);         
-          // await fetch("/api/paypal/save-subscription", {
-          //   method: "POST",
-          //   body: JSON.stringify({
-          //     subscriptionID: data.subscriptionID,
-          //     userId: userId, 
-          //     planId: planId, 
-          //   }),
-          // });
           console.log(userId, planId);
            try {
             const res = await fetch("/api/paypal/save-subscription", {

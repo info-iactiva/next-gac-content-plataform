@@ -153,20 +153,30 @@ export default function PricingPage() {
             }}>
               crear planes
             </button> */}
-            <DemoSection textfirstbutton="Solicita tu demo gratuita"
-            refdirectemail="https://mail.google.com/mail/?view=cm&to=info@iactiva.ai&su=Solicitud%20de%20demo%20GAC%20iActiva&body=Hola%2C%20me%20gustar%C3%ADa%20solicitar%20una%20demo%20gratuita%20del%20Generador%20Autom%C3%A1tico%20de%20Contenido%20(GAC).%20Gracias."
-            children={
-                <p className="text-base md:text-lg text-gray-700 max-w-6xl">
-                Ya seas emprendedor, PYME o gran empresa, el{" "}
-                <strong className="text-black">
-                  Generador Automático de Contenido (GAC)
-                </strong>{" "}
-                de iActiva te ayuda a comunicar con claridad, frecuencia y creatividad.
-                Elige el paquete que se ajuste a tus necesidades y empieza a publicar en minutos.
-              </p>
-            }
-            classNameButton="self-center !important lg:self-start"
-            />
+            
+
+                  <DemoSection textfirstbutton="Solicita tu demo gratuita"
+                refdirectemail="https://mail.google.com/mail/?view=cm&to=info@iactiva.ai&su=Solicitud%20de%20demo%20GAC%20iActiva&body=Hola%2C%20me%20gustar%C3%ADa%20solicitar%20una%20demo%20gratuita%20del%20Generador%20Autom%C3%A1tico%20de%20Contenido%20(GAC).%20Gracias."
+                children={
+                  
+                    <p className="text-base md:text-lg text-gray-700 max-w-6xl">
+                    Ya seas emprendedor, PYME o gran empresa, el{" "}
+                    <strong className="text-black">
+                      Generador Automático de Contenido (GAC)
+                    </strong>{" "}
+                    de iActiva te ayuda a comunicar con claridad, frecuencia y creatividad.
+                    Elige el paquete que se ajuste a tus necesidades y empieza a publicar en minutos.
+                  </p>
+                }
+                showsecondbutton={true}
+                classNameButton="self-center !important "
+                
+                />
+                         
+
+          
+
+   
           </div>
       </section>    
 
