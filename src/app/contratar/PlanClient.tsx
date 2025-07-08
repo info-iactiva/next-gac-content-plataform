@@ -153,12 +153,12 @@ export default function ContratacionPage() {
                     onClick={() => setMostrarCodigo(!mostrarCodigo)}
                     className="mt-4 bg-green-600 hover:bg-green-700 text-white font-bold px-3 py-2 rounded-lg transition"
                     >
-                        Obten tu codigo para no pagar tu primera Suscripcion aqui
+                        Obten tu codigo de descuento
                         </button>
 
                     {mostrarCodigo && (
                         <div className="mt-3 p-4 border border-green-400 bg-green-50 rounded-lg text-green-800">
-                            ✅ Tu código es <strong>GACLANZAMIENTO</strong>. ingresalo en el formulario de registro.
+                            ✅ Tu código es <strong>GACLANZAMIENTO</strong>. Ingresalo en el formulario de registro.
                         </div>
                         )}
                 </div>
