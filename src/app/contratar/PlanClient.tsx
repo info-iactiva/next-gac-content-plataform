@@ -30,7 +30,8 @@ export default function ContratacionPage() {
     const router = useRouter();
     
     const [registrado,setRegistrado] = useState(false);
-  
+    const [mostrarCodigo, setMostrarCodigo] = useState(false);
+
     
     return (
 
@@ -145,9 +146,25 @@ export default function ContratacionPage() {
                 </div>
                 ))}
 
-               
                 
-                
+                <div className='w-[60%] mx-auto mt-4'>
+
+                    <button
+                    onClick={() => setMostrarCodigo(!mostrarCodigo)}
+                    className="mt-4 bg-green-600 hover:bg-green-700 text-white font-bold px-3 py-2 rounded-lg transition"
+                    >
+                        Obten tu codigo para no pagar tu primera Suscripcion aqui
+                        </button>
+
+                    {mostrarCodigo && (
+                        <div className="mt-3 p-4 border border-green-400 bg-green-50 rounded-lg text-green-800">
+                            ✅ Tu código es <strong>GACLANZAMIENTO</strong>. ingresalo en el formulario de registro.
+                        </div>
+                        )}
+                </div>
+                 
+
+
             </div>
 
         </div>

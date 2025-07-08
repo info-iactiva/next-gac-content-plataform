@@ -100,6 +100,7 @@ const hanleonregister = async (data: z.infer<typeof formSchemaRegister>) => {
           nombre_empresa: "",
           numero_empleados: "",
           sector: "", 
+          codigo:" "
         },
       });
 
@@ -339,6 +340,34 @@ const hanleonregister = async (data: z.infer<typeof formSchemaRegister>) => {
                 </FormItem>
               )}
             />
+
+                      <FormField
+            control={form.control}
+            name="codigo"
+            render={({ field }) => (                
+              <FormItem >
+                <div className="flex items-center gap-2 ">                
+                <Label htmlFor="codigo" className="text-xs lg:text-base " >Codigo</Label>
+              </div>
+                <FormControl>
+                  <Input
+                    id="codigo"
+                    type="text"
+                    placeholder="Ingresa tu codigo"
+                    value={field.value}
+                    onChange={(e) => field.onChange(e.target.value)}
+                    className="lg:text-sm text-xs"
+                  />                  
+                </FormControl>
+
+                {form.formState.errors.codigo && (
+                  <span className="text-red-500 text-xs">
+                    {form.formState.errors.codigo.message as string}
+                  </span>
+                )}
+              </FormItem>
+            )}/>  
+
 
             <div className="max-w-[100%] m-auto">
 

@@ -32,6 +32,10 @@
 // schema.ts
 import { z } from "zod";
 import { SECTORES } from "./sectores"; // Assuming you have a file that exports the SECTORES array
+const CODES = [
+  'GACLANZAMIENTO',
+  " "
+]
 
 export const formSchemaRegister = z.object({
   email: z.string().email("Email inválido").min(1, "Campo requerido"),
@@ -45,6 +49,7 @@ export const formSchemaRegister = z.object({
     errorMap: () => ({ message: "Debes aceptar los Términos y Condiciones" }),
   }),
   nombre: z.string().min(1, "Campo requerido"),
+  codigo: z.string().refine((val) => CODES.includes(val), { message: "Código inválido" }),
   apellidos: z.string().min(1, "Campo requerido"),
   nombre_empresa: z.string().min(1, "Campo requerido"),
   numero_empleados: z.string().min(1, "Campo requerido"),
