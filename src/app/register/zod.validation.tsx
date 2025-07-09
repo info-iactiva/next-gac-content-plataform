@@ -34,7 +34,9 @@ import { z } from "zod";
 import { SECTORES } from "./sectores"; // Assuming you have a file that exports the SECTORES array
 const CODES = [
   'GACLANZAMIENTO',
-  " "
+  " ",
+  "",
+  'lanzamientogac'
 ]
 
 export const formSchemaRegister = z.object({

@@ -158,7 +158,7 @@ export default function ContratacionPage() {
 
                     {mostrarCodigo && (
                         <div className="mt-3 p-4 border border-green-400 bg-green-50 rounded-lg text-green-800">
-                            ✅ Tu código es <strong>GACLANZAMIENTO</strong>. Ingresalo en el formulario de registro.
+                            ✅ Tu código es <strong>lanzamientogac</strong>. Ingresalo en el formulario de registro.
                         </div>
                         )}
                 </div>

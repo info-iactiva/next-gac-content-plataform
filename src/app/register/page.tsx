@@ -42,8 +42,8 @@ export default function Register({ children,idplan,nameplan}: RegisterProps) {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [check,setCheck] = useState(true);  
   const [idUser,setIdUser] = useState('');
-  const pagarRef = useRef<HTMLDivElement>(null);
-  
+  const pagarRef = useRef<HTMLHeadingElement>(null);
+
 const hanleonregister = async (data: z.infer<typeof formSchemaRegister>) => {
           
           const { email, password,nombre,apellidos ,nombre_empresa,numero_empleados,sector} = data;
@@ -347,7 +347,7 @@ const hanleonregister = async (data: z.infer<typeof formSchemaRegister>) => {
             render={({ field }) => (                
               <FormItem >
                 <div className="flex items-center gap-2 ">                
-                <Label htmlFor="codigo" className="text-xs lg:text-base " >Codigo</Label>
+                <Label htmlFor="codigo" className="text-xs lg:text-base " >Código de descuento </Label>
               </div>
                 <FormControl>
                   <Input
@@ -447,10 +447,12 @@ const hanleonregister = async (data: z.infer<typeof formSchemaRegister>) => {
 
 
 
-            <div ref={pagarRef}  className={`rounded-2xl w-[50%] p-6 m-auto ${check ? ' hidden' : ''}`}>
+            <div  className={`rounded-2xl w-[100%] p-6 lg:w-[70%]${check ? ' hidden' : ''}`}>
                 <h1 className='text-center text-xl font-bold mb-5'>Pagar:</h1>
-                <Suscripcion planId={idplan} userId={idUser}/>
+                <Suscripcion planId={idplan} userId={idUser}/>                
             </div>
+
+            <h3  ref={pagarRef}>Se puede pagar con tarjeta de credito o debito</h3>
         </div>
         </CardContent>
 
