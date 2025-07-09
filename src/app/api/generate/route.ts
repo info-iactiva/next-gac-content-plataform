@@ -13,14 +13,14 @@ const openai = new OpenAI({
 const socialTargets = ["Facebook", "Instagram", "X","Blog","LinkedIn","Email","WhatsApp"] as const;
 
 const maxTokensByNetwork: Record<(typeof socialTargets)[number], number> = {
-  Facebook: 700,
-  Instagram: 750,
-  X: 350,
-  Blog: 2000,
-  LinkedIn: 1000,
-  Email: 400,
+  Facebook: 7000,
+  Instagram: 7500,
+  X: 3500,
+  Blog: 20000,
+  LinkedIn: 10000,
+  Email: 4000,
   // DirectMessage: 300,
-  WhatsApp: 400,
+  WhatsApp: 4000,
 };
 
 // Utilidad con timeout
@@ -67,7 +67,7 @@ export async function POST(req: Request) {
   let articleContent = "";
   let title = "";
 
-
+    
 
     let  filteredTargets = []
 

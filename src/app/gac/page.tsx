@@ -48,7 +48,7 @@ export default function Home() {
     setFormValues(values)    
     setIsLoading(true);
         
-    values.userid = user.id; // Agregar el usuario a los valores
+    values.userid = user.id;
     console.log("Valores enviados:", values);
     try {
       const res = await fetch("/api/generate", {
@@ -87,7 +87,7 @@ export default function Home() {
           const response = await fetch("/api/gettokesn", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ userid: user.id }),
+            body: JSON.stringify({ userid: parseInt(user.id )}),
           });
           const data = await response.json();
           console.log("Tokens restantes:", data.tokens_restantes);

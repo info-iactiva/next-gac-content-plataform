@@ -52,13 +52,14 @@ export default function ContratacionPage() {
         <div className=" flex flex-col-reverse items-center p-6 gap-6 w-full md:max-w-[80%] mx-auto ">
         
 
-        
+        <h3 >Se puede pagar con tarjeta de crédito o débito</h3>
         
         <div className={`  `}>
             <h1 className='text-center text-xl font-bold mb-5'>Pagar:</h1>
             <Suscripcion planId={idplan} userId={iduser}/>
-        </div>
+        </div>        
 
+        
        <div className="w-full lg:w-1/2 flex items-center justify-center">
 
             <div className="grid grid-cols-1 w-full">

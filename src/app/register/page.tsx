@@ -43,6 +43,16 @@ export default function Register({ children,idplan,nameplan}: RegisterProps) {
   const [check,setCheck] = useState(true);  
   const [idUser,setIdUser] = useState('');
   const pagarRef = useRef<HTMLHeadingElement>(null);
+  
+  const ordenarSectores = (sectores: string[]): string[] => {
+    return [...sectores].sort((a, b) => a.localeCompare(b));
+  };
+
+  const sectoresOrdenados = ordenarSectores(SECTORES);
+
+
+
+
 
 const hanleonregister = async (data: z.infer<typeof formSchemaRegister>) => {
           
@@ -257,7 +267,7 @@ const hanleonregister = async (data: z.infer<typeof formSchemaRegister>) => {
                                 <SelectContent>
                                   <SelectGroup>
                                     {
-                                      SECTORES.map((sector) => (
+                                      sectoresOrdenados.map((sector) => (
                                         <SelectItem key={sector} value={sector}>
                                           {sector}
                                         </SelectItem>
