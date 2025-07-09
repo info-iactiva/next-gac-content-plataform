@@ -341,32 +341,37 @@ const hanleonregister = async (data: z.infer<typeof formSchemaRegister>) => {
               )}
             />
 
-                      <FormField
-            control={form.control}
-            name="codigo"
-            render={({ field }) => (                
-              <FormItem >
-                <div className="flex items-center gap-2 ">                
-                <Label htmlFor="codigo" className="text-xs lg:text-base " >Código de descuento </Label>
-              </div>
-                <FormControl>
-                  <Input
-                    id="codigo"
-                    type="text"
-                    placeholder="Ingresa tu codigo"
-                    value={field.value}
-                    onChange={(e) => field.onChange(e.target.value)}
-                    className="lg:text-sm text-xs"
-                  />                  
-                </FormControl>
+            {
+              nameplan !== 'Pro Con Descuento' && (     
+                  <FormField
+                  control={form.control}
+                  name="codigo"
+                  render={({ field }) => (                
+                    <FormItem >
+                      <div className="flex items-center gap-2 ">                
+                      <Label htmlFor="codigo" className="text-xs lg:text-base " >Código de descuento </Label>
+                    </div>
+                      <FormControl>
+                        <Input
+                          id="codigo"
+                          type="text"
+                          placeholder="Ingresa tu codigo"
+                          value={field.value}
+                          onChange={(e) => field.onChange(e.target.value)}
+                          className="lg:text-sm text-xs"
+                        />                  
+                      </FormControl>
 
-                {form.formState.errors.codigo && (
-                  <span className="text-red-500 text-xs">
-                    {form.formState.errors.codigo.message as string}
-                  </span>
-                )}
-              </FormItem>
-            )}/>  
+                      {form.formState.errors.codigo && (
+                        <span className="text-red-500 text-xs">
+                          {form.formState.errors.codigo.message as string}
+                        </span>
+                      )}
+                    </FormItem>
+                  )}/>  
+                
+              )
+            }
 
 
             <div className="max-w-[100%] m-auto">
@@ -452,7 +457,7 @@ const hanleonregister = async (data: z.infer<typeof formSchemaRegister>) => {
                 <Suscripcion planId={idplan} userId={idUser}/>                
             </div>
 
-            <h3  ref={pagarRef}>Se puede pagar con tarjeta de credito o debito</h3>
+            <h3  ref={pagarRef}>Se puede pagar con tarjeta de crédito o débito</h3>
         </div>
         </CardContent>
 

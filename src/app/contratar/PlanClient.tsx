@@ -146,8 +146,9 @@ export default function ContratacionPage() {
                 </div>
                 ))}
 
-                
-                <div className='w-[60%] mx-auto mt-4'>
+                {
+                    plansaved !== 'Pro Con Descuento' && (
+                         <div className='w-[60%] mx-auto mt-4'>
 
                     <button
                     onClick={() => setMostrarCodigo(!mostrarCodigo)}
@@ -162,6 +163,9 @@ export default function ContratacionPage() {
                         </div>
                         )}
                 </div>
+                    )
+                }
+               
                  
 
 

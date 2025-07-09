@@ -200,7 +200,7 @@ export default function PricingPage() {
 </section>
 
 
-<section ref={planesRef}  className="px-4 py-8 max-w-6xl mx-auto">
+<section ref={planesRef} id="planes" className="px-4 py-8 max-w-6xl mx-auto">
   <h2 className="text-2xl font-semibold text-center mb-4 text-gray-800 ">
     Comparación de planes
   </h2>

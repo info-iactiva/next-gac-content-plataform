@@ -147,7 +147,7 @@ const handleSubmitData = async (data: z.infer<typeof formSchemahomepage>) => {
       showsecondbutton &&(
          <button 
         onClick={() => router.push('/funcion')}
-         className={`inline-block mt-6 bg-green-600 hover:bg-green-700 text-white font-bold py-2.5 px-6 rounded-lg transition `}>
+         className={`inline-block mt-6 bg-green-600 hover:bg-green-700 text-white font-bold py-2.5 px-6 rounded-lg transition animate-pulse-scale`}>
           Descubre cómo funciona el GAC
         </button>
       )

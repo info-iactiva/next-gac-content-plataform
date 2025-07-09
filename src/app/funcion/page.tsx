@@ -1,8 +1,13 @@
+'use client';
+import { useRouter } from "next/navigation";
+
 import React from "react";
 
 export default function GACPresentation() {
+  const router = useRouter();
+
   return (
-    <div className="p-4 md:p-10 max-w-5xl mx-auto space-y-8 text-gray-800">
+    <div className="p-4 md:p-10 max-w-5xl mx-auto space-y-8 text-gray-800 relative">
       <header className="text-center space-y-2">
         <h1 className="text-3xl md:text-5xl font-bold">Generador Automático de Contenido</h1>
         <p className="text-xl font-semibold">(GAC)</p>
@@ -15,6 +20,18 @@ export default function GACPresentation() {
         </a>
         
       </header>
+
+
+        <button
+        onClick={() => {
+            router.push('/#planes');
+        }}
+        className="fixed top-20 right-4 z-50 md:top-32 md:right-10 bg-green-600 hover:bg-green-700 text-white font-bold px-4 py-2 rounded-lg shadow-lg transition"
+      >
+        Comprar
+      </button>
+
+
 
       <section>
         <h2 className="text-2xl font-bold">1. Introducción: El desafío de generar contenido a escala</h2>
