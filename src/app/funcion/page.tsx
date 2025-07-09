@@ -10,6 +10,10 @@ export default function GACPresentation() {
 
         <p className="italic">Un producto de iActiva</p>
         <p className="text-sm text-gray-600">Primavera - Verano 2025</p>
+        <a href={'/assets/white/WhitePaper_GAC_iActiva_COMPLETO_VF.pdf'} download>
+        <button className="mt-3  bg-green-600 hover:bg-green-700 text-white font-bold  px-3 py-1 rounded-lg transition ">Descargar PDF</button>
+        </a>
+        
       </header>
 
       <section>
