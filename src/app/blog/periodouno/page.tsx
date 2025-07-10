@@ -11,7 +11,7 @@ export default function B2FPage() {
       
       <img src={'/assets/periodouno/image1.png'} alt=""   className=" m-auto w-[60%] h-[60%] rounded-sm"/>
 
-      <h1 className="mt-5 text-2xl font-bold mb-4 text-center">🌎 El contexto hsa cambiado</h1>
+      <h1 className="mt-5 text-2xl font-bold mb-4 text-center">🌎 El contexto ha cambiado</h1>
       <blockquote className="italic border-l-4 border-blue-500 pl-4 mb-4">
         “Las marcas que no construyen comunidad están condenadas a perseguir métricas vacías.”
         <br />— Brian Solis (2011)

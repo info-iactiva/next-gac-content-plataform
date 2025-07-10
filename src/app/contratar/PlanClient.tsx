@@ -154,7 +154,7 @@ export default function ContratacionPage() {
                     onClick={() => setMostrarCodigo(!mostrarCodigo)}
                     className="mt-4 bg-green-600 hover:bg-green-700 text-white font-bold px-3 py-2 rounded-lg transition"
                     >
-                        Obten tu codigo de descuento
+                        Obtén tu código de descuento
                         </button>
 
                     {mostrarCodigo && (
