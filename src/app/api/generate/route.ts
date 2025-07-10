@@ -13,14 +13,14 @@ const openai = new OpenAI({
 const socialTargets = ["Facebook", "Instagram", "X","Blog","LinkedIn","Email","WhatsApp"] as const;
 
 const maxTokensByNetwork: Record<(typeof socialTargets)[number], number> = {
-  Facebook: 7000,
-  Instagram: 7500,
-  X: 3500,
-  Blog: 20000,
-  LinkedIn: 10000,
-  Email: 4000,
+  Facebook:  4096,
+  Instagram:  4096,
+  X:  4096,
+  Blog:  4096,
+  LinkedIn:  4096,
+  Email:  4096,
   // DirectMessage: 300,
-  WhatsApp: 4000,
+  WhatsApp:  4096,
 };
 
 // Utilidad con timeout
@@ -89,11 +89,29 @@ export async function POST(req: Request) {
     }
 
     await updateuserToken(user.id,user.used_tokens);
-    console.log("Filtered targets:", filteredTargets);
-    const posts = await Promise.all(
-    filteredTargets.map(async (network: "Facebook" | "Instagram" | "X" | "Blog"  | "LinkedIn"| "Email"| "DirectMessage"| "WhatsApp") => {
-      try {
-        const prompt = buildPrompttres({       
+
+    let version_ia = 'gpt-3.5-turbo'
+    
+    if (ia_potente){
+      version_ia ='gpt-4o'
+    }
+
+  
+function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+
+async function generateWithRetries(network) {
+  const MAX_RETRIES = 20;
+  const RETRY_DELAY_MS = 1000;
+  
+  let attempt = 0;
+  while (attempt < MAX_RETRIES) {
+    try {
+      attempt++;
+
+      const prompt = buildPrompttres({       
         content:contenido,
         network,  
         nombre_empresa,
@@ -117,73 +135,76 @@ export async function POST(req: Request) {
         ia_estilo_autor,
         extension,
         idioma,
-        });
-        // gpt-4.o modelo potente IA
-        // no: gpt-3.5-turbo  normal IA
-        const completion = await withTimeout(
-          openai.chat.completions.create({
-            // model: "gpt-3.5-turbo",
-            model: "gpt-4o",
-            messages: [{ role: "user", content: prompt }],
-            temperature: 0.7,
-            max_tokens: maxTokensByNetwork[network],
-          }),
-          10000
-        );        
+      });  
 
+      const completion = await withTimeout(
+        openai.chat.completions.create({            
+          model: version_ia,
+          messages: [{ role: "user", content: prompt }],
+          temperature: 0.7,
+          max_tokens: maxTokensByNetwork[network],
+        }),
+        10000
+      );        
 
-        const raw = completion.choices[0]?.message?.content || "⚠️ No se generó contenido.";
-        // console.log("Contenido crudo:", raw);
-        // Busca el índice de "CUERPO:"
-        const cuerpoIndex = raw.search(/CUERPO:/i);
+      const raw = completion.choices[0]?.message?.content || "";
 
-        let title = "";
-        let content = "";
+      if (!raw.trim()) throw new Error("Respuesta vacía");
 
-        if (cuerpoIndex !== -1) {
-          // Extrae el título entre "TÍTULO:" y "CUERPO:"
-          const tituloMatch = raw.match(/T[IÍ]TULO:\s*([\s\S]*?)\n\s*CUERPO:/i);
-          title = tituloMatch?.[1]?.trim() || "";
+      const cuerpoIndex = raw.search(/CUERPO:/i);
 
-          // Extrae el cuerpo después de "CUERPO:"
-          content = raw.slice(cuerpoIndex + 7).trim();
-        } else {
-          // Si no encuentra "CUERPO:", intenta extraer solo el título
-          const tituloMatch = raw.match(/T[IÍ]TULO:\s*(.*)/i);
-          title = tituloMatch?.[1]?.trim() || "";
-          content = raw;
-        }
+      let title = "";
+      let content = "";
 
-        // Si aún no hay título, usa el valor por defecto
-        if (!title) title = "Sin título";
-        if (!content) content = raw;
-        
-        title = title.replace(/\[.*?\]/g, "").trim();
-        content = content.replace(/\[.*?\]/g, "").trim();
-        content = content.replace(/^Meta descripción:\s*/i, "");
-
-        return {
-          title,
-          network,
-          content,
-        };
-      } catch (error) {
-        console.error(`❌ Error generando para ${network}:`, error);
-        return {
-          title,
-          network,
-          content: `❌ Error generando contenido para ${network}.`,
-          error: true,
-        };
+      if (cuerpoIndex !== -1) {
+        const tituloMatch = raw.match(/T[IÍ]TULO:\s*([\s\S]*?)\n\s*CUERPO:/i);
+        title = tituloMatch?.[1]?.trim() || "";
+        content = raw.slice(cuerpoIndex + 7).trim();
+      } else {
+        const tituloMatch = raw.match(/T[IÍ]TULO:\s*(.*)/i);
+        title = tituloMatch?.[1]?.trim() || "";
+        content = raw;
       }
-    })
-  );
 
+      if (!title || !content) throw new Error("Contenido generado inválido");
 
+      title = title.replace(/\[.*?\]/g, "").trim();
+      content = content.replace(/\[.*?\]/g, "").trim();
+      content = content.replace(/^Meta descripción:\s*/i, "");
 
-  return NextResponse.json({ posts });
-  // return NextResponse.json({ message: "Función gu" });
+      return {
+        title,
+        network,
+        content,
+      };
+
+    } catch (error) {
+      console.error(`❌ Intento ${attempt} fallido para ${network}:`, error);
+      await delay(RETRY_DELAY_MS);
+    }
+  }
+
+  // Si llega aquí tras 20 intentos, lanza error general
+  // throw new Error(`❌ No se pudo generar contenido para ${network} tras ${MAX_RETRIES} intentos.`);
+  console.error(`❌ No se pudo generar contenido para ${network} tras ${MAX_RETRIES} intentos.`);
+  return null;
 }
+
+
+const posts = await Promise.all(
+  filteredTargets.map((network) => generateWithRetries(network))
+);
+
+const successfulPosts = posts.filter(Boolean);
+
+
+return NextResponse.json({ posts: successfulPosts });
+
+
+}
+
+
+
 
 
 
