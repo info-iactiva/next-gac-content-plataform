@@ -23,7 +23,7 @@ import Suscripcion from "@/components/paypal/paypalbutton";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { SECTORES } from "./sectores";
-
+import PagoUnico from "@/components/paypal/paypalbuttononce";
 
 type RegisterProps = {    
   children?: React.ReactNode;  
@@ -464,7 +464,14 @@ const hanleonregister = async (data: z.infer<typeof formSchemaRegister>) => {
 
             <div  className={`rounded-2xl w-[100%] p-6 lg:w-[70%]${check ? ' hidden' : ''}`}>
                 <h1 className='text-center text-xl font-bold mb-5'>Pagar:</h1>
-                <Suscripcion planId={idplan} userId={idUser}/>                
+                {
+
+                  nameplan == 'Pro Con Descuento' ? 
+                  <PagoUnico planId={idplan} userId={idUser} amount={4230.40}/>
+                  : <Suscripcion planId={idplan} userId={idUser}/>                
+
+                }
+                
             </div>
 
             <h3  ref={pagarRef}>Se puede pagar con tarjeta de crédito o débito</h3>
