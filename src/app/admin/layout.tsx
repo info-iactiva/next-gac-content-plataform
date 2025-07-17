@@ -142,7 +142,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <AdminProtected>
+        {/* <AdminProtected> */}
           <Navbar />
           <Toaster
             position="top-center"
@@ -156,7 +156,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             }}
           />
           {children}
-        </AdminProtected>
+        {/* </AdminProtected> */}
       </body>
     </html>
   );

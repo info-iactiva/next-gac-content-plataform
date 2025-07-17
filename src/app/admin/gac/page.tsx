@@ -22,7 +22,7 @@ export default function Home() {
     tokens_restantes: 100
     
   });
-  const [tokensRestantes, setTokensRestantes] = useState<number>(100);
+  const [tokensRestantes, setTokensRestantes] = useState<number>(0);
   
   const [formValues, setFormValues] = useState<IContentInputValues>({
       nombre_empresa: "",
@@ -178,14 +178,29 @@ return (
                   onClick={() => router.push("/manual")}
                 >Manual de uso</button>
                 
-
-                <span>
+            
                 {tokensRestantes !== null ? (
                   <span  className="text-[10px] md:text-sm text-gray-60 md:text-xl">Tokens restantes: {tokensRestantes}</span>
                 ) : (
                   <span className="text-[10px] md:text-sm text-gray-600">Cargando...</span>
-                )}
-              </span>
+                )}                
+              
+
+              {
+                  tokensRestantes <= 0 && (
+                    <button className="border border-red-500 text-red-700 bg-white
+                      px-0 py-0 text-[10px]
+                      md:px-4 md:py-2 md:text-sm
+                      rounded hover:bg-red-50 transition"
+                      onClick={() => router.push("/comprartokens")}
+                    >
+                      Comprar tokens
+                    </button>                      
+                        
+                  )
+                }
+
+                
 
               </div>
             </CardHeader>

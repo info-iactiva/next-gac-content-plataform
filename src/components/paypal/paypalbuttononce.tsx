@@ -3,7 +3,7 @@ import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { toast } from 'sonner';
 import { useRouter } from "next/navigation";
 
-export default function PagoUnico({ amount, userId, planId }) {
+export default function PagoUnico({ amount, userId, planId, savesuscription=false, resettokens=false}) {
   const router = useRouter();
 
   return (
@@ -40,38 +40,67 @@ export default function PagoUnico({ amount, userId, planId }) {
             const details = await actions.order?.capture();
             console.log("Pago aprobado:", details);
 
-            try {
-              const res = await fetch("/api/paypal/save-subscription", {
+            if (savesuscription){
+               try {
+                  const res = await fetch("/api/paypal/save-subscription", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        subscriptionID: data.subscriptionID,
+                        userId: parseInt(userId),
+                        planId: planId,
+                    }),
+                  });
+
+                  if (!res.ok) {
+                    const errorData = await res.json();
+                    console.error("Error al guardar el pago:", errorData);
+                    throw new Error(errorData.error || "Error al guardar el pago");
+                  }
+
+                  toast.success("Pago realizado con éxito");
+
+                  setTimeout(() => {
+                    router.push("/login");
+                  }, 2000);
+                } catch (error: any) {
+                  console.error("Error al guardar el pago:", error);
+                  toast.error("Error al guardar el pago");
+                }
+            }
+
+            if (resettokens){
+              
+              await fetch("/api/ressettokens", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
                 },
-                body: JSON.stringify({
-                    subscriptionID: data.subscriptionID,
-                    userId: parseInt(userId),
-                    planId: planId,
-                }),
-              });
-
-              if (!res.ok) {
-                const errorData = await res.json();
-                console.error("Error al guardar el pago:", errorData);
-                throw new Error(errorData.error || "Error al guardar el pago");
-              }
-
-              toast.success("Pago realizado con éxito");
-
-              setTimeout(() => {
-                router.push("/login");
-              }, 2000);
-            } catch (error: any) {
-              console.error("Error al guardar el pago:", error);
-              toast.error("Error al guardar el pago");
-            }
+                body: JSON.stringify({ userid:parseInt(userId)}),
+              })
+              .then(async (res) => {
+                console.log("Respuesta de la API:", res);
+                if (!res.ok) {
+                  const error = await res.json()
+                  throw new Error(error.message || "Error al resetear tokens");
+                }
+                return res.json();
+              })
+              .then((data) => {
+                console.log("Tokens reseteados:", data);
+                toast.success(data.message || "Proceso completado con éxito");
+              })
+              .catch((error) => {
+                console.error("Error en la solicitud:", error.message);
+                toast.error(error.message || "Error en la solicitud");
+              });      
+            }           
           }}
 
           onError={(err) => {
-            console.error("Error en el pago:", err);
+            // console.error("Error en el pago:", err);
             toast.error("Error en el pago");
           }}
         />
@@ -79,3 +108,8 @@ export default function PagoUnico({ amount, userId, planId }) {
     </div>
   );
 }
+
+
+  // const apiressettokens = async (user_id) => {
+   
+  // }

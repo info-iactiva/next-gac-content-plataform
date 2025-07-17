@@ -467,7 +467,7 @@ const hanleonregister = async (data: z.infer<typeof formSchemaRegister>) => {
                 {
 
                   nameplan == 'Pro Con Descuento' ? 
-                  <PagoUnico planId={idplan} userId={idUser} amount={4230.40}/>
+                  <PagoUnico planId={idplan} userId={idUser} amount={4230.40} savesuscription={true} />
                   : <Suscripcion planId={idplan} userId={idUser}/>                
 
                 }
