@@ -19,10 +19,9 @@ export default function Home() {
     rol: 'admin',
     plan: 'Pro',
     is_pagado:true,
-    tokens_restantes: 100
-    
+    tokens_restantes: 50
   });
-  const [tokensRestantes, setTokensRestantes] = useState<number>(0);
+  const [tokensRestantes, setTokensRestantes] = useState<number>(100);
   
   const [formValues, setFormValues] = useState<IContentInputValues>({
       nombre_empresa: "",
@@ -47,7 +46,8 @@ export default function Home() {
       extension: "Corta",                             
       idioma: "Español (Latinoamérica)",
       contenido: "",
-      ia_potente: false, 
+      ia_potente: false,  
+      isadmin: true
   });
   const router = useRouter();
 
@@ -55,7 +55,8 @@ export default function Home() {
     setFormValues(values)    
     setIsLoading(true);
         
-    values.userid = user.id;
+    values.userid = 0 + '';
+    values.isadmin = true;
     console.log("Valores enviados:", values);
     try {
       const res = await fetch("/api/generate", {
@@ -79,50 +80,6 @@ export default function Home() {
   };
 
 
-      // useEffect(() => {
-      //   if (user?.id) {
-      //     fetchTokens();
-      //   }
-      // }, [posts]);
-
-
-  
-    const fetchTokens = async () => {
-      console.log("Fetching tokens...");
-      if (user) {
-        try {
-          const response = await fetch("/api/gettokesn", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ userid: parseInt(user.id )}),
-          });
-          const data = await response.json();
-          console.log("Tokens restantes:", data.tokens_restantes);
-          setTokensRestantes(data.tokens_restantes);
-        } catch (error) {
-          console.error("Error fetching tokens:", error);
-        }
-      }
-    };
-
-    
-    // useEffect(() => {      
-    //   const storedUser = localStorage.getItem("user");
-          
-    //   if (storedUser) {        
-    //     const parsedUser: UserProtected = JSON.parse(storedUser);
-    //     setUser(parsedUser);                  
-        
-    //   }       
-      
-    // }, []);
-
-
-    // useEffect(() => {
-    //   if (user?.id) {
-    //   fetchTokens();
-    //   }
-    // }, [user]);
 
 
 
@@ -148,17 +105,6 @@ return (
         <CardHeader className="relative flex flex-col items-center p-0 ">
               <Image className="w-[30%]" src="/logos/gacLogo.jpg" alt="" width={200} height={200} />
               <Image className="absolute top-2 left-5 w-[15%]" src="/logos/logo.webp" alt="" width={200} height={200} />
-
-                {user?.rol === "admin" && (
-                  <button
-                    className="border border-blue-500 text-blue-700 bg-white 
-                      px-2 py-1 text-[10px] md:px-4 md:py-2 md:text-sm md:top-20                      
-                      rounded hover:bg-blue-50 transition  absolute top-10 left-4 lg:left-8"
-                    onClick={() => router.push("/admin")}
-                  >
-                    Administración
-                  </button>
-      )}
               {/* Contenedor de botones arriba a la derecha */}
               <div className="absolute top-3 right-4 flex flex-col gap-2 lg:gap-5 w-[30%] lg:w-auto">          
                 <button
@@ -176,31 +122,7 @@ return (
                     md:px-4 md:py-2 md:text-sm 
                     rounded hover:bg-green-50 transition"
                   onClick={() => router.push("/manual")}
-                >Manual de uso</button>
-                
-            
-                {tokensRestantes !== null ? (
-                  <span  className="text-[10px] md:text-sm text-gray-60 md:text-xl">Tokens restantes: {tokensRestantes}</span>
-                ) : (
-                  <span className="text-[10px] md:text-sm text-gray-600">Cargando...</span>
-                )}                
-              
-
-              {
-                  tokensRestantes <= 0 && (
-                    <button className="border border-red-500 text-red-700 bg-white
-                      px-0 py-0 text-[10px]
-                      md:px-4 md:py-2 md:text-sm
-                      rounded hover:bg-red-50 transition"
-                      onClick={() => router.push("/comprartokens")}
-                    >
-                      Comprar tokens
-                    </button>                      
-                        
-                  )
-                }
-
-                
+                >Manual de uso</button>                
 
               </div>
             </CardHeader>

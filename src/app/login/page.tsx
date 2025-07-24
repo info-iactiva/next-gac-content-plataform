@@ -61,13 +61,19 @@ export default function Login() {
     console.log('Login exitoso:', data);
     toast.success("Inicio de sesión exitoso");
 
-    setTimeout(() => {                        
-      router.push('/gac'); // Redirigir a la página principal      
-    }, 1000);
-    // aquí podrías guardar el token: 
-    localStorage.setItem("token", data.token)
-    localStorage.setItem("user", JSON.stringify(data.user));    
 
+    // aquí podrías guardar el token: 
+    const user = data.user;
+    localStorage.setItem("token", data.token)
+    localStorage.setItem("user", JSON.stringify(user));
+    
+    setTimeout(() => {
+      if (user.rol === "admin") {
+        router.push('/admin/gac');
+      }else{
+        router.push('/gac'); // Redirigir a la página principal
+      }      
+    }, 1000);
   })
   .catch((error) => {    
     toast.error(error.message)

@@ -25,6 +25,7 @@ export interface IContentInputValues {
       contenido:string
       ia_potente: boolean; 
       userid?: string; 
+      isadmin?: boolean;
   
 }
 

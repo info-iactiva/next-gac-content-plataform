@@ -91,6 +91,7 @@ model User {
   updatedAt            DateTime   @updatedAt
 
   subscriptions        Subscription[]
+  dailyRequests        DailyRequest[]
 }
 
 
@@ -123,3 +124,17 @@ model Subscription {
 
   user            User     @relation(fields: [userId], references: [id])
 }
+
+
+
+model DailyRequest {
+  day     DateTime
+  total   Int      @default(0)
+  userId  Int
+  user    User     @relation(fields: [userId], references: [id])
+
+  @@id([day, userId]) // clave compuesta para evitar duplicados por día y usuario
+}
+
+
+

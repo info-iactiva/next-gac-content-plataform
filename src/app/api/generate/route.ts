@@ -5,6 +5,8 @@ import { buildPrompt } from "@/lib/prompts";
 import { buildPromptDOS } from "@/lib/promptsdos";
 import { buildPrompttres } from "@/lib/prompttres";
 import { prisma } from '@/lib/prisma/prisma'
+import { registerUserDailyRequest } from "../requestdaily/localsaver";
+import { is } from "cheerio/dist/commonjs/api/traversing";
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -61,23 +63,18 @@ export async function POST(req: Request) {
       contenido,
       ia_potente,
       userid,
+      isadmin,
   } = await req.json();
 
       
   let articleContent = "";
   let title = "";
 
-    
+  const esadmin = isadmin || false;
 
-    let  filteredTargets = []
+  if (!esadmin) {
+    console.log("no es admin");
 
-    if (ultra_personalizado === "No") {
-        filteredTargets = ["Facebook", "Instagram", "X", "Blog","LinkedIn"];
-
-    }else{
-      filteredTargets = ["WhatsApp", "Email", "LinkedIn"];
-    }
-    
     const user = await getUserById(parseInt(userid))
 
     if (!user) {
@@ -89,17 +86,28 @@ export async function POST(req: Request) {
     }
 
     await updateuserToken(user.id,user.used_tokens);
+        
+    await registerUserDailyRequest(user.id);
+
+  }
+    let filteredTargets = [];
+
+    if (ultra_personalizado === "No") {
+        filteredTargets = ["Facebook", "Instagram", "X", "Blog","LinkedIn"];
+
+    }else{
+      filteredTargets = ["WhatsApp", "Email", "LinkedIn"];
+    }
+
 
     let version_ia = 'gpt-3.5-turbo'
-    
     if (ia_potente){
       version_ia ='gpt-4o'
     }
-
-  
-function delay(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
+    
+    function delay(ms) {
+      return new Promise((resolve) => setTimeout(resolve, ms));
+    }
 
 
 async function generateWithRetries(network) {
@@ -199,7 +207,6 @@ const successfulPosts = posts.filter(Boolean);
 
 
 return NextResponse.json({ posts: successfulPosts });
-
 
 }
 

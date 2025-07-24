@@ -41,6 +41,7 @@ export default function Home() {
       idioma: "Español (Latinoamérica)",
       contenido: "",
       ia_potente: false, 
+      isadmin: false,
   });
   const router = useRouter();
 
@@ -49,6 +50,7 @@ export default function Home() {
     setIsLoading(true);
         
     values.userid = user.id;
+    values.isadmin = false;
     console.log("Valores enviados:", values);
     try {
       const res = await fetch("/api/generate", {
@@ -143,17 +145,6 @@ return (
         <CardHeader className="relative flex flex-col items-center p-0 ">
               <Image className="w-[30%]" src="/logos/gacLogo.jpg" alt="" width={200} height={200} />
               <Image className="absolute top-2 left-5 w-[15%]" src="/logos/logo.webp" alt="" width={200} height={200} />
-
-                {user?.rol === "admin" && (
-                  <button
-                    className="border border-blue-500 text-blue-700 bg-white 
-                      px-2 py-1 text-[10px] md:px-4 md:py-2 md:text-sm md:top-20                      
-                      rounded hover:bg-blue-50 transition  absolute top-10 left-4 lg:left-8"
-                    onClick={() => router.push("/admin")}
-                  >
-                    Administración
-                  </button>
-      )}
               {/* Contenedor de botones arriba a la derecha */}
               <div className="absolute top-3 right-4 flex flex-col gap-2 lg:gap-5 w-[30%] lg:w-auto">          
                 <button

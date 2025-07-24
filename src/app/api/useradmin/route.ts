@@ -107,6 +107,10 @@ export async function POST(req: Request) {
       where: { name: 'admin' },
     })
 
+    const plnanPro = await prisma.plan.findFirst({
+      where: { nombre: 'Pro' },
+    })
+
     if (!adminRol) {
       return NextResponse.json({ error: 'Rol admin no encontrado' }, { status: 404 })
     }
@@ -124,11 +128,17 @@ export async function POST(req: Request) {
     // Crear usuario admin
     const newUser = await prisma.user.create({
       data: {
+        nombre: 'Admin',
+        apellidos: 'Admin',
+        nombre_empresa: '',
+        numero_empleados: 0,
+        sector: '',
         email,
         password: hashedPassword,
         id_rol: adminRol.id,
         is_active: true,
         used_tokens: 0,
+        planId:plnanPro.id,
       },
     })
 

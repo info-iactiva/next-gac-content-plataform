@@ -31,13 +31,13 @@ export function Navbar() {
         {/* Menu desktop */}
         <ul className="hidden md:flex space-x-6 text-sm md:text-base font-medium items-center">
           <li>
-            <Link href="/gac" className="hover:text-blue-600 transition">
+            <Link href="/admin/gac" className="hover:text-blue-600 transition">
               GAC
             </Link>
           </li>
           <li>
-            <Link href="/admin/gestion" className="hover:text-blue-600 transition">
-              Gestión de usuarios
+            <Link href="/admin/reporte" className="hover:text-blue-600 transition">
+              Reporte de datos
             </Link>
           </li>
           <li>
@@ -81,7 +81,7 @@ export function Navbar() {
           <ul className="flex flex-col px-4 py-2 space-y-2 text-sm font-medium">
             <li>
               <Link
-                href="/"
+                href="/admin/gac"
                 onClick={() => setMenuOpen(false)}
                 className="block hover:text-blue-600 transition"
               >
@@ -90,11 +90,11 @@ export function Navbar() {
             </li>
             <li>
               <Link
-                href="/admin/gestion"
+                href="/admin/reporte"
                 onClick={() => setMenuOpen(false)}
                 className="block hover:text-blue-600 transition"
               >
-                Gestión de usuarios
+                Reporte de datos
               </Link>
             </li>
             <li>
